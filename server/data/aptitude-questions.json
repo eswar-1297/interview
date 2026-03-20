@@ -1,0 +1,262 @@
+[
+  {
+    "id": 1,
+    "question": "A shopkeeper buys an article for ₹800 and sells it for ₹920. What is the profit percentage?",
+    "options": ["12%", "15%", "18%", "20%"],
+    "answer": 1
+  },
+  {
+    "id": 2,
+    "question": "The ratio of two numbers is 3:5. If the sum of the numbers is 160, what is the larger number?",
+    "options": ["60", "80", "100", "120"],
+    "answer": 2
+  },
+  {
+    "id": 3,
+    "question": "A can complete a work in 12 days and B can complete the same work in 18 days. In how many days will they complete the work together?",
+    "options": ["6.2 days", "7.2 days", "8.5 days", "9 days"],
+    "answer": 1
+  },
+  {
+    "id": 4,
+    "question": "A train travels 360 km in 4 hours. What is its speed in m/s?",
+    "options": ["20 m/s", "25 m/s", "30 m/s", "35 m/s"],
+    "answer": 1
+  },
+  {
+    "id": 5,
+    "question": "The average of five numbers is 42. If one number is excluded, the average becomes 38. What is the excluded number?",
+    "options": ["46", "50", "54", "58"],
+    "answer": 3
+  },
+  {
+    "id": 6,
+    "question": "A person invests ₹5000 at 10% simple interest per annum. What is the total amount after 3 years?",
+    "options": ["₹5500", "₹6000", "₹6500", "₹7000"],
+    "answer": 2
+  },
+  {
+    "id": 7,
+    "question": "If 30% of a number is 45, what is 50% of that number?",
+    "options": ["60", "65", "70", "75"],
+    "answer": 3
+  },
+  {
+    "id": 8,
+    "question": "What comes next in the series: 2, 6, 12, 20, 30, ?",
+    "options": ["40", "42", "44", "46"],
+    "answer": 1
+  },
+  {
+    "id": 9,
+    "question": "A and B together can complete a task in 8 days. A alone can do it in 12 days. How many days does B alone take?",
+    "options": ["18 days", "20 days", "24 days", "28 days"],
+    "answer": 2
+  },
+  {
+    "id": 10,
+    "question": "Two trains are moving in opposite directions at 60 km/h and 90 km/h. Their lengths are 120 m and 180 m respectively. How long will they take to cross each other?",
+    "options": ["6.2 seconds", "7.2 seconds", "8.4 seconds", "9.6 seconds"],
+    "answer": 1
+  },
+  {
+    "id": 11,
+    "question": "What is the compound interest on ₹10,000 at 10% per annum for 2 years, compounded annually?",
+    "options": ["₹2,000", "₹2,050", "₹2,100", "₹2,200"],
+    "answer": 2
+  },
+  {
+    "id": 12,
+    "question": "A merchant marks his goods 40% above cost price and then offers a 20% discount. What is his profit percentage?",
+    "options": ["8%", "10%", "12%", "15%"],
+    "answer": 2
+  },
+  {
+    "id": 13,
+    "question": "Find the missing number in the pattern: 3, 9, 27, 81, ?",
+    "options": ["162", "200", "243", "256"],
+    "answer": 2
+  },
+  {
+    "id": 14,
+    "question": "Pointing to a man, a woman said, 'He is the son of my father's only daughter.' How is the man related to the woman?",
+    "options": ["Son", "Brother", "Nephew", "Father"],
+    "answer": 0
+  },
+  {
+    "id": 15,
+    "question": "If APPLE is coded as ELPPA, how is MANGO coded?",
+    "options": ["OGNAM", "OGANM", "GNAMO", "ONAGM"],
+    "answer": 0
+  },
+  {
+    "id": 16,
+    "question": "A man walks 5 km North, then turns right and walks 3 km, then turns right again and walks 5 km. In which direction is he from his starting point?",
+    "options": ["North", "South", "East", "West"],
+    "answer": 2
+  },
+  {
+    "id": 17,
+    "question": "All roses are flowers. Some flowers are red. Which of the following conclusions is definitely true?",
+    "options": ["All roses are red", "Some roses are red", "Some flowers are roses", "No rose is red"],
+    "answer": 2
+  },
+  {
+    "id": 18,
+    "question": "In a row of 30 students, Rakesh is 12th from the left and Suresh is 17th from the right. How many students are between them?",
+    "options": ["0", "1", "2", "3"],
+    "answer": 1
+  },
+  {
+    "id": 19,
+    "question": "Book is to Reading as Fork is to ___?",
+    "options": ["Writing", "Eating", "Cooking", "Cutting"],
+    "answer": 1
+  },
+  {
+    "id": 20,
+    "question": "If 'P + Q' means 'P is the father of Q', 'P - Q' means 'P is the mother of Q', and 'P × Q' means 'P is the brother of Q', what does 'A + B × C' mean?",
+    "options": ["A is the father of C's brother", "A is the uncle of C", "B is the brother of C and A is the father of B", "A is the grandfather of C"],
+    "answer": 2
+  },
+  {
+    "id": 21,
+    "question": "Which number replaces the question mark? 7, 14, 28, 56, ?",
+    "options": ["84", "96", "104", "112"],
+    "answer": 3
+  },
+  {
+    "id": 22,
+    "question": "Five people A, B, C, D, E are sitting in a row facing north. C is to the immediate right of A. B is at the extreme left. D is between B and A. Who is at the extreme right?",
+    "options": ["A", "C", "D", "E"],
+    "answer": 3
+  },
+  {
+    "id": 23,
+    "question": "If JOURNAL is coded as KPVSOBM, how is TORTURE coded?",
+    "options": ["UPSUVSF", "UPSUVSE", "UPSUWSF", "UPSVVSF"],
+    "answer": 0
+  },
+  {
+    "id": 24,
+    "question": "Statement: All cats are dogs. All dogs are animals. Conclusion I: All cats are animals. Conclusion II: All animals are cats. Which conclusion(s) follow?",
+    "options": ["Only I", "Only II", "Both I and II", "Neither I nor II"],
+    "answer": 0
+  },
+  {
+    "id": 25,
+    "question": "Choose the correctly punctuated sentence:",
+    "options": [
+      "Its a beautiful day isnt it.",
+      "It's a beautiful day, isn't it?",
+      "Its a beautiful day, isnt it?",
+      "It's a beautiful day isnt it."
+    ],
+    "answer": 1
+  },
+  {
+    "id": 26,
+    "question": "Choose the synonym of 'Abundant':",
+    "options": ["Scarce", "Plentiful", "Meager", "Limited"],
+    "answer": 1
+  },
+  {
+    "id": 27,
+    "question": "Choose the antonym of 'Benevolent':",
+    "options": ["Kind", "Generous", "Malevolent", "Sympathetic"],
+    "answer": 2
+  },
+  {
+    "id": 28,
+    "question": "Fill in the blank: 'She is so dedicated ___ her work that she rarely takes a day off.'",
+    "options": ["with", "for", "to", "at"],
+    "answer": 2
+  },
+  {
+    "id": 29,
+    "question": "Identify the grammatically correct sentence:",
+    "options": [
+      "Each of the students have submitted their assignment.",
+      "Each of the students has submitted his or her assignment.",
+      "Each of the students have submitted his or her assignment.",
+      "Each of the student has submitted their assignment."
+    ],
+    "answer": 1
+  },
+  {
+    "id": 30,
+    "question": "What does the idiom 'Break the ice' mean?",
+    "options": [
+      "To freeze something",
+      "To initiate a conversation in a social setting",
+      "To cause damage",
+      "To solve a difficult problem"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 31,
+    "question": "Choose the word that best completes the sentence: 'The manager's decision was ___; no one could change his mind.'",
+    "options": ["flexible", "irrevocable", "ambiguous", "tentative"],
+    "answer": 1
+  },
+  {
+    "id": 32,
+    "question": "Choose the synonym of 'Pragmatic':",
+    "options": ["Idealistic", "Theoretical", "Practical", "Emotional"],
+    "answer": 2
+  },
+  {
+    "id": 33,
+    "question": "Fill in the blank: 'Neither the manager ___ the employees were present at the meeting.'",
+    "options": ["or", "and", "nor", "but"],
+    "answer": 2
+  },
+  {
+    "id": 34,
+    "question": "What does the idiom 'Burn the midnight oil' mean?",
+    "options": [
+      "To waste resources",
+      "To work late into the night",
+      "To start a fire",
+      "To cook dinner very late"
+    ],
+    "answer": 1
+  },
+  {
+    "id": 35,
+    "question": "The following table shows the monthly sales (in units) of a company:\n\nMonth   | Product A | Product B | Product C\nJan     | 120       | 200       | 150\nFeb     | 150       | 180       | 170\nMar     | 180       | 220       | 160\nApr     | 200       | 190       | 180\n\nWhat is the total sales of Product B across all four months?",
+    "options": ["750", "770", "790", "810"],
+    "answer": 2
+  },
+  {
+    "id": 36,
+    "question": "Using the table from Q35: In which month was the combined sales of all three products the highest?",
+    "options": ["January", "February", "March", "April"],
+    "answer": 2
+  },
+  {
+    "id": 37,
+    "question": "A pie chart shows the distribution of a company's expenses: Salaries 40%, Rent 20%, Marketing 15%, Utilities 10%, Miscellaneous 15%. If the total expenses are ₹5,00,000, how much is spent on Marketing?",
+    "options": ["₹50,000", "₹65,000", "₹75,000", "₹80,000"],
+    "answer": 2
+  },
+  {
+    "id": 38,
+    "question": "The following data shows the number of employees in different departments:\n\nDepartment | 2023 | 2024\nIT         | 50   | 65\nHR         | 30   | 36\nSales      | 45   | 54\nFinance    | 25   | 30\n\nWhich department had the highest percentage increase in employees from 2023 to 2024?",
+    "options": ["IT", "HR", "Sales", "Finance"],
+    "answer": 0
+  },
+  {
+    "id": 39,
+    "question": "A bar chart shows the quarterly revenue (in lakhs) of a firm: Q1 = 40, Q2 = 55, Q3 = 65, Q4 = 80. What is the percentage increase in revenue from Q1 to Q4?",
+    "options": ["75%", "80%", "90%", "100%"],
+    "answer": 3
+  },
+  {
+    "id": 40,
+    "question": "Using the employee data from Q38: What is the total number of employees across all departments in 2024?",
+    "options": ["175", "180", "185", "190"],
+    "answer": 2
+  }
+]

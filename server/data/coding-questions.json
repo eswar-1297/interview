@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Two Sum",
+    "description": "Given an array of integers and a target integer, find two distinct elements in the array that add up to the target sum. Return their zero-based indices.\n\nYou may assume that each input has exactly one solution, and you may not use the same element twice.\n\nInput Format:\n- The first line contains space-separated integers representing the array.\n- The second line contains a single integer representing the target sum.\n\nOutput Format:\n- Print the two indices (space-separated) of the elements that add up to the target, in ascending order.",
+    "sampleInput": "2 7 11 15\n9",
+    "sampleOutput": "0 1",
+    "constraints": "2 <= array length <= 10^4\n-10^9 <= array elements <= 10^9\n-10^9 <= target <= 10^9\nExactly one valid solution exists.",
+    "starterCode": {
+      "java": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n\n        // Read the array of integers from the first line\n        String[] parts = sc.nextLine().trim().split(\"\\\\s+\");\n        int[] nums = new int[parts.length];\n        for (int i = 0; i < parts.length; i++) {\n            nums[i] = Integer.parseInt(parts[i]);\n        }\n\n        // Read the target sum from the second line\n        int target = Integer.parseInt(sc.nextLine().trim());\n\n        // TODO: Find two indices whose values add up to target\n        // Hint: Consider using a HashMap for O(n) lookup\n\n    }\n}",
+      "python": "def solve():\n    # Read the array of integers from the first line\n    nums = list(map(int, input().split()))\n\n    # Read the target sum from the second line\n    target = int(input())\n\n    # TODO: Find two indices whose values add up to target\n    # Hint: Consider using a dictionary for O(n) lookup\n\nsolve()"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Longest Substring Without Repeating Characters",
+    "description": "Given a string, find the length of the longest substring that contains no repeating characters.\n\nA substring is a contiguous sequence of characters within the string. You need to find the maximum length among all substrings where every character appears at most once.\n\nFor example, in \"abcabcbb\", the longest substring without repeating characters is \"abc\" with length 3. In \"pwwkew\", it is \"wke\" with length 3 (note that \"pwke\" is a subsequence, not a substring).\n\nInput Format:\n- A single line containing the string s (lowercase English letters only).\n\nOutput Format:\n- Print a single integer: the length of the longest substring without repeating characters.",
+    "sampleInput": "abcabcbb",
+    "sampleOutput": "3",
+    "constraints": "0 <= s.length <= 5 * 10^4\ns consists of English letters, digits, symbols, and spaces.",
+    "starterCode": {
+      "java": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        String s = sc.nextLine();\n\n        // TODO: Find the length of the longest substring without repeating characters\n        // Hint: Use a sliding window approach with a HashSet or HashMap\n        // to track characters in the current window.\n        // Move the right pointer to expand the window,\n        // and move the left pointer when a duplicate is found.\n\n        int maxLen = 0;\n\n        // Your implementation here\n\n        System.out.println(maxLen);\n    }\n}",
+      "python": "def solve():\n    s = input()\n\n    # TODO: Find the length of the longest substring without repeating characters\n    # Hint: Use a sliding window approach with a set\n    # to track characters in the current window.\n    # Move the right pointer to expand the window,\n    # and move the left pointer when a duplicate is found.\n\n    max_len = 0\n\n    # Your implementation here\n\n    print(max_len)\n\nsolve()"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Group Anagrams",
+    "description": "Given a list of strings, group the anagrams together. Two strings are anagrams if they contain the same characters with the same frequencies, but possibly in a different order.\n\nFor example, \"eat\", \"tea\", and \"ate\" are all anagrams of each other.\n\nReturn the groups sorted as follows:\n- Groups should be ordered by the first appearance of any member in the original input.\n- Within each group, strings should appear in the order they were given in the input.\n\nInput Format:\n- The first line contains an integer N, the number of strings.\n- The second line contains N space-separated strings (all lowercase English letters).\n\nOutput Format:\n- Print each group of anagrams on a separate line, with strings separated by spaces.",
+    "sampleInput": "6\neat tea tan ate nat bat",
+    "sampleOutput": "eat tea ate\ntan nat\nbat",
+    "constraints": "1 <= N <= 10^4\n0 <= length of each string <= 100\nStrings consist of lowercase English letters only.",
+    "starterCode": {
+      "java": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = Integer.parseInt(sc.nextLine().trim());\n        String[] words = sc.nextLine().trim().split(\"\\\\s+\");\n\n        // TODO: Group the anagrams together\n        // Hint: Use a HashMap where the key is the sorted version of each word.\n        // Words with the same sorted key are anagrams.\n        // Use a LinkedHashMap to preserve insertion order of groups.\n\n        // Your implementation here\n\n        // Print each group on a separate line, words separated by spaces\n\n    }\n}",
+      "python": "def solve():\n    n = int(input())\n    words = input().split()\n\n    # TODO: Group the anagrams together\n    # Hint: Use a dictionary where the key is the sorted tuple of each word.\n    # Words with the same sorted key are anagrams.\n    # Use a regular dict (Python 3.7+ preserves insertion order).\n\n    # Your implementation here\n\n    # Print each group on a separate line, words separated by spaces\n\nsolve()"
+    }
+  },
+  {
+    "id": 4,
+    "title": "Reverse a Linked List",
+    "description": "You are given a sequence of integers representing the elements of a singly linked list in order. Your task is to reverse the linked list and print the elements in the reversed order.\n\nWhile you could simply reverse an array, the goal of this problem is to practice implementing and manipulating a linked list data structure. Build a singly linked list from the input, reverse it by changing the node pointers, then traverse and print the result.\n\nInput Format:\n- A single line of space-separated integers representing the linked list elements from head to tail.\n\nOutput Format:\n- A single line of space-separated integers representing the reversed linked list from head to tail.",
+    "sampleInput": "1 2 3 4 5",
+    "sampleOutput": "5 4 3 2 1",
+    "constraints": "1 <= number of elements <= 10^4\n-10^5 <= element value <= 10^5",
+    "starterCode": {
+      "java": "import java.util.*;\n\npublic class Main {\n\n    // Definition for singly-linked list node\n    static class ListNode {\n        int val;\n        ListNode next;\n        ListNode(int val) {\n            this.val = val;\n            this.next = null;\n        }\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n\n        // Read space-separated integers and build a linked list\n        String[] parts = sc.nextLine().trim().split(\"\\\\s+\");\n\n        // TODO: Build the linked list from the input values\n\n        // TODO: Reverse the linked list by updating pointers\n\n        // TODO: Print the reversed linked list as space-separated values\n\n    }\n}",
+      "python": "class ListNode:\n    def __init__(self, val=0):\n        self.val = val\n        self.next = None\n\ndef solve():\n    # Read space-separated integers\n    values = list(map(int, input().split()))\n\n    # TODO: Build the linked list from the input values\n\n    # TODO: Reverse the linked list by updating pointers\n\n    # TODO: Print the reversed linked list as space-separated values\n\nsolve()"
+    }
+  }
+]
