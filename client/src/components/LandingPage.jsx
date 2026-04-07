@@ -69,7 +69,7 @@ export default function LandingPage({ onSubmit }) {
       email: email.trim(),
       resumeName: resumeFile.name,
     });
-    navigate("/dashboard");
+    navigate("/hackathon");
   };
 
   const inputClass = (field) =>
@@ -84,25 +84,33 @@ export default function LandingPage({ onSubmit }) {
       {/* Left panel */}
       <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Candidate Assessment</h1>
-          <p className="text-gray-400 text-sm mt-1">Java Developer - 1 Year Experience</p>
+          <h1 className="text-2xl font-bold tracking-tight">Hackathon Challenge</h1>
+          <p className="text-gray-400 text-sm mt-1">Java Developer - 2 Years Experience</p>
         </div>
 
-        <div className="space-y-8">
-          <div className="flex items-start gap-4">
-            <div className="w-9 h-9 rounded bg-gray-800 flex items-center justify-center flex-shrink-0 text-sm font-bold text-gray-300">1</div>
-            <div>
-              <p className="font-semibold text-sm">Aptitude Round</p>
-              <p className="text-gray-400 text-xs mt-0.5">40 MCQs covering quantitative, logical, verbal & data interpretation</p>
-              <p className="text-gray-500 text-xs mt-1">Duration: 30 minutes</p>
-            </div>
+        <div className="space-y-6">
+          <div>
+            <p className="font-semibold text-sm">What to expect</p>
+            <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
+              You will be given a single large coding problem. Build a working
+              console application from scratch that demonstrates OOP design,
+              proper data structures, and clean code.
+            </p>
           </div>
-          <div className="flex items-start gap-4">
-            <div className="w-9 h-9 rounded bg-gray-800 flex items-center justify-center flex-shrink-0 text-sm font-bold text-gray-300">2</div>
-            <div>
-              <p className="font-semibold text-sm">Coding Round</p>
-              <p className="text-gray-400 text-xs mt-0.5">4 coding problems with built-in Java & Python compiler</p>
-              <p className="text-gray-500 text-xs mt-1">Duration: 60 minutes</p>
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded bg-gray-800 flex items-center justify-center flex-shrink-0 text-xs font-bold text-gray-400">2h</div>
+              <p className="text-gray-400 text-xs">120 minutes to complete</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded bg-gray-800 flex items-center justify-center flex-shrink-0 text-[10px] font-bold text-gray-400">1</div>
+              <p className="text-gray-400 text-xs">One comprehensive problem</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded bg-gray-800 flex items-center justify-center flex-shrink-0 text-gray-400">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+              </div>
+              <p className="text-gray-400 text-xs">Java & Python compiler included</p>
             </div>
           </div>
         </div>
@@ -117,7 +125,7 @@ export default function LandingPage({ onSubmit }) {
       <div className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
           <div className="mb-8">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Step 1 of 3</p>
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Step 1 of 2</p>
             <h2 className="text-2xl font-bold text-gray-900">Candidate Details</h2>
             <p className="text-sm text-gray-500 mt-1">Fill in your information to proceed to the assessment.</p>
           </div>
@@ -260,17 +268,10 @@ export default function LandingPage({ onSubmit }) {
 
           {/* Mobile-only info */}
           <div className="lg:hidden mt-8 pt-6 border-t border-gray-200">
-            <div className="grid grid-cols-2 gap-4 text-center">
-              <div className="bg-gray-50 rounded p-3">
-                <p className="text-lg font-bold text-gray-900">40</p>
-                <p className="text-xs text-gray-500">Aptitude Questions</p>
-                <p className="text-xs text-gray-400">30 min</p>
-              </div>
-              <div className="bg-gray-50 rounded p-3">
-                <p className="text-lg font-bold text-gray-900">4</p>
-                <p className="text-xs text-gray-500">Coding Problems</p>
-                <p className="text-xs text-gray-400">60 min</p>
-              </div>
+            <div className="bg-gray-50 rounded p-3 text-center">
+              <p className="text-lg font-bold text-gray-900">2 Hours</p>
+              <p className="text-xs text-gray-500">1 Hackathon Problem</p>
+              <p className="text-xs text-gray-400">Java & Python compiler</p>
             </div>
           </div>
         </div>

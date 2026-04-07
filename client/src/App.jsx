@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-import Dashboard from "./components/Dashboard";
-import AptitudeTest from "./components/AptitudeTest";
 import CodingTest from "./components/CodingTest";
 import Results from "./components/Results";
 
 export default function App() {
   const [user, setUser] = useState(null);
-  const [aptitudeResults, setAptitudeResults] = useState(null);
-  const [codingResults, setCodingResults] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
 
   return (
     <Router>
@@ -18,47 +15,20 @@ export default function App() {
           <Route
             path="/"
             element={
-              user ? <Navigate to="/dashboard" /> : <LandingPage onSubmit={setUser} />
+              user ? <Navigate to="/hackathon" /> : <LandingPage onSubmit={setUser} />
             }
           />
           <Route
-            path="/dashboard"
-            element={
-              user ? (
-                <Dashboard
-                  user={user}
-                  aptitudeDone={!!aptitudeResults}
-                  codingDone={!!codingResults}
-                />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route
-            path="/aptitude"
-            element={
-              user ? (
-                <AptitudeTest
-                  user={user}
-                  onSubmit={(results) => setAptitudeResults(results)}
-                />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route
-            path="/coding"
+            path="/hackathon"
             element={
               !user ? (
                 <Navigate to="/" />
-              ) : !aptitudeResults ? (
-                <Navigate to="/dashboard" />
+              ) : submitted ? (
+                <Navigate to="/results" />
               ) : (
                 <CodingTest
                   user={user}
-                  onSubmit={(results) => setCodingResults(results)}
+                  onSubmit={() => setSubmitted(true)}
                 />
               )
             }
@@ -66,11 +36,7 @@ export default function App() {
           <Route
             path="/results"
             element={
-              user ? (
-                <Results user={user} />
-              ) : (
-                <Navigate to="/" />
-              )
+              user ? <Results user={user} /> : <Navigate to="/" />
             }
           />
         </Routes>
