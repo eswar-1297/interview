@@ -5,25 +5,29 @@ import CodeEditor from "./CodeEditor";
 import CameraFeed from "./CameraFeed";
 
 export default function CodingTest({ user, onSubmit }) {
-  const [problem, setProblem] = useState(null);
+  const [problems, setProblems] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const navigate = useNavigate();
-  const codeRef = useRef("");
+  const codesRef = useRef({});
 
   useEffect(() => {
     fetch("/api/coding")
       .then((r) => r.json())
       .then((data) => {
-        setProblem(data[0]);
+        setProblems(data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
   }, []);
 
-  const handleCodeChange = (code) => {
-    codeRef.current = code;
+  const handleCodeChange = (code, language) => {
+    const pid = problems[currentIndex]?.id;
+    if (pid !== undefined) {
+      codesRef.current[pid] = { code, language };
+    }
   };
 
   const handleSubmit = useCallback(() => {
@@ -55,10 +59,12 @@ export default function CodingTest({ user, onSubmit }) {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#1e1e1e]">
-        <p className="text-sm text-gray-500">Loading problem...</p>
+        <p className="text-sm text-gray-500">Loading problems...</p>
       </div>
     );
   }
+
+  const current = problems[currentIndex];
 
   return (
     <div className="min-h-screen bg-[#1e1e1e] flex flex-col">
@@ -94,7 +100,23 @@ export default function CodingTest({ user, onSubmit }) {
           <div className="flex items-center gap-3">
             <span className="text-sm font-semibold text-gray-300">Hackathon</span>
             <span className="text-gray-600">|</span>
-            <span className="text-xs text-gray-500">{user.name}</span>
+            <div className="flex gap-1">
+              {problems.map((p, i) => (
+                <button
+                  key={p.id}
+                  onClick={() => setCurrentIndex(i)}
+                  className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                    i === currentIndex
+                      ? "bg-white text-gray-900"
+                      : codesRef.current[p.id]
+                      ? "bg-[#333] text-gray-300"
+                      : "text-gray-500 hover:text-gray-300"
+                  }`}
+                >
+                  Problem {i + 1}
+                </button>
+              ))}
+            </div>
           </div>
           <div className="flex items-center gap-4">
             <CameraFeed size="sm" />
@@ -115,30 +137,50 @@ export default function CodingTest({ user, onSubmit }) {
       <div className="flex-1 flex min-h-0">
         {/* Problem */}
         <div className="w-[440px] flex-shrink-0 bg-white overflow-y-auto border-r border-gray-200">
-          {problem && (
+          {current && (
             <div className="p-5">
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-1">Hackathon Challenge</p>
-              <h2 className="text-base font-semibold text-gray-900 mb-4">{problem.title}</h2>
+              <p className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-1">
+                Problem {currentIndex + 1} of {problems.length}
+              </p>
+              <h2 className="text-base font-semibold text-gray-900 mb-4">{current.title}</h2>
 
               <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line mb-5">
-                {problem.description}
+                {current.description}
               </p>
 
               <div className="space-y-3 mb-5">
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-1">Sample Input</p>
-                  <pre className="bg-gray-50 border border-gray-100 rounded px-3 py-2 text-xs font-mono text-gray-700 whitespace-pre-wrap">{problem.sampleInput}</pre>
+                  <pre className="bg-gray-50 border border-gray-100 rounded px-3 py-2 text-xs font-mono text-gray-700 whitespace-pre-wrap">{current.sampleInput}</pre>
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-1">Sample Output</p>
-                  <pre className="bg-gray-50 border border-gray-100 rounded px-3 py-2 text-xs font-mono text-gray-700 whitespace-pre-wrap">{problem.sampleOutput}</pre>
+                  <pre className="bg-gray-50 border border-gray-100 rounded px-3 py-2 text-xs font-mono text-gray-700 whitespace-pre-wrap">{current.sampleOutput}</pre>
                 </div>
-                {problem.constraints && (
+                {current.constraints && (
                   <div>
                     <p className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-1">Constraints</p>
-                    <p className="text-xs text-gray-500 whitespace-pre-line">{problem.constraints}</p>
+                    <p className="text-xs text-gray-500 whitespace-pre-line">{current.constraints}</p>
                   </div>
                 )}
+              </div>
+
+              {/* Problem nav */}
+              <div className="flex items-center justify-between pt-4 border-t border-gray-100 text-sm">
+                <button
+                  onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
+                  disabled={currentIndex === 0}
+                  className="text-gray-400 hover:text-gray-900 disabled:text-gray-200 disabled:cursor-not-allowed transition-colors"
+                >
+                  &larr; Prev
+                </button>
+                <button
+                  onClick={() => setCurrentIndex((i) => Math.min(problems.length - 1, i + 1))}
+                  disabled={currentIndex === problems.length - 1}
+                  className="text-gray-400 hover:text-gray-900 disabled:text-gray-200 disabled:cursor-not-allowed transition-colors"
+                >
+                  Next &rarr;
+                </button>
               </div>
             </div>
           )}
@@ -146,10 +188,10 @@ export default function CodingTest({ user, onSubmit }) {
 
         {/* Editor */}
         <div className="flex-1 flex flex-col min-h-0">
-          {problem && (
+          {current && (
             <CodeEditor
-              key={problem.id}
-              starterCode={problem.starterCode}
+              key={current.id}
+              starterCode={current.starterCode}
               onCodeChange={handleCodeChange}
             />
           )}

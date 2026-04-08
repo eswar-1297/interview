@@ -2,7 +2,7 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const path = require("path");
 
-const problem = require("./data/coding-questions.json")[0];
+const problems = require("./data/coding-questions.json");
 
 const OUTPUT_DIR = path.join(__dirname, "..", "answer-keys");
 if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -37,26 +37,39 @@ function drawSectionBanner(doc, text) {
   doc.y = y + 45;
 }
 
+function renderCodeBlock(doc, code) {
+  doc.fontSize(8).font("Courier").fillColor(COLORS.text);
+  code.split("\n").forEach((line) => {
+    checkPageBreak(doc, 11);
+    doc.text(line, 55, doc.y, { width: doc.page.width - 110 });
+  });
+  doc.moveDown(1.5);
+}
+
 const doc = new PDFDocument({ size: "A4", margin: 50 });
 const filePath = path.join(OUTPUT_DIR, "Hackathon_Answer_Key.pdf");
 doc.pipe(fs.createWriteStream(filePath));
 
-// Header
+// ─── Header ───
 doc.rect(0, 0, doc.page.width, 100).fill(COLORS.title);
 doc.fillColor("#ffffff").fontSize(26).font("Helvetica-Bold")
   .text("Hackathon Challenge - Answer Key", 50, 30, { width: doc.page.width - 100 });
 doc.fontSize(12).font("Helvetica")
-  .text("Library Management System  |  Java & Python Solutions", 50, 65, { width: doc.page.width - 100 });
+  .text("Library Management System  |  E-Commerce Order Management  |  Java & Python Solutions", 50, 65, { width: doc.page.width - 100 });
 doc.fillColor(COLORS.text);
 doc.y = 120;
 
-// Problem description
+// ═══════════════════════════════════════════════════════════════════════════════
+// PROBLEM 1 — Library Management System
+// ═══════════════════════════════════════════════════════════════════════════════
+const problem1 = problems[0];
+
 doc.fontSize(18).font("Helvetica-Bold").fillColor(COLORS.heading)
-  .text(problem.title, 50, doc.y, { width: doc.page.width - 100 });
+  .text(problem1.title, 50, doc.y, { width: doc.page.width - 100 });
 doc.moveDown(0.5);
 
 doc.fontSize(10).font("Helvetica").fillColor(COLORS.text)
-  .text(problem.description, 50, doc.y, { width: doc.page.width - 100 });
+  .text(problem1.description, 50, doc.y, { width: doc.page.width - 100 });
 doc.moveDown(1);
 
 // Approach
@@ -83,10 +96,10 @@ doc.fontSize(10).font("Helvetica").fillColor(COLORS.text)
   );
 doc.moveDown(1.5);
 
-// Java Solution
-drawSectionBanner(doc, "Java Solution");
+// Java Solution – Problem 1
+drawSectionBanner(doc, "Java Solution — Library Management System");
 
-const javaSolution = `import java.util.*;
+const java1 = `import java.util.*;
 
 public class Main {
 
@@ -246,18 +259,13 @@ public class Main {
     }
 }`;
 
-doc.fontSize(8).font("Courier").fillColor(COLORS.text);
-javaSolution.split("\n").forEach((line) => {
-  checkPageBreak(doc, 11);
-  doc.text(line, 55, doc.y, { width: doc.page.width - 110 });
-});
-doc.moveDown(1.5);
+renderCodeBlock(doc, java1);
 
-// Python Solution
+// Python Solution – Problem 1
 checkPageBreak(doc, 60);
-drawSectionBanner(doc, "Python Solution");
+drawSectionBanner(doc, "Python Solution — Library Management System");
 
-const pythonSolution = `class Book:
+const python1 = `class Book:
     def __init__(self, id, title, author, copies):
         self.id = id
         self.title = title
@@ -366,11 +374,320 @@ def main():
 
 main()`;
 
-doc.fontSize(8).font("Courier").fillColor(COLORS.text);
-pythonSolution.split("\n").forEach((line) => {
-  checkPageBreak(doc, 11);
-  doc.text(line, 55, doc.y, { width: doc.page.width - 110 });
-});
+renderCodeBlock(doc, python1);
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// PROBLEM 2 — E-Commerce Order Management System
+// ═══════════════════════════════════════════════════════════════════════════════
+const problem2 = problems[1];
+
+doc.addPage();
+doc.y = 50;
+
+// Divider banner for Problem 2
+doc.rect(0, 0, doc.page.width, 60).fill(COLORS.title);
+doc.fillColor("#ffffff").fontSize(20).font("Helvetica-Bold")
+  .text("Problem 2", 50, 18, { width: doc.page.width - 100 });
+doc.fillColor(COLORS.text);
+doc.y = 80;
+
+doc.fontSize(18).font("Helvetica-Bold").fillColor(COLORS.heading)
+  .text(problem2.title, 50, doc.y, { width: doc.page.width - 100 });
+doc.moveDown(0.5);
+
+doc.fontSize(10).font("Helvetica").fillColor(COLORS.text)
+  .text(problem2.description, 50, doc.y, { width: doc.page.width - 100 });
+doc.moveDown(1);
+
+// Approach – Problem 2
+doc.addPage();
+doc.y = 50;
+doc.fontSize(14).font("Helvetica-Bold").fillColor(COLORS.answer)
+  .text("Solution Approach:", 50, doc.y);
+doc.moveDown(0.4);
+doc.fontSize(10).font("Helvetica").fillColor(COLORS.text)
+  .text(
+    "1. Create classes: Product (id, name, price, stock), User (id, name, cart dict, orders list), Order (orderId, items, total).\n" +
+    "2. ECommerceSystem manages products and users via HashMaps.\n" +
+    "3. ADD_TO_CART checks stock availability including what's already in the cart.\n" +
+    "4. PLACE_ORDER validates stock for all cart items before proceeding, then deducts stock and generates an auto-incrementing order ID (ORD001, ORD002, etc.).\n" +
+    "5. VIEW_CART calculates subtotals per item and a total.\n" +
+    "6. Use LinkedHashMap/dict to preserve insertion order.",
+    55, doc.y, { width: doc.page.width - 110 }
+  );
+doc.moveDown(1.5);
+
+// Java Solution – Problem 2
+drawSectionBanner(doc, "Java Solution — E-Commerce Order Management System");
+
+const java2 = `import java.util.*;
+
+public class Main {
+
+    static class Product {
+        String id, name;
+        int price, stock;
+        Product(String id, String name, int price, int stock) {
+            this.id = id; this.name = name; this.price = price; this.stock = stock;
+        }
+    }
+
+    static class Order {
+        String orderId;
+        List<String[]> items; // [productId, name, qty, subtotal]
+        int totalAmount;
+        Order(String orderId, List<String[]> items, int totalAmount) {
+            this.orderId = orderId; this.items = items; this.totalAmount = totalAmount;
+        }
+    }
+
+    static class User {
+        String id, name;
+        Map<String, Integer> cart = new LinkedHashMap<>();
+        List<Order> orders = new ArrayList<>();
+        User(String id, String name) { this.id = id; this.name = name; }
+    }
+
+    static class ECommerceSystem {
+        Map<String, Product> products = new LinkedHashMap<>();
+        Map<String, User> users = new LinkedHashMap<>();
+        int orderCounter = 0;
+
+        void addProduct(String id, String name, int price, int stock) {
+            if (products.containsKey(id)) {
+                products.get(id).stock += stock;
+            } else {
+                products.put(id, new Product(id, name, price, stock));
+            }
+        }
+
+        void createUser(String id, String name) {
+            if (users.containsKey(id)) {
+                System.out.println("USER_ALREADY_EXISTS");
+            } else {
+                users.put(id, new User(id, name));
+            }
+        }
+
+        void addToCart(String userId, String productId, int qty) {
+            if (!users.containsKey(userId)) { System.out.println("USER_NOT_FOUND"); return; }
+            if (!products.containsKey(productId)) { System.out.println("PRODUCT_NOT_FOUND"); return; }
+            Product p = products.get(productId);
+            User u = users.get(userId);
+            int currentInCart = u.cart.getOrDefault(productId, 0);
+            if (currentInCart + qty > p.stock) { System.out.println("INSUFFICIENT_STOCK"); return; }
+            u.cart.put(productId, currentInCart + qty);
+            System.out.println("ADDED_TO_CART");
+        }
+
+        void viewCart(String userId) {
+            if (!users.containsKey(userId)) { System.out.println("USER_NOT_FOUND"); return; }
+            User u = users.get(userId);
+            if (u.cart.isEmpty()) { System.out.println("CART_EMPTY"); return; }
+            int total = 0;
+            for (Map.Entry<String, Integer> e : u.cart.entrySet()) {
+                Product p = products.get(e.getKey());
+                int sub = p.price * e.getValue();
+                total += sub;
+                System.out.println(p.id + " | " + p.name + " | Qty: " + e.getValue() + " | Subtotal: " + sub);
+            }
+            System.out.println("Total: " + total);
+        }
+
+        void placeOrder(String userId) {
+            if (!users.containsKey(userId)) { System.out.println("USER_NOT_FOUND"); return; }
+            User u = users.get(userId);
+            if (u.cart.isEmpty()) { System.out.println("CART_EMPTY"); return; }
+            for (Map.Entry<String, Integer> e : u.cart.entrySet()) {
+                Product p = products.get(e.getKey());
+                if (p.stock < e.getValue()) {
+                    System.out.println("INSUFFICIENT_STOCK " + e.getKey()); return;
+                }
+            }
+            orderCounter++;
+            String orderId = String.format("ORD%03d", orderCounter);
+            int total = 0;
+            List<String[]> items = new ArrayList<>();
+            for (Map.Entry<String, Integer> e : u.cart.entrySet()) {
+                Product p = products.get(e.getKey());
+                p.stock -= e.getValue();
+                int sub = p.price * e.getValue();
+                total += sub;
+                items.add(new String[]{p.id, p.name, String.valueOf(e.getValue()), String.valueOf(sub)});
+            }
+            u.orders.add(new Order(orderId, items, total));
+            u.cart.clear();
+            System.out.println("ORDER_PLACED " + orderId + " " + total);
+        }
+
+        void orderHistory(String userId) {
+            if (!users.containsKey(userId)) { System.out.println("USER_NOT_FOUND"); return; }
+            User u = users.get(userId);
+            if (u.orders.isEmpty()) { System.out.println("NO_ORDERS"); return; }
+            for (Order o : u.orders) {
+                System.out.println(o.orderId + " | Items: " + o.items.size() + " | Total: " + o.totalAmount);
+            }
+        }
+
+        void productInfo(String productId) {
+            if (!products.containsKey(productId)) { System.out.println("PRODUCT_NOT_FOUND"); return; }
+            Product p = products.get(productId);
+            System.out.println(p.name + " | Price: " + p.price + " | Stock: " + p.stock);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine().trim());
+        ECommerceSystem sys = new ECommerceSystem();
+        for (int i = 0; i < n; i++) {
+            String[] parts = sc.nextLine().trim().split("\\\\s+");
+            switch (parts[0]) {
+                case "ADD_PRODUCT": sys.addProduct(parts[1], parts[2], Integer.parseInt(parts[3]), Integer.parseInt(parts[4])); break;
+                case "CREATE_USER": sys.createUser(parts[1], parts[2]); break;
+                case "ADD_TO_CART": sys.addToCart(parts[1], parts[2], Integer.parseInt(parts[3])); break;
+                case "VIEW_CART": sys.viewCart(parts[1]); break;
+                case "PLACE_ORDER": sys.placeOrder(parts[1]); break;
+                case "ORDER_HISTORY": sys.orderHistory(parts[1]); break;
+                case "PRODUCT_INFO": sys.productInfo(parts[1]); break;
+            }
+        }
+    }
+}`;
+
+renderCodeBlock(doc, java2);
+
+// Python Solution – Problem 2
+checkPageBreak(doc, 60);
+drawSectionBanner(doc, "Python Solution — E-Commerce Order Management System");
+
+const python2 = `class Product:
+    def __init__(self, id, name, price, stock):
+        self.id = id
+        self.name = name
+        self.price = price
+        self.stock = stock
+
+class Order:
+    def __init__(self, order_id, items, total):
+        self.order_id = order_id
+        self.items = items
+        self.total = total
+
+class User:
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+        self.cart = {}
+        self.orders = []
+
+class ECommerceSystem:
+    def __init__(self):
+        self.products = {}
+        self.users = {}
+        self.order_counter = 0
+
+    def add_product(self, id, name, price, stock):
+        if id in self.products:
+            self.products[id].stock += stock
+        else:
+            self.products[id] = Product(id, name, price, stock)
+
+    def create_user(self, id, name):
+        if id in self.users:
+            print("USER_ALREADY_EXISTS")
+        else:
+            self.users[id] = User(id, name)
+
+    def add_to_cart(self, user_id, product_id, qty):
+        if user_id not in self.users:
+            print("USER_NOT_FOUND"); return
+        if product_id not in self.products:
+            print("PRODUCT_NOT_FOUND"); return
+        p = self.products[product_id]
+        u = self.users[user_id]
+        current = u.cart.get(product_id, 0)
+        if current + qty > p.stock:
+            print("INSUFFICIENT_STOCK"); return
+        u.cart[product_id] = current + qty
+        print("ADDED_TO_CART")
+
+    def view_cart(self, user_id):
+        if user_id not in self.users:
+            print("USER_NOT_FOUND"); return
+        u = self.users[user_id]
+        if not u.cart:
+            print("CART_EMPTY"); return
+        total = 0
+        for pid, qty in u.cart.items():
+            p = self.products[pid]
+            sub = p.price * qty
+            total += sub
+            print(f"{p.id} | {p.name} | Qty: {qty} | Subtotal: {sub}")
+        print(f"Total: {total}")
+
+    def place_order(self, user_id):
+        if user_id not in self.users:
+            print("USER_NOT_FOUND"); return
+        u = self.users[user_id]
+        if not u.cart:
+            print("CART_EMPTY"); return
+        for pid, qty in u.cart.items():
+            if self.products[pid].stock < qty:
+                print(f"INSUFFICIENT_STOCK {pid}"); return
+        self.order_counter += 1
+        order_id = f"ORD{self.order_counter:03d}"
+        total = 0
+        items = []
+        for pid, qty in u.cart.items():
+            p = self.products[pid]
+            p.stock -= qty
+            sub = p.price * qty
+            total += sub
+            items.append((pid, p.name, qty, sub))
+        u.orders.append(Order(order_id, items, total))
+        u.cart.clear()
+        print(f"ORDER_PLACED {order_id} {total}")
+
+    def order_history(self, user_id):
+        if user_id not in self.users:
+            print("USER_NOT_FOUND"); return
+        u = self.users[user_id]
+        if not u.orders:
+            print("NO_ORDERS"); return
+        for o in u.orders:
+            print(f"{o.order_id} | Items: {len(o.items)} | Total: {o.total}")
+
+    def product_info(self, product_id):
+        if product_id not in self.products:
+            print("PRODUCT_NOT_FOUND"); return
+        p = self.products[product_id]
+        print(f"{p.name} | Price: {p.price} | Stock: {p.stock}")
+
+def main():
+    n = int(input())
+    sys = ECommerceSystem()
+    for _ in range(n):
+        parts = input().split()
+        cmd = parts[0]
+        if cmd == "ADD_PRODUCT":
+            sys.add_product(parts[1], parts[2], int(parts[3]), int(parts[4]))
+        elif cmd == "CREATE_USER":
+            sys.create_user(parts[1], parts[2])
+        elif cmd == "ADD_TO_CART":
+            sys.add_to_cart(parts[1], parts[2], int(parts[3]))
+        elif cmd == "VIEW_CART":
+            sys.view_cart(parts[1])
+        elif cmd == "PLACE_ORDER":
+            sys.place_order(parts[1])
+        elif cmd == "ORDER_HISTORY":
+            sys.order_history(parts[1])
+        elif cmd == "PRODUCT_INFO":
+            sys.product_info(parts[1])
+
+main()`;
+
+renderCodeBlock(doc, python2);
 
 doc.end();
 console.log(`Created: ${filePath}`);
