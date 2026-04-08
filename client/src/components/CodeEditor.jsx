@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
 
-export default function CodeEditor({ starterCode, onCodeChange }) {
-  const [language, setLanguage] = useState("java");
-  const [code, setCode] = useState(starterCode?.java || "");
+export default function CodeEditor({ starterCode, initialCode, initialLanguage, onCodeChange }) {
+  const [language, setLanguage] = useState(initialLanguage || "java");
+  const [code, setCode] = useState(initialCode ?? (starterCode?.java || ""));
   const [output, setOutput] = useState("");
   const [running, setRunning] = useState(false);
 

@@ -10,6 +10,7 @@ export default function CodingTest({ user, onSubmit }) {
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
+  const [savedCodes, setSavedCodes] = useState({});
   const navigate = useNavigate();
   const codesRef = useRef({});
 
@@ -27,6 +28,7 @@ export default function CodingTest({ user, onSubmit }) {
     const pid = problems[currentIndex]?.id;
     if (pid !== undefined) {
       codesRef.current[pid] = { code, language };
+      setSavedCodes((prev) => ({ ...prev, [pid]: { code, language } }));
     }
   };
 
@@ -192,6 +194,8 @@ export default function CodingTest({ user, onSubmit }) {
             <CodeEditor
               key={current.id}
               starterCode={current.starterCode}
+              initialCode={savedCodes[current.id]?.code}
+              initialLanguage={savedCodes[current.id]?.language}
               onCodeChange={handleCodeChange}
             />
           )}
