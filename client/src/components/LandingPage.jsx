@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const VALID_EMAIL = "vaidyatej@gmail.com";
+const VALID_EMAIL = "vydyatej@gmail.com";
 const VALID_PASSWORD = "Neutara@123";
 
 export default function LandingPage({ onSubmit }) {
