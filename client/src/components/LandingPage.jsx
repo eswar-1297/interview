@@ -85,25 +85,17 @@ export default function LandingPage({ onSubmit }) {
       <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Candidate Assessment</h1>
-          <p className="text-gray-400 text-sm mt-1">Java Developer - 1 Year Experience</p>
+          <p className="text-gray-400 text-sm mt-1">Aptitude Assessment</p>
         </div>
 
-        <div className="space-y-8">
-          <div className="flex items-start gap-4">
-            <div className="w-9 h-9 rounded bg-gray-800 flex items-center justify-center flex-shrink-0 text-sm font-bold text-gray-300">1</div>
-            <div>
-              <p className="font-semibold text-sm">Aptitude Round</p>
-              <p className="text-gray-400 text-xs mt-0.5">40 MCQs covering quantitative, logical, verbal & data interpretation</p>
-              <p className="text-gray-500 text-xs mt-1">Duration: 30 minutes</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-4">
-            <div className="w-9 h-9 rounded bg-gray-800 flex items-center justify-center flex-shrink-0 text-sm font-bold text-gray-300">2</div>
-            <div>
-              <p className="font-semibold text-sm">Coding Round</p>
-              <p className="text-gray-400 text-xs mt-0.5">4 coding problems with built-in Java & Python compiler</p>
-              <p className="text-gray-500 text-xs mt-1">Duration: 60 minutes</p>
-            </div>
+        <div className="space-y-6">
+          <div>
+            <p className="font-semibold text-sm">Aptitude Round</p>
+            <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
+              40 multiple-choice questions covering quantitative aptitude,
+              logical reasoning, verbal ability, and data interpretation.
+            </p>
+            <p className="text-gray-500 text-xs mt-2">Duration: 30 minutes</p>
           </div>
         </div>
 
@@ -117,7 +109,7 @@ export default function LandingPage({ onSubmit }) {
       <div className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
           <div className="mb-8">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Step 1 of 3</p>
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Step 1 of 2</p>
             <h2 className="text-2xl font-bold text-gray-900">Candidate Details</h2>
             <p className="text-sm text-gray-500 mt-1">Fill in your information to proceed to the assessment.</p>
           </div>
@@ -260,17 +252,10 @@ export default function LandingPage({ onSubmit }) {
 
           {/* Mobile-only info */}
           <div className="lg:hidden mt-8 pt-6 border-t border-gray-200">
-            <div className="grid grid-cols-2 gap-4 text-center">
-              <div className="bg-gray-50 rounded p-3">
-                <p className="text-lg font-bold text-gray-900">40</p>
-                <p className="text-xs text-gray-500">Aptitude Questions</p>
-                <p className="text-xs text-gray-400">30 min</p>
-              </div>
-              <div className="bg-gray-50 rounded p-3">
-                <p className="text-lg font-bold text-gray-900">4</p>
-                <p className="text-xs text-gray-500">Coding Problems</p>
-                <p className="text-xs text-gray-400">60 min</p>
-              </div>
+            <div className="bg-gray-50 rounded p-3 text-center">
+              <p className="text-lg font-bold text-gray-900">40</p>
+              <p className="text-xs text-gray-500">Aptitude Questions</p>
+              <p className="text-xs text-gray-400">30 min</p>
             </div>
           </div>
         </div>
