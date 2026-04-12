@@ -69,7 +69,7 @@ export default function LandingPage({ onSubmit }) {
       email: email.trim(),
       resumeName: resumeFile.name,
     });
-    navigate("/dashboard");
+    navigate("/aptitude");
   };
 
   const inputClass = (field) =>

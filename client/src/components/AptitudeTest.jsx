@@ -50,7 +50,7 @@ export default function AptitudeTest({ user, onSubmit }) {
         answers: currentAnswers,
         attempted: Object.keys(currentAnswers).length,
       });
-      navigate("/dashboard");
+      navigate("/results");
     } catch {
       const currentAnswers = answersRef.current;
       onSubmit({
@@ -59,7 +59,7 @@ export default function AptitudeTest({ user, onSubmit }) {
         answers: currentAnswers,
         attempted: Object.keys(currentAnswers).length,
       });
-      navigate("/dashboard");
+      navigate("/results");
     }
   }, [submitted, onSubmit, navigate]);
 
