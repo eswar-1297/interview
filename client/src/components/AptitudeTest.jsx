@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Timer from "./Timer";
 import QuestionCard from "./QuestionCard";
+import CameraFeed from "./CameraFeed";
 
 export default function VlsiTest({ user, onSubmit }) {
   const [questions, setQuestions] = useState([]);
@@ -101,6 +102,7 @@ export default function VlsiTest({ user, onSubmit }) {
             <span className="text-gray-400">{answeredCount} of {questions.length} answered</span>
           </div>
           <div className="flex items-center gap-4">
+            <CameraFeed size="sm" />
             <Timer durationMinutes={30} onTimeUp={handleSubmit} />
             <button
               onClick={() => {
