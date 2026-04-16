@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Timer from "./Timer";
 import QuestionCard from "./QuestionCard";
-import CameraFeed from "./CameraFeed";
 
-export default function AptitudeTest({ user, onSubmit }) {
+export default function VlsiTest({ user, onSubmit }) {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -12,14 +11,9 @@ export default function AptitudeTest({ user, onSubmit }) {
   const [submitted, setSubmitted] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const navigate = useNavigate();
-  const answersRef = useRef(answers);
-  const questionsRef = useRef(questions);
-
-  answersRef.current = answers;
-  questionsRef.current = questions;
 
   useEffect(() => {
-    fetch("/api/aptitude")
+    fetch("/api/vlsi")
       .then((r) => r.json())
       .then((data) => {
         for (let i = data.length - 1; i > 0; i--) {
@@ -32,35 +26,11 @@ export default function AptitudeTest({ user, onSubmit }) {
       .catch(() => setLoading(false));
   }, []);
 
-  const handleSubmit = useCallback(async () => {
+  const handleSubmit = useCallback(() => {
     if (submitted) return;
     setSubmitted(true);
-
-    try {
-      const res = await fetch("/api/aptitude/answers");
-      const correctAnswers = await res.json();
-      let score = 0;
-      const currentAnswers = answersRef.current;
-      Object.keys(currentAnswers).forEach((qId) => {
-        if (currentAnswers[qId] === correctAnswers[qId]) score++;
-      });
-      onSubmit({
-        score,
-        total: questionsRef.current.length,
-        answers: currentAnswers,
-        attempted: Object.keys(currentAnswers).length,
-      });
-      navigate("/results");
-    } catch {
-      const currentAnswers = answersRef.current;
-      onSubmit({
-        score: 0,
-        total: questionsRef.current.length,
-        answers: currentAnswers,
-        attempted: Object.keys(currentAnswers).length,
-      });
-      navigate("/results");
-    }
+    onSubmit();
+    navigate("/results");
   }, [submitted, onSubmit, navigate]);
 
   useEffect(() => {
@@ -98,7 +68,6 @@ export default function AptitudeTest({ user, onSubmit }) {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Warning modal */}
       {showWarning && (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg max-w-sm w-full p-6 shadow-lg">
@@ -124,16 +93,14 @@ export default function AptitudeTest({ user, onSubmit }) {
         </div>
       )}
 
-      {/* Header */}
       <header className="border-b border-gray-200 sticky top-0 z-10 bg-white">
         <div className="max-w-5xl mx-auto px-6 h-12 flex items-center justify-between">
           <div className="flex items-center gap-4 text-sm">
-            <span className="font-semibold text-gray-900">Aptitude</span>
+            <span className="font-semibold text-gray-900">VLSI / Physical Design</span>
             <span className="text-gray-300">|</span>
             <span className="text-gray-400">{answeredCount} of {questions.length} answered</span>
           </div>
           <div className="flex items-center gap-4">
-            <CameraFeed size="sm" />
             <Timer durationMinutes={30} onTimeUp={handleSubmit} />
             <button
               onClick={() => {
@@ -148,7 +115,6 @@ export default function AptitudeTest({ user, onSubmit }) {
       </header>
 
       <div className="max-w-5xl mx-auto px-6 py-8 flex gap-10">
-        {/* Question */}
         <div className="flex-1 max-w-xl">
           {current && (
             <QuestionCard
@@ -180,7 +146,6 @@ export default function AptitudeTest({ user, onSubmit }) {
           </div>
         </div>
 
-        {/* Palette */}
         <div className="w-52 flex-shrink-0 hidden lg:block">
           <div className="sticky top-16">
             <p className="text-xs text-gray-400 mb-3">Questions</p>

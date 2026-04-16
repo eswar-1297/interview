@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "question": "In a standard CMOS inverter, what happens to the propagation delay when the load capacitance is doubled?",
+    "options": ["Delay is halved", "Delay is doubled", "Delay remains the same", "Delay increases by 4x"],
+    "answer": 1
+  },
+  {
+    "id": 2,
+    "question": "What is the primary purpose of floorplanning in the physical design flow?",
+    "options": ["To perform logic synthesis", "To define the chip area, macro placement, and I/O pad locations", "To fix timing violations", "To run DRC checks"],
+    "answer": 1
+  },
+  {
+    "id": 3,
+    "question": "Which type of cell is used to prevent signal integrity issues caused by charge sharing on long interconnect wires?",
+    "options": ["Filler cell", "Buffer cell", "Decap cell", "Tie cell"],
+    "answer": 1
+  },
+  {
+    "id": 4,
+    "question": "Setup time violation occurs when:",
+    "options": ["Data arrives too late at the flip-flop input before the clock edge", "Data arrives too early at the flip-flop input", "Clock skew is zero", "Hold time is negative"],
+    "answer": 0
+  },
+  {
+    "id": 5,
+    "question": "In Clock Tree Synthesis (CTS), what is the primary goal?",
+    "options": ["To maximize clock frequency", "To minimize clock skew and balance clock latency across all endpoints", "To reduce the number of flip-flops", "To eliminate all hold violations"],
+    "answer": 1
+  },
+  {
+    "id": 6,
+    "question": "What is the function of a tie-high and tie-low cell in physical design?",
+    "options": ["To connect floating inputs to VDD or VSS to prevent antenna violations", "To balance the clock tree", "To fill gaps between standard cells", "To provide ESD protection"],
+    "answer": 0
+  },
+  {
+    "id": 7,
+    "question": "Which of the following is NOT a typical input to the placement stage?",
+    "options": ["Gate-level netlist", "Floorplan DEF", "Timing constraints (SDC)", "Routed DEF"],
+    "answer": 3
+  },
+  {
+    "id": 8,
+    "question": "What does OCV (On-Chip Variation) account for in STA?",
+    "options": ["Variations in clock frequency", "Process, voltage, and temperature variations across different regions of the same chip", "Variations between different chip designs", "Variations in the number of metal layers"],
+    "answer": 1
+  },
+  {
+    "id": 9,
+    "question": "In physical design, what is a blockage?",
+    "options": ["A region where routing is prohibited", "A region where cell placement or routing is restricted", "A type of standard cell", "A clock domain crossing issue"],
+    "answer": 1
+  },
+  {
+    "id": 10,
+    "question": "What is the purpose of NDR (Non-Default Rules) in clock tree routing?",
+    "options": ["To reduce area utilization", "To use wider wires and extra spacing for clock nets to reduce resistance and crosstalk", "To increase the number of vias", "To reduce the number of metal layers used"],
+    "answer": 1
+  },
+  {
+    "id": 11,
+    "question": "Which metal layers are typically preferred for clock routing and why?",
+    "options": ["Lower metal layers because they have lower resistance", "Higher metal layers because they have lower resistance and less crosstalk", "Any metal layer can be used equally", "Only Metal 1 is used for clock routing"],
+    "answer": 1
+  },
+  {
+    "id": 12,
+    "question": "What is the difference between setup slack and hold slack?",
+    "options": ["Setup slack is always positive; hold slack is always negative", "Setup slack = required time - arrival time; hold slack = arrival time - required time", "They are the same metric measured at different corners", "Setup slack deals with min delay; hold slack deals with max delay"],
+    "answer": 1
+  },
+  {
+    "id": 13,
+    "question": "What is an antenna violation in physical design?",
+    "options": ["A violation caused by electromagnetic interference between chips", "Charge accumulation on metal interconnects during fabrication that can damage gate oxide", "A DRC violation related to minimum spacing", "A timing violation caused by long wires"],
+    "answer": 1
+  },
+  {
+    "id": 14,
+    "question": "How can antenna violations be fixed?",
+    "options": ["By adding more clock buffers", "By inserting antenna diodes or routing jumpers to higher metal layers", "By increasing the supply voltage", "By reducing the number of flip-flops"],
+    "answer": 1
+  },
+  {
+    "id": 15,
+    "question": "What is useful skew in clock tree optimization?",
+    "options": ["Intentionally adding skew to the clock tree to improve setup/hold timing on critical paths", "Unintentional clock skew caused by routing imbalance", "Skew between two unrelated clock domains", "Zero skew achieved after CTS"],
+    "answer": 0
+  },
+  {
+    "id": 16,
+    "question": "In a multi-corner multi-mode (MCMM) STA analysis, what does 'corner' refer to?",
+    "options": ["The physical corner of the chip die", "A combination of PVT (Process, Voltage, Temperature) conditions", "The corner pins of the chip package", "The worst timing path in the design"],
+    "answer": 1
+  },
+  {
+    "id": 17,
+    "question": "Which corner is typically used for setup timing analysis?",
+    "options": ["Best case (fast) corner", "Worst case (slow) corner", "Nominal corner only", "Any corner can be used equally"],
+    "answer": 1
+  },
+  {
+    "id": 18,
+    "question": "Which corner is typically used for hold timing analysis?",
+    "options": ["Worst case (slow) corner", "Best case (fast) corner", "Only the nominal corner", "The corner with highest voltage"],
+    "answer": 1
+  },
+  {
+    "id": 19,
+    "question": "What is the purpose of filler cells in physical design?",
+    "options": ["To add extra logic functionality", "To fill gaps between standard cells to maintain continuity of power rails (VDD/VSS) and n-well", "To reduce dynamic power consumption", "To improve clock distribution"],
+    "answer": 1
+  },
+  {
+    "id": 20,
+    "question": "What is IR drop and why is it a concern in physical design?",
+    "options": ["Voltage drop across the power distribution network that can cause timing failures and functional errors", "Current leakage through the substrate", "Voltage increase due to inductive effects", "The drop in clock frequency due to routing congestion"],
+    "answer": 0
+  },
+  {
+    "id": 21,
+    "question": "What is the difference between global routing and detailed routing?",
+    "options": ["There is no difference; they are the same step", "Global routing assigns nets to routing regions (gcells); detailed routing determines exact track and via assignments", "Global routing handles clock nets; detailed routing handles signal nets", "Global routing uses only lower metals; detailed routing uses only upper metals"],
+    "answer": 1
+  },
+  {
+    "id": 22,
+    "question": "What is crosstalk and what causes it?",
+    "options": ["Noise induced on a victim net due to capacitive coupling from a switching aggressor net running in parallel", "Voltage drop across the power grid", "Clock skew between two domains", "Electromagnetic radiation from the chip package"],
+    "answer": 0
+  },
+  {
+    "id": 23,
+    "question": "What is the effect of crosstalk on signal timing?",
+    "options": ["Crosstalk has no effect on timing", "It can cause both slow-down (delay increase) and speed-up (delay decrease) depending on the switching direction", "It only increases delay", "It only decreases delay"],
+    "answer": 1
+  },
+  {
+    "id": 24,
+    "question": "What is electromigration (EM) and which type of nets are most susceptible?",
+    "options": ["Movement of metal atoms due to high current density; power/ground and clock nets are most susceptible", "Migration of electrons from gate to drain; signal nets are most affected", "Movement of dopant atoms; I/O nets are most affected", "Drift of oxide charges; all nets are equally susceptible"],
+    "answer": 0
+  },
+  {
+    "id": 25,
+    "question": "In LVS (Layout vs Schematic), what is being compared?",
+    "options": ["The physical layout (GDSII) extracted netlist is compared against the schematic (gate-level) netlist", "Two different versions of the RTL", "The floorplan against the placement", "The routed design against the timing constraints"],
+    "answer": 0
+  },
+  {
+    "id": 26,
+    "question": "What is cell padding (or cell keepout margin) used for?",
+    "options": ["To add extra delay to cells", "To add extra spacing around certain cells to avoid routing congestion or DRC violations", "To increase the drive strength of cells", "To reduce the leakage power of cells"],
+    "answer": 1
+  },
+  {
+    "id": 27,
+    "question": "What is the significance of the LEF file in physical design?",
+    "options": ["It contains the timing information of standard cells", "It provides the abstract physical layout information (pins, obstructions, dimensions) of cells and technology rules", "It contains the gate-level netlist", "It stores the clock constraints"],
+    "answer": 1
+  },
+  {
+    "id": 28,
+    "question": "What information does the DEF file contain?",
+    "options": ["Timing constraints for the design", "The design-specific physical layout data including die area, row definitions, component placement, and routing", "Only the netlist connectivity", "The liberty (.lib) timing models"],
+    "answer": 1
+  },
+  {
+    "id": 29,
+    "question": "What is the purpose of a power grid (power mesh) in physical design?",
+    "options": ["To route signal nets", "To distribute VDD and VSS uniformly across the chip with minimal IR drop", "To balance the clock tree", "To create I/O ring for the chip"],
+    "answer": 1
+  },
+  {
+    "id": 30,
+    "question": "What are decap (decoupling capacitor) cells used for?",
+    "options": ["To increase signal propagation delay", "To provide local charge storage and reduce power supply noise (dynamic IR drop)", "To decouple two clock domains", "To reduce the chip area"],
+    "answer": 1
+  },
+  {
+    "id": 31,
+    "question": "What is the difference between scan chain and functional mode in DFT?",
+    "options": ["There is no difference", "In scan mode, flip-flops are connected in a shift register chain for testability; in functional mode, the design operates normally", "Scan mode is faster than functional mode", "Functional mode is only used during manufacturing"],
+    "answer": 1
+  },
+  {
+    "id": 32,
+    "question": "What is the impact of high utilization (e.g., >85%) on a physical design?",
+    "options": ["It improves timing and reduces area", "It leads to routing congestion, difficulty in timing closure, and increased DRC violations", "It has no impact on the design", "It only affects power consumption"],
+    "answer": 1
+  },
+  {
+    "id": 33,
+    "question": "What is AOCV (Advanced OCV) and how is it different from flat OCV?",
+    "options": ["AOCV is the same as flat OCV with a different name", "AOCV applies stage-based and distance-based derating factors instead of a single flat derate, providing more realistic and less pessimistic analysis", "AOCV only applies to hold analysis", "AOCV eliminates the need for multi-corner analysis"],
+    "answer": 1
+  },
+  {
+    "id": 34,
+    "question": "In physical design, what is a halo (or keepout region) around a macro?",
+    "options": ["A region of extra metal shielding", "An exclusion zone around a macro where no standard cells can be placed", "A power ring around the macro", "A clock buffer zone around the macro"],
+    "answer": 1
+  },
+  {
+    "id": 35,
+    "question": "What is the formula for dynamic power consumption in CMOS?",
+    "options": ["P = V × I", "P = α × C_L × V_DD² × f", "P = I²R", "P = V_DD × I_leakage"],
+    "answer": 1
+  },
+  {
+    "id": 36,
+    "question": "Which technique is used to reduce leakage power in modern designs?",
+    "options": ["Increasing the supply voltage", "Using multi-threshold voltage (multi-Vt) cells - HVT for non-critical paths, LVT for critical paths", "Removing all buffer cells", "Using only minimum-width transistors"],
+    "answer": 1
+  },
+  {
+    "id": 37,
+    "question": "What is the purpose of an ECO (Engineering Change Order) in physical design?",
+    "options": ["To redesign the entire chip from scratch", "To make incremental functional or timing fixes to the design without doing a full re-implementation", "To change the technology node", "To update the PDK library"],
+    "answer": 1
+  },
+  {
+    "id": 38,
+    "question": "What is congestion in physical design and how does it affect the design?",
+    "options": ["Congestion refers to excessive power consumption", "Congestion occurs when routing demand exceeds available routing resources in a region, leading to DRC violations and detours", "Congestion only affects clock nets", "Congestion is a placement metric that has no effect on routing"],
+    "answer": 1
+  },
+  {
+    "id": 39,
+    "question": "In STA, what is a false path?",
+    "options": ["A path that has negative slack", "A timing path that exists structurally in the netlist but can never be sensitized during actual circuit operation", "A path with zero delay", "A path that only exists during scan mode"],
+    "answer": 1
+  },
+  {
+    "id": 40,
+    "question": "What is the difference between a latch and a flip-flop in terms of timing behavior?",
+    "options": ["There is no difference", "A latch is level-sensitive (transparent when enable is active) while a flip-flop is edge-triggered (captures data only on clock edge)", "A flip-flop is faster than a latch", "A latch uses more power than a flip-flop"],
+    "answer": 1
+  }
+]

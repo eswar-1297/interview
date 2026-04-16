@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-import AptitudeTest from "./components/AptitudeTest";
+import VlsiTest from "./components/AptitudeTest";
 import Results from "./components/Results";
 
 export default function App() {
@@ -15,18 +15,18 @@ export default function App() {
           <Route
             path="/"
             element={
-              user ? <Navigate to="/aptitude" /> : <LandingPage onSubmit={setUser} />
+              user ? <Navigate to="/test" /> : <LandingPage onSubmit={setUser} />
             }
           />
           <Route
-            path="/aptitude"
+            path="/test"
             element={
               !user ? (
                 <Navigate to="/" />
               ) : submitted ? (
                 <Navigate to="/results" />
               ) : (
-                <AptitudeTest
+                <VlsiTest
                   user={user}
                   onSubmit={() => setSubmitted(true)}
                 />

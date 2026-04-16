@@ -6,37 +6,27 @@ const router = express.Router();
 
 const dataDir = path.join(__dirname, "..", "data");
 
-router.get("/aptitude", (_req, res) => {
+const VALID_USER = {
+  email: "lalithaayyavaru21@gmail.com",
+  password: "Uniquehire@2026",
+};
+
+router.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  if (email === VALID_USER.email && password === VALID_USER.password) {
+    res.json({ success: true, user: { email } });
+  } else {
+    res.status(401).json({ success: false, error: "Invalid credentials" });
+  }
+});
+
+router.get("/vlsi", (_req, res) => {
   try {
-    const raw = fs.readFileSync(path.join(dataDir, "aptitude-questions.json"), "utf-8");
+    const raw = fs.readFileSync(path.join(dataDir, "vlsi-questions.json"), "utf-8");
     const questions = JSON.parse(raw).map(({ answer, ...rest }) => rest);
     res.json(questions);
   } catch (err) {
-    res.status(500).json({ error: "Failed to load aptitude questions" });
-  }
-});
-
-router.get("/aptitude/answers", (_req, res) => {
-  try {
-    const raw = fs.readFileSync(path.join(dataDir, "aptitude-questions.json"), "utf-8");
-    const questions = JSON.parse(raw);
-    const answers = {};
-    questions.forEach((q) => {
-      answers[q.id] = q.answer;
-    });
-    res.json(answers);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to load answers" });
-  }
-});
-
-router.get("/coding", (_req, res) => {
-  try {
-    const raw = fs.readFileSync(path.join(dataDir, "coding-questions.json"), "utf-8");
-    const questions = JSON.parse(raw);
-    res.json(questions);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to load coding questions" });
+    res.status(500).json({ error: "Failed to load VLSI questions" });
   }
 });
 
