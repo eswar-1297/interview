@@ -15,7 +15,7 @@ export default function Results({ user }) {
         </h1>
 
         <p className="text-sm text-gray-500 leading-relaxed mb-8">
-          Thank you for completing the VLSI / Physical Design assessment.
+          Thank you for completing all assessment rounds — VLSI / Physical Design and the Python Scripting round.
           Your responses have been recorded. We'll review your submission
           and reach out to you at {user.email}.
         </p>

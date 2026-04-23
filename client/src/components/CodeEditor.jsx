@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
 
-export default function CodeEditor({ starterCode, initialCode, initialLanguage, onCodeChange }) {
-  const [language, setLanguage] = useState(initialLanguage || "java");
-  const [code, setCode] = useState(initialCode ?? (starterCode?.java || ""));
+export default function CodeEditor({ starterCode, initialCode, initialLanguage, onCodeChange, pythonOnly }) {
+  const defaultLang = pythonOnly ? "python" : (initialLanguage || "java");
+  const [language, setLanguage] = useState(defaultLang);
+  const [code, setCode] = useState(initialCode ?? (starterCode?.[defaultLang] || ""));
   const [output, setOutput] = useState("");
   const [running, setRunning] = useState(false);
 
@@ -49,16 +50,18 @@ export default function CodeEditor({ starterCode, initialCode, initialLanguage, 
       {/* Toolbar */}
       <div className="flex items-center justify-between px-3 h-9 bg-[#252526] border-b border-[#333]">
         <div className="flex items-center gap-1">
-          <button
-            onClick={() => handleLanguageChange("java")}
-            className={`px-2.5 py-1 text-xs rounded transition-colors ${
-              language === "java"
-                ? "bg-[#333] text-white font-medium"
-                : "text-gray-500 hover:text-gray-300"
-            }`}
-          >
-            Java
-          </button>
+          {!pythonOnly && (
+            <button
+              onClick={() => handleLanguageChange("java")}
+              className={`px-2.5 py-1 text-xs rounded transition-colors ${
+                language === "java"
+                  ? "bg-[#333] text-white font-medium"
+                  : "text-gray-500 hover:text-gray-300"
+              }`}
+            >
+              Java
+            </button>
+          )}
           <button
             onClick={() => handleLanguageChange("python")}
             className={`px-2.5 py-1 text-xs rounded transition-colors ${

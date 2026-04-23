@@ -57,7 +57,7 @@ export default function LandingPage({ onSubmit }) {
       if (data.success) {
         streamRef.current?.getTracks().forEach((t) => t.stop());
         onSubmit({ email: data.user.email });
-        navigate("/test");
+        navigate("/coding");
       } else {
         setError("Invalid email or password.");
       }
@@ -79,23 +79,38 @@ export default function LandingPage({ onSubmit }) {
       <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">UniqueHire</h1>
-          <p className="text-gray-400 text-sm mt-1">VLSI / Physical Design Assessment</p>
+          <p className="text-gray-400 text-sm mt-1">VLSI / Physical Design — Round 3</p>
         </div>
 
         <div className="space-y-6">
           <div>
-            <p className="font-semibold text-sm">Technical Round</p>
+            <p className="font-semibold text-sm">Python Scripting Round</p>
             <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
-              40 multiple-choice questions covering Physical Design concepts
-              including floorplanning, placement, CTS, routing, STA, DRC/LVS,
-              low power design, and signal integrity.
+              4 Python programming problems focused on real Physical Design
+              automation tasks — timing analysis, DEF parsing, fanout detection,
+              and clock domain crossing identification.
             </p>
-            <p className="text-gray-500 text-xs mt-2">Duration: 30 minutes</p>
+            <p className="text-gray-500 text-xs mt-2">Duration: 45 minutes</p>
+          </div>
+
+          <div className="space-y-2.5 text-xs">
+            <p className="text-gray-500 font-semibold uppercase tracking-widest text-[10px]">Topics Covered</p>
+            {[
+              "Timing path & slack analysis",
+              "DEF component instance parsing",
+              "High fanout net detection",
+              "Clock domain crossing (CDC)",
+            ].map((t) => (
+              <div key={t} className="flex items-start gap-2 text-gray-400">
+                <span className="mt-0.5 text-gray-600">&#8250;</span>
+                <span>{t}</span>
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="text-xs text-gray-600">
-          <p>Ensure a stable internet connection before starting.</p>
+          <p>Write clean, working Python code — no external libraries needed.</p>
           <p className="mt-1">Camera must remain on throughout the assessment.</p>
         </div>
       </div>
@@ -205,9 +220,9 @@ export default function LandingPage({ onSubmit }) {
           {/* Mobile-only info */}
           <div className="lg:hidden mt-8 pt-6 border-t border-gray-200">
             <div className="bg-gray-50 rounded p-3 text-center">
-              <p className="text-lg font-bold text-gray-900">40</p>
-              <p className="text-xs text-gray-500">VLSI / Physical Design Questions</p>
-              <p className="text-xs text-gray-400">30 min</p>
+              <p className="text-lg font-bold text-gray-900">4</p>
+              <p className="text-xs text-gray-500">Python Scripting Problems</p>
+              <p className="text-xs text-gray-400">45 min · Physical Design Automation</p>
             </div>
           </div>
         </div>

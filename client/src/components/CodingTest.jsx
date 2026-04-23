@@ -19,7 +19,7 @@ export default function CodingTest({ user, onSubmit }) {
   questionsRef.current = questions;
 
   useEffect(() => {
-    fetch("/api/coding")
+    fetch("/api/scripting")
       .then((r) => r.json())
       .then((data) => {
         for (let i = data.length - 1; i > 0; i--) {
@@ -47,7 +47,7 @@ export default function CodingTest({ user, onSubmit }) {
       attempted: Object.keys(submissionsRef.current).length,
       total: questionsRef.current.length,
     });
-    navigate("/dashboard");
+    navigate("/results");
   }, [submitted, onSubmit, navigate]);
 
   useEffect(() => {
@@ -112,7 +112,7 @@ export default function CodingTest({ user, onSubmit }) {
       <header className="border-b border-[#333] sticky top-0 z-10 bg-[#1e1e1e]">
         <div className="px-4 h-11 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold text-gray-300">Coding</span>
+            <span className="text-sm font-semibold text-gray-300">Scripting Round — Python</span>
             <span className="text-gray-600">|</span>
             <div className="flex gap-1">
               {questions.map((q, i) => (
@@ -134,7 +134,7 @@ export default function CodingTest({ user, onSubmit }) {
           </div>
           <div className="flex items-center gap-4">
             <CameraFeed size="sm" />
-            <Timer durationMinutes={60} onTimeUp={handleSubmit} />
+            <Timer durationMinutes={45} onTimeUp={handleSubmit} />
             <button
               onClick={() => {
                 if (window.confirm("Submit your coding test?")) handleSubmit();
@@ -204,6 +204,7 @@ export default function CodingTest({ user, onSubmit }) {
               key={current.id}
               starterCode={current.starterCode}
               onCodeChange={handleCodeChange}
+              pythonOnly
             />
           )}
         </div>

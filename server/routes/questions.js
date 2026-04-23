@@ -30,4 +30,13 @@ router.get("/vlsi", (_req, res) => {
   }
 });
 
+router.get("/scripting", (_req, res) => {
+  try {
+    const raw = fs.readFileSync(path.join(dataDir, "scripting-questions.json"), "utf-8");
+    res.json(JSON.parse(raw));
+  } catch (err) {
+    res.status(500).json({ error: "Failed to load scripting questions" });
+  }
+});
+
 module.exports = router;

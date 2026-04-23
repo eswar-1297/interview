@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "title": "Worst Negative Slack Finder",
+    "description": "You are given a list of timing paths, each formatted as \"path_name:slack\" where slack is a float.\n\nWrite a function find_wns_path(paths) that returns the name of the path with the worst (most negative) slack.\n\nIf no path has negative slack, return \"None\".",
+    "sampleInput": "paths = [\"path_a:-0.52\", \"path_b:0.31\", \"path_c:-1.23\", \"path_d:-0.07\"]\nprint(find_wns_path(paths))",
+    "sampleOutput": "path_c",
+    "constraints": "1 ≤ len(paths) ≤ 1000. Slack values are floats. Path names are alphanumeric strings.",
+    "starterCode": {
+      "python": "def find_wns_path(paths):\n    # paths is a list of \"name:slack\" strings\n    # Return the path name with the most negative slack\n    # Return \"None\" if no path has negative slack\n    pass\n\n# Test\npaths = [\"path_a:-0.52\", \"path_b:0.31\", \"path_c:-1.23\", \"path_d:-0.07\"]\nprint(find_wns_path(paths))\n"
+    }
+  },
+  {
+    "id": 2,
+    "title": "DEF Component Instance Counter",
+    "description": "In Physical Design, a DEF file lists all placed instances.\n\nGiven a list of strings where each string is \"INSTANCE_NAME CELL_TYPE\", write a function count_instances(components) that returns a dictionary mapping each cell type to its instance count.\n\nSort the result by count in descending order.",
+    "sampleInput": "components = [\"U1 AND2\", \"U2 OR2\", \"U3 AND2\", \"U4 INV\", \"U5 AND2\", \"U6 OR2\"]\nprint(count_instances(components))",
+    "sampleOutput": "{'AND2': 3, 'OR2': 2, 'INV': 1}",
+    "constraints": "1 ≤ len(components) ≤ 10000. Each string has exactly two space-separated tokens.",
+    "starterCode": {
+      "python": "def count_instances(components):\n    # components is a list of \"INSTANCE_NAME CELL_TYPE\" strings\n    # Return a dict {cell_type: count} sorted by count descending\n    pass\n\n# Test\ncomponents = [\"U1 AND2\", \"U2 OR2\", \"U3 AND2\", \"U4 INV\", \"U5 AND2\", \"U6 OR2\"]\nprint(count_instances(components))\n"
+    }
+  },
+  {
+    "id": 3,
+    "title": "High Fanout Net Detection",
+    "description": "High fanout nets cause timing and signal integrity issues in Physical Design.\n\nGiven a dictionary where each key is a net name and each value is a list of sink pin names, and an integer threshold, write a function find_high_fanout_nets(nets, threshold) that returns a list of tuples (net_name, fanout) for all nets with fanout strictly greater than threshold.\n\nSort results by fanout in descending order.",
+    "sampleInput": "nets = {\"clk\": [\"FF1/CK\",\"FF2/CK\",\"FF3/CK\",\"FF4/CK\",\"FF5/CK\"], \"reset\": [\"FF1/R\",\"FF2/R\"], \"data\": [\"FF6/D\"]}\nthreshold = 3\nprint(find_high_fanout_nets(nets, threshold))",
+    "sampleOutput": "[('clk', 5)]",
+    "constraints": "1 ≤ len(nets) ≤ 5000. Threshold is a positive integer.",
+    "starterCode": {
+      "python": "def find_high_fanout_nets(nets, threshold):\n    # nets: {net_name: [sink_pin, ...]} — threshold: int\n    # Return [(net_name, fanout)] for fanout > threshold, sorted descending\n    pass\n\n# Test\nnets = {\"clk\": [\"FF1/CK\",\"FF2/CK\",\"FF3/CK\",\"FF4/CK\",\"FF5/CK\"], \"reset\": [\"FF1/R\",\"FF2/R\"], \"data\": [\"FF6/D\"]}\nthreshold = 3\nprint(find_high_fanout_nets(nets, threshold))\n"
+    }
+  },
+  {
+    "id": 4,
+    "title": "Clock Domain Crossing Detector",
+    "description": "Clock Domain Crossing (CDC) is a critical concern in SoC physical design.\n\nGiven a list of (source_ff, dest_ff) tuples representing data paths and a dictionary mapping each flip-flop to its clock domain, write a function detect_cdc(paths, domains) that returns all (source, destination) pairs where the two flip-flops belong to different clock domains.\n\nReturn results in the same order they appear in the input.",
+    "sampleInput": "paths = [(\"FF_A\",\"FF_B\"),(\"FF_B\",\"FF_C\"),(\"FF_C\",\"FF_D\")]\ndomains = {\"FF_A\":\"clk1\",\"FF_B\":\"clk1\",\"FF_C\":\"clk2\",\"FF_D\":\"clk2\"}\nprint(detect_cdc(paths, domains))",
+    "sampleOutput": "[('FF_B', 'FF_C')]",
+    "constraints": "1 ≤ len(paths) ≤ 10000. All flip-flops in paths are guaranteed to be present in domains.",
+    "starterCode": {
+      "python": "def detect_cdc(paths, domains):\n    # paths: list of (source_ff, dest_ff) tuples\n    # domains: {ff_name: clock_domain}\n    # Return paths where source and dest are in different clock domains\n    pass\n\n# Test\npaths = [(\"FF_A\",\"FF_B\"),(\"FF_B\",\"FF_C\"),(\"FF_C\",\"FF_D\")]\ndomains = {\"FF_A\":\"clk1\",\"FF_B\":\"clk1\",\"FF_C\":\"clk2\",\"FF_D\":\"clk2\"}\nprint(detect_cdc(paths, domains))\n"
+    }
+  }
+]

@@ -31,7 +31,7 @@ export default function VlsiTest({ user, onSubmit }) {
     if (submitted) return;
     setSubmitted(true);
     onSubmit();
-    navigate("/results");
+    navigate("/coding");
   }, [submitted, onSubmit, navigate]);
 
   useEffect(() => {

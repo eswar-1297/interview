@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-import VlsiTest from "./components/AptitudeTest";
+import CodingTest from "./components/CodingTest";
 import Results from "./components/Results";
 
 export default function App() {
   const [user, setUser] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [scriptingDone, setScriptingDone] = useState(false);
 
   return (
     <Router>
@@ -14,30 +14,19 @@ export default function App() {
         <Routes>
           <Route
             path="/"
-            element={
-              user ? <Navigate to="/test" /> : <LandingPage onSubmit={setUser} />
-            }
+            element={user ? <Navigate to="/coding" /> : <LandingPage onSubmit={setUser} />}
           />
           <Route
-            path="/test"
+            path="/coding"
             element={
-              !user ? (
-                <Navigate to="/" />
-              ) : submitted ? (
-                <Navigate to="/results" />
-              ) : (
-                <VlsiTest
-                  user={user}
-                  onSubmit={() => setSubmitted(true)}
-                />
-              )
+              !user ? <Navigate to="/" /> :
+              scriptingDone ? <Navigate to="/results" /> :
+              <CodingTest user={user} onSubmit={() => setScriptingDone(true)} />
             }
           />
           <Route
             path="/results"
-            element={
-              user ? <Results user={user} /> : <Navigate to="/" />
-            }
+            element={user ? <Results user={user} /> : <Navigate to="/" />}
           />
         </Routes>
       </div>
