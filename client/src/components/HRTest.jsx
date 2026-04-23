@@ -3,12 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 const RECORD_SECONDS = 120;
 
-const CATEGORY_STYLE = {
-  HR:        "bg-blue-50 text-blue-700",
-  Technical: "bg-purple-50 text-purple-700",
-  Project:   "bg-amber-50 text-amber-700",
-  Study:     "bg-green-50 text-green-700",
-};
 
 function formatTime(s) {
   return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -170,9 +164,6 @@ export default function HRTest({ user, onSubmit }) {
         {/* Question */}
         {current && (
           <div>
-            <span className={`inline-block text-[10px] font-semibold uppercase tracking-widest px-2.5 py-0.5 rounded mb-3 ${CATEGORY_STYLE[current.category] || "bg-gray-100 text-gray-600"}`}>
-              {current.category}
-            </span>
             <h2 className="text-xl font-semibold text-gray-900 leading-snug max-w-2xl">
               {current.question}
             </h2>
