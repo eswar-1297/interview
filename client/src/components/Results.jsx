@@ -11,13 +11,12 @@ export default function Results({ user }) {
         </div>
 
         <h1 className="text-xl font-semibold text-gray-900 mb-2">
-          Assessment Complete
+          Interview Complete
         </h1>
 
         <p className="text-sm text-gray-500 leading-relaxed mb-8">
-          Thank you for completing all assessment rounds — VLSI / Physical Design and the Python Scripting round.
-          Your responses have been recorded. We'll review your submission
-          and reach out to you at {user.email}.
+          Thank you, <span className="font-medium text-gray-700">{user.name}</span>. Your video responses have been recorded.
+          The hiring team at Neutara will review your interview and get back to you shortly.
         </p>
 
         <div className="border border-gray-100 rounded p-4 text-xs text-gray-400 leading-relaxed">

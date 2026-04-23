@@ -6,15 +6,12 @@ const router = express.Router();
 
 const dataDir = path.join(__dirname, "..", "data");
 
-const VALID_USER = {
-  email: "lalithaayyavaru21@gmail.com",
-  password: "Uniquehire@2026",
-};
+const VALID_PASSWORD = "Neutara@2026";
 
 router.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  if (email === VALID_USER.email && password === VALID_USER.password) {
-    res.json({ success: true, user: { email } });
+  const { name, password } = req.body;
+  if (name && name.trim() && password === VALID_PASSWORD) {
+    res.json({ success: true, user: { name: name.trim() } });
   } else {
     res.status(401).json({ success: false, error: "Invalid credentials" });
   }
@@ -36,6 +33,15 @@ router.get("/scripting", (_req, res) => {
     res.json(JSON.parse(raw));
   } catch (err) {
     res.status(500).json({ error: "Failed to load scripting questions" });
+  }
+});
+
+router.get("/hr-questions", (_req, res) => {
+  try {
+    const raw = fs.readFileSync(path.join(dataDir, "hr-questions.json"), "utf-8");
+    res.json(JSON.parse(raw));
+  } catch (err) {
+    res.status(500).json({ error: "Failed to load HR questions" });
   }
 });
 

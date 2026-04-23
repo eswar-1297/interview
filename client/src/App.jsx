@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-import CodingTest from "./components/CodingTest";
+import HRTest from "./components/HRTest";
 import Results from "./components/Results";
 
 export default function App() {
   const [user, setUser] = useState(null);
-  const [scriptingDone, setScriptingDone] = useState(false);
+  const [hrDone, setHrDone] = useState(false);
 
   return (
     <Router>
@@ -14,14 +14,14 @@ export default function App() {
         <Routes>
           <Route
             path="/"
-            element={user ? <Navigate to="/coding" /> : <LandingPage onSubmit={setUser} />}
+            element={user ? <Navigate to="/hr" /> : <LandingPage onSubmit={setUser} />}
           />
           <Route
-            path="/coding"
+            path="/hr"
             element={
               !user ? <Navigate to="/" /> :
-              scriptingDone ? <Navigate to="/results" /> :
-              <CodingTest user={user} onSubmit={() => setScriptingDone(true)} />
+              hrDone ? <Navigate to="/results" /> :
+              <HRTest user={user} onSubmit={() => setHrDone(true)} />
             }
           />
           <Route

@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "category": "HR",
+    "question": "Tell us about yourself — your educational background, work experience, and what brings you to this opportunity."
+  },
+  {
+    "id": 2,
+    "category": "HR",
+    "question": "Why are you interested in this role? What do you know about our company and what excites you about joining us?"
+  },
+  {
+    "id": 3,
+    "category": "Technical",
+    "question": "Explain the difference between Java and Python. In what real-world scenarios would you choose one over the other?"
+  },
+  {
+    "id": 4,
+    "category": "Technical",
+    "question": "What are the four pillars of Object-Oriented Programming? Explain each one with a brief real-world example."
+  },
+  {
+    "id": 5,
+    "category": "Project",
+    "question": "Describe the most challenging project you have worked on. What was your specific role, what obstacles did you face, and how did you resolve them?"
+  },
+  {
+    "id": 6,
+    "category": "Technical",
+    "question": "How do you approach debugging a critical issue in a production environment? Walk us through your step-by-step process."
+  },
+  {
+    "id": 7,
+    "category": "Project",
+    "question": "Tell us about a project where you used a framework such as Spring Boot, Django, or React. What key technical decisions did you make and what would you do differently today?"
+  },
+  {
+    "id": 8,
+    "category": "HR",
+    "question": "Describe a situation where you disagreed with a teammate or manager. How did you handle the conflict and what was the outcome?"
+  },
+  {
+    "id": 9,
+    "category": "Study",
+    "question": "What new technology, tool, or concept have you learned recently on your own initiative outside of work or college? How have you applied or plan to apply it?"
+  },
+  {
+    "id": 10,
+    "category": "HR",
+    "question": "Where do you see yourself professionally in the next three to five years, and how does this role align with those career goals?"
+  }
+]

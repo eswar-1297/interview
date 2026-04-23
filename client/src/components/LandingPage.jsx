@@ -2,19 +2,17 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function LandingPage({ onSubmit }) {
-  const [email, setEmail] = useState("");
+  const [name, setName]         = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [error, setError]       = useState("");
+  const [loading, setLoading]   = useState(false);
   const [cameraStatus, setCameraStatus] = useState("idle");
-  const videoRef = useRef(null);
+  const videoRef  = useRef(null);
   const streamRef = useRef(null);
-  const navigate = useNavigate();
+  const navigate  = useNavigate();
 
   useEffect(() => {
-    return () => {
-      streamRef.current?.getTracks().forEach((t) => t.stop());
-    };
+    return () => streamRef.current?.getTracks().forEach(t => t.stop());
   }, []);
 
   const requestCamera = async () => {
@@ -36,12 +34,12 @@ export default function LandingPage({ onSubmit }) {
     e.preventDefault();
     setError("");
 
-    if (!email.trim() || !password.trim()) {
-      setError("Please enter both email and password.");
+    if (!name.trim() || !password.trim()) {
+      setError("Please enter your name and password.");
       return;
     }
     if (cameraStatus !== "granted") {
-      setError("Camera access is required to start the assessment.");
+      setError("Camera access is required to start the interview.");
       return;
     }
 
@@ -50,16 +48,16 @@ export default function LandingPage({ onSubmit }) {
       const res = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), password }),
+        body: JSON.stringify({ name: name.trim(), password }),
       });
       const data = await res.json();
 
       if (data.success) {
-        streamRef.current?.getTracks().forEach((t) => t.stop());
-        onSubmit({ email: data.user.email });
-        navigate("/coding");
+        streamRef.current?.getTracks().forEach(t => t.stop());
+        onSubmit({ name: data.user.name });
+        navigate("/hr");
       } else {
-        setError("Invalid email or password.");
+        setError("Incorrect password. Please try again.");
       }
     } catch {
       setError("Something went wrong. Please try again.");
@@ -75,32 +73,33 @@ export default function LandingPage({ onSubmit }) {
 
   return (
     <div className="min-h-screen bg-white flex">
+
       {/* Left panel */}
       <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">UniqueHire</h1>
-          <p className="text-gray-400 text-sm mt-1">VLSI / Physical Design — Round 3</p>
+          <h1 className="text-2xl font-bold tracking-tight">Neutara</h1>
+          <p className="text-gray-400 text-sm mt-1">Java / Python Developer — HR Round</p>
         </div>
 
         <div className="space-y-6">
           <div>
-            <p className="font-semibold text-sm">Python Scripting Round</p>
+            <p className="font-semibold text-sm">Video Interview</p>
             <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
-              4 Python programming problems focused on real Physical Design
-              automation tasks — timing analysis, DEF parsing, fanout detection,
-              and clock domain crossing identification.
+              10 questions covering HR, technical concepts, and your project
+              experience. Record a short video response for each question.
+              You have 2 minutes per answer.
             </p>
-            <p className="text-gray-500 text-xs mt-2">Duration: 45 minutes</p>
+            <p className="text-gray-500 text-xs mt-2">Duration: ~20 minutes &nbsp;·&nbsp; 10 questions</p>
           </div>
 
           <div className="space-y-2.5 text-xs">
-            <p className="text-gray-500 font-semibold uppercase tracking-widest text-[10px]">Topics Covered</p>
+            <p className="text-gray-500 font-semibold uppercase tracking-widest text-[10px]">What to Expect</p>
             {[
-              "Timing path & slack analysis",
-              "DEF component instance parsing",
-              "High fanout net detection",
-              "Clock domain crossing (CDC)",
-            ].map((t) => (
+              "HR & behavioural questions",
+              "Core Java / Python concepts",
+              "Project & framework experience",
+              "Self-learning & career goals",
+            ].map(t => (
               <div key={t} className="flex items-start gap-2 text-gray-400">
                 <span className="mt-0.5 text-gray-600">&#8250;</span>
                 <span>{t}</span>
@@ -110,34 +109,38 @@ export default function LandingPage({ onSubmit }) {
         </div>
 
         <div className="text-xs text-gray-600">
-          <p>Write clean, working Python code — no external libraries needed.</p>
-          <p className="mt-1">Camera must remain on throughout the assessment.</p>
+          <p>Ensure a quiet environment and good lighting.</p>
+          <p className="mt-1">Camera and microphone must remain on throughout.</p>
         </div>
       </div>
 
-      {/* Right panel - Login */}
+      {/* Right panel */}
       <div className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-sm">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900">Sign In</h2>
-            <p className="text-sm text-gray-500 mt-1">Enter your credentials to start the assessment.</p>
+            <h2 className="text-2xl font-bold text-gray-900">Welcome</h2>
+            <p className="text-sm text-gray-500 mt-1">Enter your name and the interview password to begin.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+
+            {/* Name */}
             <div>
               <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
-                Email
+                Your Name
               </label>
               <input
-                type="email"
-                value={email}
-                onChange={(e) => { setEmail(e.target.value); setError(""); }}
-                className={inputClass(error && !email.trim())}
-                placeholder="you@example.com"
-                autoComplete="email"
+                type="text"
+                value={name}
+                onChange={e => { setName(e.target.value); setError(""); }}
+                className={inputClass(error && !name.trim())}
+                placeholder="e.g. Rahul Sharma"
+                autoComplete="name"
+                autoFocus
               />
             </div>
 
+            {/* Password */}
             <div>
               <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
                 Password
@@ -145,9 +148,9 @@ export default function LandingPage({ onSubmit }) {
               <input
                 type="password"
                 value={password}
-                onChange={(e) => { setPassword(e.target.value); setError(""); }}
+                onChange={e => { setPassword(e.target.value); setError(""); }}
                 className={inputClass(error && !password.trim())}
-                placeholder="Enter your password"
+                placeholder="Provided by interviewer"
                 autoComplete="current-password"
               />
             </div>
@@ -155,7 +158,7 @@ export default function LandingPage({ onSubmit }) {
             {/* Camera */}
             <div>
               <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
-                Camera <span className="text-red-500">*</span>
+                Camera &amp; Mic <span className="text-red-500">*</span>
               </label>
               {cameraStatus === "granted" ? (
                 <div className="flex items-center gap-3 p-3 border border-gray-200 rounded bg-gray-50">
@@ -164,22 +167,19 @@ export default function LandingPage({ onSubmit }) {
                     autoPlay
                     muted
                     playsInline
-                    className="w-24 h-18 rounded object-cover bg-black flex-shrink-0"
+                    className="w-24 rounded object-cover bg-black flex-shrink-0"
+                    style={{ height: "4.5rem" }}
                   />
                   <div>
                     <p className="text-xs text-gray-700 font-medium">Camera active</p>
-                    <p className="text-[11px] text-gray-400 mt-0.5">Your camera will stay on during the test</p>
+                    <p className="text-[11px] text-gray-400 mt-0.5">Ready to record</p>
                   </div>
                 </div>
               ) : cameraStatus === "denied" ? (
                 <div className="p-3 border border-red-200 rounded bg-red-50">
                   <p className="text-xs text-red-700 font-medium">Camera access denied</p>
-                  <p className="text-[11px] text-red-500 mt-0.5 mb-2">Allow camera in browser settings, then try again.</p>
-                  <button
-                    type="button"
-                    onClick={requestCamera}
-                    className="text-xs font-semibold text-red-700 underline"
-                  >
+                  <p className="text-[11px] text-red-500 mt-0.5 mb-2">Allow camera &amp; mic in browser settings, then retry.</p>
+                  <button type="button" onClick={requestCamera} className="text-xs font-semibold text-red-700 underline">
                     Retry
                   </button>
                 </div>
@@ -197,14 +197,12 @@ export default function LandingPage({ onSubmit }) {
                   <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                   </svg>
-                  {cameraStatus === "requesting" ? "Requesting access..." : "Enable Camera"}
+                  {cameraStatus === "requesting" ? "Requesting access..." : "Enable Camera & Mic"}
                 </button>
               )}
             </div>
 
-            {error && (
-              <p className="text-red-500 text-sm">{error}</p>
-            )}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
             <div className="pt-2">
               <button
@@ -212,17 +210,17 @@ export default function LandingPage({ onSubmit }) {
                 disabled={loading}
                 className="w-full py-2.5 px-4 bg-gray-900 hover:bg-gray-800 disabled:opacity-50 text-white text-sm font-semibold rounded transition-colors"
               >
-                {loading ? "Signing in..." : "Sign In & Start Assessment"}
+                {loading ? "Verifying..." : "Start Interview"}
               </button>
             </div>
           </form>
 
-          {/* Mobile-only info */}
+          {/* Mobile info */}
           <div className="lg:hidden mt-8 pt-6 border-t border-gray-200">
             <div className="bg-gray-50 rounded p-3 text-center">
-              <p className="text-lg font-bold text-gray-900">4</p>
-              <p className="text-xs text-gray-500">Python Scripting Problems</p>
-              <p className="text-xs text-gray-400">45 min · Physical Design Automation</p>
+              <p className="text-lg font-bold text-gray-900">10</p>
+              <p className="text-xs text-gray-500">Video Interview Questions</p>
+              <p className="text-xs text-gray-400">~20 min · HR + Technical + Project</p>
             </div>
           </div>
         </div>
