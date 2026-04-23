@@ -77,8 +77,7 @@ export default function LandingPage({ onSubmit }) {
       {/* Left panel */}
       <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Neutara</h1>
-          <p className="text-gray-400 text-sm mt-1">Java / Python Developer — HR Round</p>
+          <p className="text-gray-400 text-sm">Java / Python Developer — HR Round</p>
         </div>
 
         <div className="space-y-6">
