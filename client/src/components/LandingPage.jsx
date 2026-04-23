@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function LandingPage({ onSubmit }) {
-  const [name, setName]         = useState("");
+  const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
   const [error, setError]       = useState("");
   const [loading, setLoading]   = useState(false);
@@ -34,8 +34,8 @@ export default function LandingPage({ onSubmit }) {
     e.preventDefault();
     setError("");
 
-    if (!name.trim() || !password.trim()) {
-      setError("Please enter your name and password.");
+    if (!email.trim() || !password.trim()) {
+      setError("Please enter your email and password.");
       return;
     }
     if (cameraStatus !== "granted") {
@@ -48,13 +48,13 @@ export default function LandingPage({ onSubmit }) {
       const res = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), password }),
+        body: JSON.stringify({ email: email.trim(), password }),
       });
       const data = await res.json();
 
       if (data.success) {
         streamRef.current?.getTracks().forEach(t => t.stop());
-        onSubmit({ name: data.user.name });
+        onSubmit({ email: data.user.email });
         navigate("/hr");
       } else {
         setError("Incorrect password. Please try again.");
@@ -124,18 +124,18 @@ export default function LandingPage({ onSubmit }) {
 
           <form onSubmit={handleSubmit} className="space-y-4">
 
-            {/* Name */}
+            {/* Email */}
             <div>
               <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
-                Your Name
+                Email Address
               </label>
               <input
-                type="text"
-                value={name}
-                onChange={e => { setName(e.target.value); setError(""); }}
-                className={inputClass(error && !name.trim())}
-                placeholder="e.g. Rahul Sharma"
-                autoComplete="name"
+                type="email"
+                value={email}
+                onChange={e => { setEmail(e.target.value); setError(""); }}
+                className={inputClass(error && !email.trim())}
+                placeholder="you@example.com"
+                autoComplete="email"
                 autoFocus
               />
             </div>

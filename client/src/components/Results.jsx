@@ -15,7 +15,7 @@ export default function Results({ user }) {
         </h1>
 
         <p className="text-sm text-gray-500 leading-relaxed mb-8">
-          Thank you, <span className="font-medium text-gray-700">{user.name}</span>. Your video responses have been recorded.
+          Thank you, <span className="font-medium text-gray-700">{user.email}</span>. Your video responses have been recorded.
           The hiring team at Neutara will review your interview and get back to you shortly.
         </p>
 

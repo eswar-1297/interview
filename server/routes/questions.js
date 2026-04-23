@@ -9,9 +9,9 @@ const dataDir = path.join(__dirname, "..", "data");
 const VALID_PASSWORD = "Neutara@2026";
 
 router.post("/login", (req, res) => {
-  const { name, password } = req.body;
-  if (name && name.trim() && password === VALID_PASSWORD) {
-    res.json({ success: true, user: { name: name.trim() } });
+  const { email, password } = req.body;
+  if (email && email.trim() && password === VALID_PASSWORD) {
+    res.json({ success: true, user: { email: email.trim() } });
   } else {
     res.status(401).json({ success: false, error: "Invalid credentials" });
   }
