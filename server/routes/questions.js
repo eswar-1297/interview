@@ -45,4 +45,25 @@ router.get("/hr-questions", (_req, res) => {
   }
 });
 
+router.get("/technical", (_req, res) => {
+  try {
+    const raw = fs.readFileSync(path.join(dataDir, "technical-questions.json"), "utf-8");
+    const questions = JSON.parse(raw).map(({ answer, ...rest }) => rest);
+    res.json(questions);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to load technical questions" });
+  }
+});
+
+router.get("/technical-pdf", (_req, res) => {
+  try {
+    const { generatePDF } = require("../generate-technical-pdf");
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", 'attachment; filename="Technical_Interview_QnA.pdf"');
+    generatePDF(res);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to generate PDF" });
+  }
+});
+
 module.exports = router;

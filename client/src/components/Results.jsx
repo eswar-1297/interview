@@ -11,12 +11,12 @@ export default function Results({ user }) {
         </div>
 
         <h1 className="text-xl font-semibold text-gray-900 mb-2">
-          Interview Complete
+          Test Complete
         </h1>
 
         <p className="text-sm text-gray-500 leading-relaxed mb-8">
-          Thank you, <span className="font-medium text-gray-700">{user.email}</span>. Your video responses have been recorded.
-          The hiring team will review your interview and get back to you shortly.
+          Thank you, <span className="font-medium text-gray-700">{user.email}</span>. Your responses have been recorded.
+          The hiring team will review your test and get back to you shortly.
         </p>
 
         <div className="border border-gray-100 rounded p-4 text-xs text-gray-400 leading-relaxed">

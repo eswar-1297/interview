@@ -1,0 +1,362 @@
+[
+  {
+    "id": 1,
+    "category": "Java",
+    "topic": "OOP",
+    "question": "What is the output of the following code?",
+    "code": "class Animal {\n    String sound() { return \"...\"; }\n}\nclass Dog extends Animal {\n    @Override\n    String sound() { return \"Woof\"; }\n}\npublic class Main {\n    public static void main(String[] args) {\n        Animal a = new Dog();\n        System.out.println(a.sound());\n    }\n}",
+    "options": ["...", "Woof", "null", "Compilation error"],
+    "answer": 1
+  },
+  {
+    "id": 2,
+    "category": "Java",
+    "topic": "Collections",
+    "question": "Which Map implementation allows null keys and null values?",
+    "code": null,
+    "options": ["TreeMap", "Hashtable", "HashMap", "ConcurrentHashMap"],
+    "answer": 2
+  },
+  {
+    "id": 3,
+    "category": "Java",
+    "topic": "String",
+    "question": "What is the output of the following code?",
+    "code": "String s1 = \"Hello\";\nString s2 = new String(\"Hello\");\nSystem.out.println(s1 == s2);\nSystem.out.println(s1.equals(s2));",
+    "options": ["true, true", "false, true", "true, false", "false, false"],
+    "answer": 1
+  },
+  {
+    "id": 4,
+    "category": "Java",
+    "topic": "Multithreading",
+    "question": "Which keyword ensures that changes to a variable are visible to all threads immediately?",
+    "code": null,
+    "options": ["synchronized", "volatile", "transient", "static"],
+    "answer": 1
+  },
+  {
+    "id": 5,
+    "category": "Java",
+    "topic": "Streams",
+    "question": "What does the following stream operation print?",
+    "code": "List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5);\nint result = nums.stream()\n    .filter(n -> n % 2 == 0)\n    .mapToInt(Integer::intValue)\n    .sum();\nSystem.out.println(result);",
+    "options": ["15", "6", "9", "4"],
+    "answer": 1
+  },
+  {
+    "id": 6,
+    "category": "Java",
+    "topic": "Exception Handling",
+    "question": "What is the output of the following code?",
+    "code": "try {\n    int x = 10 / 0;\n} catch (Exception e) {\n    System.out.println(\"Exception\");\n} finally {\n    System.out.println(\"Finally\");\n}",
+    "options": ["Exception", "Finally", "Exception\\nFinally", "Compilation error"],
+    "answer": 2
+  },
+  {
+    "id": 7,
+    "category": "Java",
+    "topic": "Interface",
+    "question": "What is the output of the following code?",
+    "code": "interface Flyable {\n    default void fly() {\n        System.out.println(\"Flying\");\n    }\n}\nclass Bird implements Flyable {}\nnew Bird().fly();",
+    "options": ["Compilation error", "null", "Flying", "Runtime exception"],
+    "answer": 2
+  },
+  {
+    "id": 8,
+    "category": "Java",
+    "topic": "Multithreading",
+    "question": "Which of the following is NOT a valid way to create a thread in Java?",
+    "code": null,
+    "options": ["Extending Thread class", "Implementing Runnable interface", "Using Callable and Future", "Extending Runnable class"],
+    "answer": 3
+  },
+  {
+    "id": 9,
+    "category": "Java",
+    "topic": "Lambda",
+    "question": "What does this lambda-based sort print as the first element?",
+    "code": "Comparator<String> c = (a, b) -> a.length() - b.length();\nList<String> list = new ArrayList<>(Arrays.asList(\"hi\", \"hello\", \"hey\"));\nlist.sort(c);\nSystem.out.println(list.get(0));",
+    "options": ["hi", "hello", "hey", "Compilation error"],
+    "answer": 0
+  },
+  {
+    "id": 10,
+    "category": "Java",
+    "topic": "Collections",
+    "question": "What is the average-case time complexity of HashMap.get()?",
+    "code": null,
+    "options": ["O(n)", "O(log n)", "O(1)", "O(n log n)"],
+    "answer": 2
+  },
+  {
+    "id": 11,
+    "category": "Java",
+    "topic": "Collections",
+    "question": "What does this HashMap code print?",
+    "code": "Map<String, Integer> map = new HashMap<>();\nmap.put(\"a\", 1);\nmap.put(\"b\", 2);\nmap.put(\"a\", 3);\nSystem.out.println(map.size());\nSystem.out.println(map.get(\"a\"));",
+    "options": ["3, 1", "2, 3", "3, 3", "2, 1"],
+    "answer": 1
+  },
+  {
+    "id": 12,
+    "category": "Java",
+    "topic": "JVM",
+    "question": "What is the primary role of the JVM Garbage Collector?",
+    "code": null,
+    "options": ["Compiles Java source code to bytecode", "Reclaims memory occupied by unreachable objects", "Handles thread synchronization", "Loads and links class files"],
+    "answer": 1
+  },
+  {
+    "id": 13,
+    "category": "Java",
+    "topic": "Spring Boot",
+    "question": "Which annotation combines @Controller and @ResponseBody to mark a REST controller?",
+    "code": null,
+    "options": ["@Controller", "@Service", "@RestController", "@Repository"],
+    "answer": 2
+  },
+  {
+    "id": 14,
+    "category": "Java",
+    "topic": "Design Patterns",
+    "question": "Which design pattern restricts a class to a single instance and provides a global access point?",
+    "code": null,
+    "options": ["Factory", "Builder", "Observer", "Singleton"],
+    "answer": 3
+  },
+  {
+    "id": 15,
+    "category": "Java",
+    "topic": "Streams",
+    "question": "What is the output of this streams code?",
+    "code": "long count = Stream.of(\"a\", \"b\", \"a\", \"c\", \"b\")\n    .distinct()\n    .count();\nSystem.out.println(count);",
+    "options": ["5", "3", "2", "4"],
+    "answer": 1
+  },
+  {
+    "id": 16,
+    "category": "Java",
+    "topic": "OOP",
+    "question": "What is the key difference between abstract classes and interfaces in Java 8+?",
+    "code": null,
+    "options": ["Abstract classes can have constructors; interfaces cannot", "Interfaces can have instance (non-static) fields", "Abstract classes cannot be subclassed", "Interface methods default to private"],
+    "answer": 0
+  },
+  {
+    "id": 17,
+    "category": "Java",
+    "topic": "Optional",
+    "question": "What does this Optional code return?",
+    "code": "Optional<String> opt = Optional.empty();\nString result = opt.orElse(\"default\");\nSystem.out.println(result);",
+    "options": ["null", "default", "Throws NullPointerException", "Throws NoSuchElementException"],
+    "answer": 1
+  },
+  {
+    "id": 18,
+    "category": "Java",
+    "topic": "Exception Handling",
+    "question": "Which of the following is a checked exception?",
+    "code": null,
+    "options": ["NullPointerException", "ArrayIndexOutOfBoundsException", "IOException", "ClassCastException"],
+    "answer": 2
+  },
+  {
+    "id": 19,
+    "category": "Java",
+    "topic": "Multithreading",
+    "question": "What does the synchronized keyword primarily prevent?",
+    "code": null,
+    "options": ["Deadlocks", "Thread starvation", "Race conditions", "Memory leaks"],
+    "answer": 2
+  },
+  {
+    "id": 20,
+    "category": "Java",
+    "topic": "Spring Boot",
+    "question": "Which annotation maps HTTP GET requests to a specific controller method?",
+    "code": null,
+    "options": ["@PostMapping", "@GetMapping", "@RequestMapping", "@ResponseBody"],
+    "answer": 1
+  },
+  {
+    "id": 21,
+    "category": "Java",
+    "topic": "OOP",
+    "question": "What is method overloading?",
+    "code": null,
+    "options": ["Providing a different implementation in a subclass", "Multiple methods with the same name but different parameters", "Using the @Override annotation", "Calling a superclass method from a subclass"],
+    "answer": 1
+  },
+  {
+    "id": 22,
+    "category": "Java",
+    "topic": "Generics",
+    "question": "What is the output of this generics code?",
+    "code": "public static <T extends Comparable<T>> T max(T a, T b) {\n    return a.compareTo(b) >= 0 ? a : b;\n}\nSystem.out.println(max(10, 20));\nSystem.out.println(max(\"apple\", \"banana\"));",
+    "options": ["10, apple", "20, banana", "20, apple", "Compilation error"],
+    "answer": 1
+  },
+  {
+    "id": 23,
+    "category": "Java",
+    "topic": "String",
+    "question": "What is the output?",
+    "code": "String s = \"Java Programming\";\nSystem.out.println(s.substring(5, 8));\nSystem.out.println(s.indexOf(\"Pro\"));",
+    "options": ["Pro, 5", "Pro\\n5", "Prog, 4", "Compilation error"],
+    "answer": 1
+  },
+  {
+    "id": 24,
+    "category": "Java",
+    "topic": "Collections",
+    "question": "Which List implementation provides O(1) random access but O(n) insertion in the middle?",
+    "code": null,
+    "options": ["LinkedList", "ArrayList", "Stack", "ArrayDeque"],
+    "answer": 1
+  },
+  {
+    "id": 25,
+    "category": "Java",
+    "topic": "Streams",
+    "question": "What does the following code print?",
+    "code": "List<String> names = Arrays.asList(\"Alice\", \"Bob\", \"Charlie\");\nString result = names.stream()\n    .filter(n -> n.length() > 3)\n    .map(String::toUpperCase)\n    .collect(Collectors.joining(\", \"));\nSystem.out.println(result);",
+    "options": ["Alice, Charlie", "ALICE, CHARLIE", "ALICE, BOB, CHARLIE", "Alice, Bob, Charlie"],
+    "answer": 1
+  },
+  {
+    "id": 26,
+    "category": "AI",
+    "topic": "ML Basics",
+    "question": "What is supervised learning?",
+    "code": null,
+    "options": ["Training without labeled data", "Training with labeled input-output pairs", "Training by interacting with an environment", "Grouping similar data points"],
+    "answer": 1
+  },
+  {
+    "id": 27,
+    "category": "AI",
+    "topic": "ML Concepts",
+    "question": "What is overfitting in a machine learning model?",
+    "code": null,
+    "options": ["Model performs poorly on training data", "Model performs well on training data but poorly on unseen data", "Model takes too long to train", "Model has too few parameters"],
+    "answer": 1
+  },
+  {
+    "id": 28,
+    "category": "AI",
+    "topic": "Neural Networks",
+    "question": "What is the primary role of an activation function in a neural network?",
+    "code": null,
+    "options": ["Initialize model weights", "Introduce non-linearity so networks can learn complex patterns", "Normalize input features", "Prevent overfitting"],
+    "answer": 1
+  },
+  {
+    "id": 29,
+    "category": "AI",
+    "topic": "NLP",
+    "question": "What does TF-IDF stand for, and what does it measure?",
+    "code": null,
+    "options": ["Training Frequency-Inverse Document Feature; model accuracy", "Term Frequency-Inverse Document Frequency; word importance in a document", "Text Feature-Index Distribution Function; data distribution", "Token Frequency-Inverse Data Filter; noise reduction"],
+    "answer": 1
+  },
+  {
+    "id": 30,
+    "category": "AI",
+    "topic": "scikit-learn",
+    "question": "What does this scikit-learn code accomplish?",
+    "code": "from sklearn.linear_model import LinearRegression\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\npredictions = model.predict(X_test)",
+    "options": ["Classifies text into categories", "Trains a regression model and predicts continuous values on test data", "Clusters data into groups", "Reduces the number of features"],
+    "answer": 1
+  },
+  {
+    "id": 31,
+    "category": "AI",
+    "topic": "LLM",
+    "question": "In the context of Large Language Models (LLMs), what is a 'prompt'?",
+    "code": null,
+    "options": ["A Python function called at inference time", "The input text provided to the model to generate a response", "A training dataset checkpoint", "A hyperparameter controlling output length"],
+    "answer": 1
+  },
+  {
+    "id": 32,
+    "category": "AI",
+    "topic": "ML Concepts",
+    "question": "What is the difference between classification and regression?",
+    "code": null,
+    "options": ["Classification predicts categories; regression predicts continuous values", "Regression predicts categories; classification predicts continuous values", "Both predict the same type of output", "Classification always uses neural networks; regression always uses trees"],
+    "answer": 0
+  },
+  {
+    "id": 33,
+    "category": "AI",
+    "topic": "Metrics",
+    "question": "What does this code calculate and what is the result?",
+    "code": "from sklearn.metrics import accuracy_score\ny_true = [0, 1, 1, 0, 1]\ny_pred = [0, 1, 0, 0, 1]\nprint(accuracy_score(y_true, y_pred))",
+    "options": ["Precision; 0.8", "Accuracy; 0.8", "Recall; 0.6", "F1 score; 0.75"],
+    "answer": 1
+  },
+  {
+    "id": 34,
+    "category": "AI",
+    "topic": "Neural Networks",
+    "question": "What is an 'epoch' in the context of training a neural network?",
+    "code": null,
+    "options": ["One layer in the neural network", "One complete pass through the entire training dataset", "The learning rate used during training", "The number of neurons in the hidden layer"],
+    "answer": 1
+  },
+  {
+    "id": 35,
+    "category": "AI",
+    "topic": "Transfer Learning",
+    "question": "What is transfer learning?",
+    "code": null,
+    "options": ["Moving a trained model from one server to another", "Reusing a pre-trained model's knowledge for a new related task", "Converting model weights to a different data format", "Training multiple models in parallel"],
+    "answer": 1
+  },
+  {
+    "id": 36,
+    "category": "AI",
+    "topic": "Java + AI",
+    "question": "Which Java library is commonly used for deep learning and neural networks?",
+    "code": null,
+    "options": ["Hibernate ORM", "Deeplearning4j (DL4J)", "Spring Data JPA", "Jackson JSON"],
+    "answer": 1
+  },
+  {
+    "id": 37,
+    "category": "AI",
+    "topic": "Clustering",
+    "question": "What does the K-Means algorithm do?",
+    "code": null,
+    "options": ["Classifies data into predefined labeled categories", "Groups data into K clusters by minimizing intra-cluster distances", "Reduces the number of dimensions in the dataset", "Predicts a continuous numerical output"],
+    "answer": 1
+  },
+  {
+    "id": 38,
+    "category": "AI",
+    "topic": "Optimization",
+    "question": "What is gradient descent in machine learning?",
+    "code": null,
+    "options": ["A technique to visualize neural network layers", "An iterative optimization algorithm that minimizes the loss function by updating weights", "A method to automatically select the best model", "A data preprocessing normalization step"],
+    "answer": 1
+  },
+  {
+    "id": 39,
+    "category": "AI",
+    "topic": "NumPy",
+    "question": "What does this NumPy code print?",
+    "code": "import numpy as np\nX = np.array([[1, 2], [3, 4], [5, 6]])\nprint(X.shape)",
+    "options": ["(6,)", "(2, 3)", "(3, 2)", "(6, 1)"],
+    "answer": 2
+  },
+  {
+    "id": 40,
+    "category": "AI",
+    "topic": "AI Integration",
+    "question": "When calling a REST-based AI API from Java (e.g., OpenAI or Claude), which HTTP client is commonly used?",
+    "code": "HttpClient client = HttpClient.newHttpClient();\nHttpRequest request = HttpRequest.newBuilder()\n    .uri(URI.create(\"https://api.example.com/v1/chat\"))\n    .header(\"Content-Type\", \"application/json\")\n    .POST(HttpRequest.BodyPublishers.ofString(body))\n    .build();\nHttpResponse<String> response = client.send(request,\n    HttpResponse.BodyHandlers.ofString());",
+    "options": ["Apache Commons IO", "Java 11 HttpClient (java.net.http)", "Spring MVC RestTemplate only", "java.io.BufferedReader"],
+    "answer": 1
+  }
+]

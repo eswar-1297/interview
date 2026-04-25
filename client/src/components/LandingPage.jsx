@@ -55,7 +55,7 @@ export default function LandingPage({ onSubmit }) {
       if (data.success) {
         streamRef.current?.getTracks().forEach(t => t.stop());
         onSubmit({ email: data.user.email });
-        navigate("/hr");
+        navigate("/technical");
       } else {
         setError("Incorrect password. Please try again.");
       }
@@ -77,27 +77,26 @@ export default function LandingPage({ onSubmit }) {
       {/* Left panel */}
       <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
-          <p className="text-gray-400 text-sm">Java / Python Developer — HR Round</p>
+          <p className="text-gray-400 text-sm">Java Developer — Technical Round</p>
         </div>
 
         <div className="space-y-6">
           <div>
-            <p className="font-semibold text-sm">Video Interview</p>
+            <p className="font-semibold text-sm">MCQ Technical Test</p>
             <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
-              10 questions covering HR, technical concepts, and your project
-              experience. Record a short video response for each question.
-              You have 2 minutes per answer.
+              40 multiple-choice questions covering Core Java and AI/ML concepts.
+              Some questions include code snippets. Select the best answer for each.
             </p>
-            <p className="text-gray-500 text-xs mt-2">Duration: ~20 minutes &nbsp;·&nbsp; 10 questions</p>
+            <p className="text-gray-500 text-xs mt-2">Duration: 30 minutes &nbsp;·&nbsp; 40 questions</p>
           </div>
 
           <div className="space-y-2.5 text-xs">
             <p className="text-gray-500 font-semibold uppercase tracking-widest text-[10px]">What to Expect</p>
             {[
-              "HR & behavioural questions",
-              "Core Java / Python concepts",
-              "Project & framework experience",
-              "Self-learning & career goals",
+              "Core Java — OOP, Collections, Streams, Threads",
+              "Spring Boot & Design Patterns",
+              "AI / ML concepts and terminology",
+              "Code snippet analysis questions",
             ].map(t => (
               <div key={t} className="flex items-start gap-2 text-gray-400">
                 <span className="mt-0.5 text-gray-600">&#8250;</span>
@@ -108,8 +107,8 @@ export default function LandingPage({ onSubmit }) {
         </div>
 
         <div className="text-xs text-gray-600">
-          <p>Ensure a quiet environment and good lighting.</p>
-          <p className="mt-1">Camera and microphone must remain on throughout.</p>
+          <p>Ensure a stable internet connection.</p>
+          <p className="mt-1">Camera must remain on throughout the test.</p>
         </div>
       </div>
 
@@ -217,9 +216,9 @@ export default function LandingPage({ onSubmit }) {
           {/* Mobile info */}
           <div className="lg:hidden mt-8 pt-6 border-t border-gray-200">
             <div className="bg-gray-50 rounded p-3 text-center">
-              <p className="text-lg font-bold text-gray-900">10</p>
-              <p className="text-xs text-gray-500">Video Interview Questions</p>
-              <p className="text-xs text-gray-400">~20 min · HR + Technical + Project</p>
+              <p className="text-lg font-bold text-gray-900">40</p>
+              <p className="text-xs text-gray-500">Technical MCQ Questions</p>
+              <p className="text-xs text-gray-400">30 min · Java + AI</p>
             </div>
           </div>
         </div>
