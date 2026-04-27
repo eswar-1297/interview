@@ -136,138 +136,138 @@
   },
   {
     "id": 16,
-    "category": "SIP",
+    "category": "SAP",
     "topic": "Basics",
-    "question": "What does SIP stand for in the context of mutual fund investments?",
+    "question": "What does SAP stand for?",
     "code": null,
-    "options": ["Securities Investment Portfolio", "Systematic Investment Plan", "Standard Interest Payment", "Stock Income Plan"],
-    "answer": 1
+    "options": ["Systems, Applications, and Products in Data Processing", "Software, Applications, and Programming", "Systems Architecture and Processing", "Standard Application Protocol"],
+    "answer": 0
   },
   {
     "id": 17,
-    "category": "SIP",
-    "topic": "NAV",
-    "question": "NAV (Net Asset Value) of a mutual fund is calculated as:",
+    "category": "SAP",
+    "topic": "Modules",
+    "question": "Which SAP module handles Financial Accounting and Controlling?",
     "code": null,
-    "options": ["Total liabilities / Number of units", "(Total assets – Total liabilities) / Number of outstanding units", "Total assets / Number of units", "Market price of the fund's shares"],
-    "answer": 1
+    "options": ["SAP MM", "SAP SD", "SAP FICO", "SAP HR"],
+    "answer": 2
   },
   {
     "id": 18,
-    "category": "SIP",
-    "topic": "Calculation",
-    "question": "You invest Rs. 5,000 per month via SIP for 12 months. Assuming a constant NAV of Rs. 10 per unit, how many total units are accumulated?",
+    "category": "SAP",
+    "topic": "Architecture",
+    "question": "In SAP, what is a 'Client'?",
     "code": null,
-    "options": ["500 units", "1,000 units", "6,000 units", "60,000 units"],
-    "answer": 2
-  },
-  {
-    "id": 19,
-    "category": "SIP",
-    "topic": "Fund Types",
-    "question": "Which type of mutual fund primarily invests in government securities and corporate bonds?",
-    "code": null,
-    "options": ["Equity Fund", "Debt Fund", "Hybrid Fund", "Index Fund"],
+    "options": ["A customer who purchases the SAP licence", "An independent organisational unit within an SAP system with its own master data and configuration", "A user role with administrative access", "A report output format in SAP"],
     "answer": 1
   },
   {
-    "id": 20,
-    "category": "SIP",
-    "topic": "ELSS",
-    "question": "ELSS (Equity Linked Savings Scheme) has a mandatory lock-in period of:",
+    "id": 19,
+    "category": "SAP",
+    "topic": "Transaction Codes",
+    "question": "Which transaction code is used to create a Purchase Order in SAP MM?",
     "code": null,
-    "options": ["1 year", "2 years", "3 years", "5 years"],
-    "answer": 2
+    "options": ["ME21N", "VA01", "FB01", "MM01"],
+    "answer": 0
+  },
+  {
+    "id": 20,
+    "category": "SAP",
+    "topic": "Transaction Codes",
+    "question": "What does the SAP transaction code VA01 create?",
+    "code": null,
+    "options": ["Purchase Order", "Sales Order", "Material Master Record", "Vendor Master Record"],
+    "answer": 1
   },
   {
     "id": 21,
-    "category": "SIP",
-    "topic": "Charges",
-    "question": "Exit load in a mutual fund is charged when:",
+    "category": "SAP",
+    "topic": "FICO",
+    "question": "In SAP FICO, what is the purpose of a 'Company Code'?",
     "code": null,
-    "options": ["You make a new investment", "You redeem units before a specified holding period", "NAV of the fund increases", "The fund declares a dividend"],
+    "options": ["A code used to identify a product category", "The smallest organisational unit for which a complete set of accounts can be drawn up for external reporting", "A unique identifier assigned to each SAP user", "A code used for vendor identification in the system"],
     "answer": 1
   },
   {
     "id": 22,
-    "category": "SIP",
-    "topic": "Regulation",
-    "question": "Which regulatory body governs mutual funds in India?",
+    "category": "SAP",
+    "topic": "Transaction Codes",
+    "question": "In SAP MM, the transaction MIGO is primarily used for:",
     "code": null,
-    "options": ["RBI", "IRDAI", "SEBI", "PFRDA"],
-    "answer": 2
+    "options": ["Creating purchase requisitions", "Goods receipt, goods issue, and stock transfers", "Invoice verification and posting", "Creating and updating material master records"],
+    "answer": 1
   },
   {
     "id": 23,
-    "category": "SIP",
-    "topic": "Expense Ratio",
-    "question": "The expense ratio of a mutual fund represents:",
+    "category": "SAP",
+    "topic": "Architecture",
+    "question": "What is a 'Plant' in the SAP organisational structure?",
     "code": null,
-    "options": ["The annual return of the fund", "Annual fees charged as a percentage of average AUM", "The ratio of equity to debt holdings", "The risk rating assigned by the fund house"],
-    "answer": 1
+    "options": ["A manufacturing or storage location where goods are produced or kept", "A financial reporting entity equivalent to a company", "A vendor classification category in SAP MM", "A workflow approval step in SAP"],
+    "answer": 0
   },
   {
     "id": 24,
-    "category": "SIP",
-    "topic": "Rupee Cost Averaging",
-    "question": "Rupee Cost Averaging in SIP means the investor:",
+    "category": "SAP",
+    "topic": "Modules",
+    "question": "Which SAP module manages the Order-to-Cash (OTC) business process?",
     "code": null,
-    "options": ["Always buys units at the same price", "Buys more units when NAV is low and fewer units when NAV is high", "Receives units at a guaranteed discounted price", "Pays a fixed rupee cost as exit load"],
-    "answer": 1
-  },
-  {
-    "id": 25,
-    "category": "SIP",
-    "topic": "Fund Types",
-    "question": "A Hybrid Fund (Balanced Fund) typically invests in:",
-    "code": null,
-    "options": ["Only equity shares", "Only debt instruments", "Both equity and debt instruments", "Only gold and real estate"],
+    "options": ["SAP MM", "SAP PP", "SAP SD", "SAP PM"],
     "answer": 2
   },
   {
-    "id": 26,
-    "category": "SIP",
-    "topic": "Taxation",
-    "question": "Long-term capital gains on equity mutual fund units (held > 1 year) above Rs. 1 lakh are taxed at:",
+    "id": 25,
+    "category": "SAP",
+    "topic": "FICO",
+    "question": "The SAP transaction code FB60 is used to:",
     "code": null,
-    "options": ["10% without indexation", "15% flat", "20% with indexation", "Fully exempt"],
+    "options": ["Create a Sales Order", "Post an incoming vendor invoice", "Create a Purchase Order", "Process a payroll run"],
+    "answer": 1
+  },
+  {
+    "id": 26,
+    "category": "SAP",
+    "topic": "ABAP",
+    "question": "What does BAPI stand for in SAP?",
+    "code": null,
+    "options": ["Business Application Programming Interface", "Base Application Process Integration", "Business Automated Process Interaction", "Backend Application Protocol Interface"],
     "answer": 0
   },
   {
     "id": 27,
-    "category": "SIP",
-    "topic": "Direct vs Regular",
-    "question": "What is the key difference between a Direct Plan and a Regular Plan of the same mutual fund?",
+    "category": "SAP",
+    "topic": "FICO",
+    "question": "In SAP Controlling (CO), a 'Cost Center' is used to:",
     "code": null,
-    "options": ["Direct plan has a higher expense ratio", "Regular plan is bought directly from the AMC website", "Direct plan has a lower expense ratio, resulting in higher returns", "They have identical NAV at all times"],
-    "answer": 2
+    "options": ["Track revenue generated from sales", "Monitor and control costs incurred within a specific business unit", "Record fixed asset depreciation entries", "Process and clear customer payments"],
+    "answer": 1
   },
   {
     "id": 28,
-    "category": "SIP",
-    "topic": "SWP",
-    "question": "SWP in mutual funds stands for:",
+    "category": "SAP",
+    "topic": "Transaction Codes",
+    "question": "Which SAP transaction code is used to display (view-only) an existing Material Master record?",
     "code": null,
-    "options": ["Systematic Withdrawal Plan", "Standard Wealth Plan", "Structured Weekly Payment", "Savings Withdrawal Portfolio"],
-    "answer": 0
+    "options": ["MM01 (Create)", "MM02 (Change)", "MM03 (Display)", "MM60 (Inventory)"],
+    "answer": 2
   },
   {
     "id": 29,
-    "category": "SIP",
-    "topic": "Fund Types",
-    "question": "An Index Fund that tracks NIFTY 50 aims to:",
+    "category": "SAP",
+    "topic": "System",
+    "question": "What is the purpose of the SAP Change and Transport System (CTS)?",
     "code": null,
-    "options": ["Outperform the NIFTY 50 index", "Replicate the returns of the NIFTY 50 index", "Invest only in the top 10 NIFTY 50 stocks", "Guarantee fixed returns equal to NIFTY 50 average"],
+    "options": ["To move physical stock between SAP plants", "To transfer configuration and development changes across SAP landscapes (DEV → QAS → PRD)", "To schedule background batch jobs across multiple servers", "To generate and distribute financial reports automatically"],
     "answer": 1
   },
   {
     "id": 30,
-    "category": "SIP",
-    "topic": "AUM",
-    "question": "AUM in the context of mutual funds stands for:",
+    "category": "SAP",
+    "topic": "ABAP",
+    "question": "What does ABAP stand for in SAP?",
     "code": null,
-    "options": ["Annual Utility Measure", "Assets Under Management", "Average Unit Market value", "Automated Unit Mapping"],
-    "answer": 1
+    "options": ["Advanced Business Application Programming", "Automated Business Access Protocol", "Application-Based API Programming", "Adaptive Business Architecture Platform"],
+    "answer": 0
   },
   {
     "id": 31,
@@ -345,7 +345,7 @@
     "id": 39,
     "category": "FIFO",
     "topic": "Accounting",
-    "question": "Under the accrual basis of accounting, revenue is recognized when:",
+    "question": "Under the accrual basis of accounting, revenue is recognised when:",
     "code": null,
     "options": ["Cash is received from the customer", "An invoice is raised and sent", "It is earned, regardless of when cash is received", "The product is manufactured"],
     "answer": 2

@@ -19,8 +19,8 @@ const COLORS = {
   codeText:  "#e2e8f0",
   Tax:       "#b45309",
   TaxBg:     "#fffbeb",
-  SIP:       "#1d4ed8",
-  SIPBg:     "#eff6ff",
+  SAP:       "#1d4ed8",
+  SAPBg:     "#eff6ff",
   FIFO:      "#7c3aed",
   FIFOBg:    "#f5f3ff",
 };
@@ -32,7 +32,7 @@ function drawHeader(doc) {
   doc.fillColor("#ffffff").fontSize(22).font("Helvetica-Bold")
     .text("Technical Interview — Questions & Answer Key", 50, 30, { width: doc.page.width - 100 });
   doc.fontSize(11).font("Helvetica").fillColor("#94a3b8")
-    .text("Tax Consultant / SIP / FIFO  |  Technical Round  |  40 Questions  |  30 Minutes", 50, 62);
+    .text("Tax Consultant / SAP / FIFO  |  Technical Round  |  40 Questions  |  30 Minutes", 50, 62);
   doc.fontSize(10).font("Helvetica").fillColor("#64748b")
     .text(`Generated on ${new Date().toDateString()}`, 50, 84);
   doc.y = 130;
@@ -133,7 +133,7 @@ function generatePDF(outputStream) {
 
   // Section legend
   const legendY = doc.y;
-  [["Tax", "Tax Questions"], ["SIP", "SIP Questions"], ["FIFO", "FIFO / Accounting"]].forEach(([cat, label], i) => {
+  [["Tax", "Tax Questions"], ["SAP", "SAP Questions"], ["FIFO", "FIFO / Accounting"]].forEach(([cat, label], i) => {
     const lx = 50 + i * 145;
     doc.rect(lx, legendY, 10, 10).fill(COLORS[cat + "Bg"]);
     doc.rect(lx, legendY, 2, 10).fill(COLORS[cat]);
@@ -148,7 +148,7 @@ function generatePDF(outputStream) {
   drawDivider(doc);
 
   const taxQs  = questions.filter(q => q.category === "Tax");
-  const sipQs  = questions.filter(q => q.category === "SIP");
+  const sapQs  = questions.filter(q => q.category === "SAP");
   const fifoQs = questions.filter(q => q.category === "FIFO");
 
   doc.fontSize(13).font("Helvetica-Bold").fillColor(COLORS.Tax)
@@ -158,15 +158,15 @@ function generatePDF(outputStream) {
   taxQs.forEach(q => drawQuestion(doc, q));
 
   checkPageBreak(doc, 40);
-  doc.fontSize(13).font("Helvetica-Bold").fillColor(COLORS.SIP)
-    .text(`SIP / Mutual Fund Questions  (Q${taxQs.length + 1}–Q${taxQs.length + sipQs.length})`, 50);
+  doc.fontSize(13).font("Helvetica-Bold").fillColor(COLORS.SAP)
+    .text(`SAP Questions  (Q${taxQs.length + 1}–Q${taxQs.length + sapQs.length})`, 50);
   doc.moveDown(0.3);
   drawDivider(doc);
-  sipQs.forEach(q => drawQuestion(doc, q));
+  sapQs.forEach(q => drawQuestion(doc, q));
 
   checkPageBreak(doc, 40);
   doc.fontSize(13).font("Helvetica-Bold").fillColor(COLORS.FIFO)
-    .text(`FIFO / Accounting Questions  (Q${taxQs.length + sipQs.length + 1}–Q${questions.length})`, 50);
+    .text(`FIFO / Accounting Questions  (Q${taxQs.length + sapQs.length + 1}–Q${questions.length})`, 50);
   doc.moveDown(0.3);
   drawDivider(doc);
   fifoQs.forEach(q => drawQuestion(doc, q));

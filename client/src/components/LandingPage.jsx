@@ -77,14 +77,14 @@ export default function LandingPage({ onSubmit }) {
       {/* Left panel */}
       <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
-          <p className="text-gray-400 text-sm">Tax Consultant / SIP / FIFO — Technical Round</p>
+          <p className="text-gray-400 text-sm">Tax Consultant / SAP / FIFO — Technical Round</p>
         </div>
 
         <div className="space-y-6">
           <div>
             <p className="font-semibold text-sm">MCQ Technical Test</p>
             <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
-              40 multiple-choice questions covering Tax Consulting, SIP / Mutual Funds,
+              40 multiple-choice questions covering Tax Consulting, SAP (ERP),
               and FIFO / Accounting concepts. Select the best answer for each.
             </p>
             <p className="text-gray-500 text-xs mt-2">Duration: 30 minutes &nbsp;·&nbsp; 40 questions</p>
@@ -94,7 +94,7 @@ export default function LandingPage({ onSubmit }) {
             <p className="text-gray-500 font-semibold uppercase tracking-widest text-[10px]">What to Expect</p>
             {[
               "Income Tax, TDS, GST & capital gains",
-              "SIP, NAV, mutual fund types & taxation",
+              "SAP modules, transaction codes & FICO",
               "FIFO inventory method & COGS calculation",
               "Core accounting principles & ratios",
             ].map(t => (
@@ -218,7 +218,7 @@ export default function LandingPage({ onSubmit }) {
             <div className="bg-gray-50 rounded p-3 text-center">
               <p className="text-lg font-bold text-gray-900">40</p>
               <p className="text-xs text-gray-500">Technical MCQ Questions</p>
-              <p className="text-xs text-gray-400">30 min · Tax + SIP + FIFO</p>
+              <p className="text-xs text-gray-400">30 min · Tax + SAP + FIFO</p>
             </div>
           </div>
         </div>
