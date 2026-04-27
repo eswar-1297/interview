@@ -6,7 +6,7 @@ const router = express.Router();
 
 const dataDir = path.join(__dirname, "..", "data");
 
-const VALID_PASSWORD = "Neutara@2026";
+const VALID_PASSWORD = "Uniquehire@2026";
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;

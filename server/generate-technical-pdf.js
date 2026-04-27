@@ -17,10 +17,12 @@ const COLORS = {
   correctBg: "#f0fdf4",
   codeBg:    "#1e293b",
   codeText:  "#e2e8f0",
-  Java:      "#1d4ed8",
-  JavaBg:    "#eff6ff",
-  AI:        "#7c3aed",
-  AIBg:      "#f5f3ff",
+  Tax:       "#b45309",
+  TaxBg:     "#fffbeb",
+  SIP:       "#1d4ed8",
+  SIPBg:     "#eff6ff",
+  FIFO:      "#7c3aed",
+  FIFOBg:    "#f5f3ff",
 };
 
 const OPTION_LETTERS = ["A", "B", "C", "D"];
@@ -30,7 +32,7 @@ function drawHeader(doc) {
   doc.fillColor("#ffffff").fontSize(22).font("Helvetica-Bold")
     .text("Technical Interview — Questions & Answer Key", 50, 30, { width: doc.page.width - 100 });
   doc.fontSize(11).font("Helvetica").fillColor("#94a3b8")
-    .text("Java Developer  |  Technical Round  |  40 Questions  |  30 Minutes", 50, 62);
+    .text("Tax Consultant / SIP / FIFO  |  Technical Round  |  40 Questions  |  30 Minutes", 50, 62);
   doc.fontSize(10).font("Helvetica").fillColor("#64748b")
     .text(`Generated on ${new Date().toDateString()}`, 50, 84);
   doc.y = 130;
@@ -131,8 +133,8 @@ function generatePDF(outputStream) {
 
   // Section legend
   const legendY = doc.y;
-  [["Java", "Java Questions"], ["AI", "AI Questions"]].forEach(([cat, label], i) => {
-    const lx = 50 + i * 160;
+  [["Tax", "Tax Questions"], ["SIP", "SIP Questions"], ["FIFO", "FIFO / Accounting"]].forEach(([cat, label], i) => {
+    const lx = 50 + i * 145;
     doc.rect(lx, legendY, 10, 10).fill(COLORS[cat + "Bg"]);
     doc.rect(lx, legendY, 2, 10).fill(COLORS[cat]);
     doc.fillColor(COLORS[cat]).fontSize(9).font("Helvetica-Bold")
@@ -140,30 +142,34 @@ function generatePDF(outputStream) {
   });
 
   doc.fillColor("#16a34a").fontSize(9).font("Helvetica-Bold")
-    .text("Highlighted options = correct answers", 50 + 2 * 160, legendY + 1);
+    .text("Highlighted options = correct answers", 50 + 3 * 145, legendY + 1);
 
   doc.y = legendY + 22;
   drawDivider(doc);
 
-  // Java section header
-  const javaQs = questions.filter(q => q.category === "Java");
-  const aiQs   = questions.filter(q => q.category === "AI");
+  const taxQs  = questions.filter(q => q.category === "Tax");
+  const sipQs  = questions.filter(q => q.category === "SIP");
+  const fifoQs = questions.filter(q => q.category === "FIFO");
 
-  doc.fontSize(13).font("Helvetica-Bold").fillColor(COLORS.Java)
-    .text(`Java Questions  (Q1–Q${javaQs.length})`, 50);
+  doc.fontSize(13).font("Helvetica-Bold").fillColor(COLORS.Tax)
+    .text(`Tax Consultant Questions  (Q1–Q${taxQs.length})`, 50);
   doc.moveDown(0.3);
   drawDivider(doc);
+  taxQs.forEach(q => drawQuestion(doc, q));
 
-  javaQs.forEach(q => drawQuestion(doc, q));
-
-  // AI section header
   checkPageBreak(doc, 40);
-  doc.fontSize(13).font("Helvetica-Bold").fillColor(COLORS.AI)
-    .text(`AI / Machine Learning Questions  (Q${javaQs.length + 1}–Q${questions.length})`, 50);
+  doc.fontSize(13).font("Helvetica-Bold").fillColor(COLORS.SIP)
+    .text(`SIP / Mutual Fund Questions  (Q${taxQs.length + 1}–Q${taxQs.length + sipQs.length})`, 50);
   doc.moveDown(0.3);
   drawDivider(doc);
+  sipQs.forEach(q => drawQuestion(doc, q));
 
-  aiQs.forEach(q => drawQuestion(doc, q));
+  checkPageBreak(doc, 40);
+  doc.fontSize(13).font("Helvetica-Bold").fillColor(COLORS.FIFO)
+    .text(`FIFO / Accounting Questions  (Q${taxQs.length + sipQs.length + 1}–Q${questions.length})`, 50);
+  doc.moveDown(0.3);
+  drawDivider(doc);
+  fifoQs.forEach(q => drawQuestion(doc, q));
 
   // Summary answer key page
   doc.addPage();
