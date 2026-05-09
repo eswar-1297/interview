@@ -19,13 +19,9 @@ export default function CodingTest({ user, onSubmit }) {
   questionsRef.current = questions;
 
   useEffect(() => {
-    fetch("/api/scripting")
+    fetch("/api/coding")
       .then((r) => r.json())
       .then((data) => {
-        for (let i = data.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [data[i], data[j]] = [data[j], data[i]];
-        }
         setQuestions(data);
         setLoading(false);
       })
@@ -112,7 +108,7 @@ export default function CodingTest({ user, onSubmit }) {
       <header className="border-b border-[#333] sticky top-0 z-10 bg-[#1e1e1e]">
         <div className="px-4 h-11 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold text-gray-300">Scripting Round — Python</span>
+            <span className="text-sm font-semibold text-gray-300">Developer Coding Round — Third Round</span>
             <span className="text-gray-600">|</span>
             <div className="flex gap-1">
               {questions.map((q, i) => (
@@ -134,7 +130,7 @@ export default function CodingTest({ user, onSubmit }) {
           </div>
           <div className="flex items-center gap-4">
             <CameraFeed size="sm" />
-            <Timer durationMinutes={45} onTimeUp={handleSubmit} />
+            <Timer durationMinutes={40} onTimeUp={handleSubmit} />
             <button
               onClick={() => {
                 if (window.confirm("Submit your coding test?")) handleSubmit();
@@ -203,8 +199,9 @@ export default function CodingTest({ user, onSubmit }) {
             <CodeEditor
               key={current.id}
               starterCode={current.starterCode}
+              initialCode={submissions[current.id]?.code}
+              initialLanguage={submissions[current.id]?.language}
               onCodeChange={handleCodeChange}
-              pythonOnly
             />
           )}
         </div>

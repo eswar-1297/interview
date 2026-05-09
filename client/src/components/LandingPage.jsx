@@ -77,26 +77,26 @@ export default function LandingPage({ onSubmit }) {
       {/* Left panel */}
       <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
-          <p className="text-gray-400 text-sm">Tax Consultant / SAP / FIFO — Technical Round</p>
+          <p className="text-gray-400 text-sm">Developer Coding Assessment — Third Round</p>
         </div>
 
         <div className="space-y-6">
           <div>
-            <p className="font-semibold text-sm">MCQ Technical Test</p>
+            <p className="font-semibold text-sm">Coding Assessment</p>
             <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
-              40 multiple-choice questions covering Tax Consulting, SAP (ERP),
-              and FIFO / Accounting concepts. Select the best answer for each.
+              4 coding problems covering core data structures and algorithms.
+              Solve each problem in Python or Java using the built-in editor.
             </p>
-            <p className="text-gray-500 text-xs mt-2">Duration: 30 minutes &nbsp;·&nbsp; 40 questions</p>
+            <p className="text-gray-500 text-xs mt-2">Duration: 40 minutes &nbsp;·&nbsp; 4 problems</p>
           </div>
 
           <div className="space-y-2.5 text-xs">
             <p className="text-gray-500 font-semibold uppercase tracking-widest text-[10px]">What to Expect</p>
             {[
-              "Income Tax, TDS, GST & capital gains",
-              "SAP modules, transaction codes & FICO",
-              "FIFO inventory method & COGS calculation",
-              "Core accounting principles & ratios",
+              "Arrays, strings & hash map problems",
+              "Sliding window & two-pointer techniques",
+              "Linked list manipulation",
+              "Python and Java supported in editor",
             ].map(t => (
               <div key={t} className="flex items-start gap-2 text-gray-400">
                 <span className="mt-0.5 text-gray-600">&#8250;</span>
@@ -216,9 +216,9 @@ export default function LandingPage({ onSubmit }) {
           {/* Mobile info */}
           <div className="lg:hidden mt-8 pt-6 border-t border-gray-200">
             <div className="bg-gray-50 rounded p-3 text-center">
-              <p className="text-lg font-bold text-gray-900">40</p>
-              <p className="text-xs text-gray-500">Technical MCQ Questions</p>
-              <p className="text-xs text-gray-400">30 min · Tax + SAP + FIFO</p>
+              <p className="text-lg font-bold text-gray-900">4</p>
+              <p className="text-xs text-gray-500">Coding Problems</p>
+              <p className="text-xs text-gray-400">40 min · Python &amp; Java</p>
             </div>
           </div>
         </div>

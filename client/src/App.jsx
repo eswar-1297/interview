@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-import TechnicalTest from "./components/TechnicalTest";
+import CodingTest from "./components/CodingTest";
 import Results from "./components/Results";
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
             element={
               !user ? <Navigate to="/" /> :
               testDone ? <Navigate to="/results" /> :
-              <TechnicalTest user={user} onSubmit={() => setTestDone(true)} />
+              <CodingTest user={user} onSubmit={() => setTestDone(true)} />
             }
           />
           <Route

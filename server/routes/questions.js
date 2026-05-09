@@ -6,7 +6,7 @@ const router = express.Router();
 
 const dataDir = path.join(__dirname, "..", "data");
 
-const VALID_PASSWORD = "Uniquehire@2026";
+const VALID_PASSWORD = "Neutara@2026";
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -14,6 +14,15 @@ router.post("/login", (req, res) => {
     res.json({ success: true, user: { email: email.trim() } });
   } else {
     res.status(401).json({ success: false, error: "Invalid credentials" });
+  }
+});
+
+router.get("/coding", (_req, res) => {
+  try {
+    const raw = fs.readFileSync(path.join(dataDir, "coding-questions.json"), "utf-8");
+    res.json(JSON.parse(raw));
+  } catch (err) {
+    res.status(500).json({ error: "Failed to load coding questions" });
   }
 });
 
