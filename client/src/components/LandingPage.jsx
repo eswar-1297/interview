@@ -55,7 +55,7 @@ export default function LandingPage({ onSubmit }) {
       if (data.success) {
         streamRef.current?.getTracks().forEach(t => t.stop());
         onSubmit({ email: data.user.email });
-        navigate("/technical");
+        navigate("/vlsi-final");
       } else {
         setError("Incorrect password. Please try again.");
       }
@@ -77,26 +77,27 @@ export default function LandingPage({ onSubmit }) {
       {/* Left panel */}
       <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
-          <p className="text-gray-400 text-sm">Developer Coding Assessment — Third Round</p>
+          <p className="text-gray-400 text-sm">VLSI Physical Design — Final Round</p>
         </div>
 
         <div className="space-y-6">
           <div>
-            <p className="font-semibold text-sm">Coding Assessment</p>
+            <p className="font-semibold text-sm">Technical & HR Interview</p>
             <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
-              4 coding problems covering core data structures and algorithms.
-              Solve each problem in Python or Java using the built-in editor.
+              10 scenario-based questions covering VLSI physical design concepts
+              and behavioral skills. Type your answers in the provided text boxes.
             </p>
-            <p className="text-gray-500 text-xs mt-2">Duration: 40 minutes &nbsp;·&nbsp; 4 problems</p>
+            <p className="text-gray-500 text-xs mt-2">Duration: 45 minutes &nbsp;·&nbsp; 10 questions</p>
           </div>
 
           <div className="space-y-2.5 text-xs">
             <p className="text-gray-500 font-semibold uppercase tracking-widest text-[10px]">What to Expect</p>
             {[
-              "Arrays, strings & hash map problems",
-              "Sliding window & two-pointer techniques",
-              "Linked list manipulation",
-              "Python and Java supported in editor",
+              "Static Timing Analysis & CTS scenarios",
+              "IR drop, power grid & low power design",
+              "Floorplanning, congestion & routing",
+              "Physical verification (Antenna, LVS, EM)",
+              "2 HR / behavioural questions",
             ].map(t => (
               <div key={t} className="flex items-start gap-2 text-gray-400">
                 <span className="mt-0.5 text-gray-600">&#8250;</span>
@@ -108,7 +109,7 @@ export default function LandingPage({ onSubmit }) {
 
         <div className="text-xs text-gray-600">
           <p>Ensure a stable internet connection.</p>
-          <p className="mt-1">Camera must remain on throughout the test.</p>
+          <p className="mt-1">Camera must remain on throughout the interview.</p>
         </div>
       </div>
 
@@ -216,9 +217,9 @@ export default function LandingPage({ onSubmit }) {
           {/* Mobile info */}
           <div className="lg:hidden mt-8 pt-6 border-t border-gray-200">
             <div className="bg-gray-50 rounded p-3 text-center">
-              <p className="text-lg font-bold text-gray-900">4</p>
-              <p className="text-xs text-gray-500">Coding Problems</p>
-              <p className="text-xs text-gray-400">40 min · Python &amp; Java</p>
+              <p className="text-lg font-bold text-gray-900">10</p>
+              <p className="text-xs text-gray-500">Interview Questions</p>
+              <p className="text-xs text-gray-400">45 min · Technical &amp; HR</p>
             </div>
           </div>
         </div>

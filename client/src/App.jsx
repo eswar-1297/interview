@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
-import CodingTest from "./components/CodingTest";
+import VLSIFinalTest from "./components/VLSIFinalTest";
 import Results from "./components/Results";
 
 export default function App() {
-  const [user, setUser]       = useState(null);
+  const [user, setUser]         = useState(null);
   const [testDone, setTestDone] = useState(false);
 
   return (
@@ -14,14 +14,14 @@ export default function App() {
         <Routes>
           <Route
             path="/"
-            element={user ? <Navigate to="/technical" /> : <LandingPage onSubmit={setUser} />}
+            element={user ? <Navigate to="/vlsi-final" /> : <LandingPage onSubmit={setUser} />}
           />
           <Route
-            path="/technical"
+            path="/vlsi-final"
             element={
               !user ? <Navigate to="/" /> :
               testDone ? <Navigate to="/results" /> :
-              <CodingTest user={user} onSubmit={() => setTestDone(true)} />
+              <VLSIFinalTest user={user} onSubmit={() => setTestDone(true)} />
             }
           />
           <Route

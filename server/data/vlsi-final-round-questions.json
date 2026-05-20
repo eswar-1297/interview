@@ -1,0 +1,154 @@
+[
+  {
+    "id": 1,
+    "category": "Technical",
+    "topic": "Static Timing Analysis",
+    "difficulty": "Hard",
+    "question": "After completing Clock Tree Synthesis, your design shows 200+ hold violations that did not exist at the pre-CTS stage. Explain why hold violations increase after CTS and describe, step by step, how you would fix them without degrading setup timing.",
+    "keyPoints": [
+      "CTS balances clock latency — but source and sink clock latencies change, altering the hold check window",
+      "Hold = data arrival time − (clock arrival at capture FF + hold margin); reduced clock latency at capture can tighten hold",
+      "Fix 1: Insert delay cells / buffers on the data path of violating paths",
+      "Fix 2: Use 'useful skew' — adjust clock latency at capture FF to create more hold slack",
+      "Fix 3: Reduce clock tree imbalance by revisiting CTS constraints",
+      "Must verify: fixing hold should not cause new setup violations on the same paths"
+    ]
+  },
+  {
+    "id": 2,
+    "category": "Technical",
+    "topic": "IR Drop & Power Grid",
+    "difficulty": "Hard",
+    "question": "Your static IR drop analysis shows a 180 mV drop (at 1.0 V supply) in a localized region of the core. The timing sign-off requires IR drop to be under 80 mV. Walk through your complete debug and fix strategy, including how you confirm the fix.",
+    "keyPoints": [
+      "Identify hotspot: cross-reference IR drop map with placement density and high-switching-activity cells in that region",
+      "Check power grid pitch and width in that region — may need additional power stripes or wider metal",
+      "Add decap cells in the hotspot to reduce dynamic IR contribution",
+      "Redistribute high-activity cells away from hotspot (ECO placement)",
+      "Add more vias between metal layers in the power mesh at the hotspot",
+      "Re-run static/dynamic IR drop analysis after fix and verify < 80 mV across all corners"
+    ]
+  },
+  {
+    "id": 3,
+    "category": "Technical",
+    "topic": "Floorplanning & Congestion",
+    "difficulty": "Hard",
+    "question": "You receive a placed-and-routed design with severe routing congestion in two regions, causing 500+ DRC violations. The tape-out deadline is in 2 weeks. Describe your systematic approach to resolve congestion without re-doing the entire flow from scratch.",
+    "keyPoints": [
+      "Run congestion map analysis to confirm hotspot locations and overflow count",
+      "Check macro placement: macros creating tight channels? Adjust macro position or orientation",
+      "Spread cells in the congested region using ECO placement — increase local white space",
+      "Add placement blockages or partial blockages to push cells away from congested areas",
+      "Use layer promotion: assign long nets to higher metal layers with better RC",
+      "Add buffers to break long nets causing routing overflow",
+      "Re-run global route + detailed route iteratively, checking DRC count after each change",
+      "Validate timing is not regressed after each ECO"
+    ]
+  },
+  {
+    "id": 4,
+    "category": "Technical",
+    "topic": "Clock Domain Crossing",
+    "difficulty": "Hard",
+    "question": "A multi-bit data bus of 8 signals needs to transfer data from a 100 MHz domain to a 75 MHz asynchronous clock domain. What are the risks of a direct wire connection, and what synchronization scheme would you implement? How does physical design play a role in this?",
+    "keyPoints": [
+      "Risk: metastability — flip-flop can enter undefined state when data changes near clock edge",
+      "Multi-bit risk: individual bits may be sampled at different clock edges — data coherency failure",
+      "Solution 1: Gray code encoding (for counter-type buses) — only 1 bit changes per transition",
+      "Solution 2: Handshake synchronizer (req/ack) with a FIFO or register slice",
+      "Solution 3: Asynchronous FIFO with separate read/write pointers synchronized via Gray coding",
+      "Physical design role: CDC cells (synchronizer FFs) must be placed together with close clock routing, given high-priority placement and timing constraints (set_false_path on the crossing net, set_max_delay on the synchronizer)"
+    ]
+  },
+  {
+    "id": 5,
+    "category": "Technical",
+    "topic": "Physical Verification",
+    "difficulty": "Hard",
+    "question": "After final LVS sign-off you still have 30 antenna violations and 15 electromigration (EM) violations. Explain what each violation means physically, and describe the complete resolution flow for both in a taping-out design.",
+    "keyPoints": [
+      "Antenna: charge accumulation on floating metal during plasma etching damages thin gate oxide — antenna ratio = metal area / connected gate oxide area exceeds PDK limit",
+      "Antenna fix: (a) jump to higher metal layer (break the long poly/metal run early), (b) add reverse-biased antenna diode at the gate terminal",
+      "EM: metal atoms migrate under high DC current density, forming voids (open) or hillocks (short) — eventually causes failure",
+      "EM fix: (a) widen the metal wire on the violating net, (b) add parallel wires / additional vias, (c) reduce clock frequency or voltage (last resort)",
+      "Priority nets: power/ground and clock nets are most EM critical — ensure during power grid design",
+      "Verify both fixes: re-run PV checks before submitting GDSII to foundry"
+    ]
+  },
+  {
+    "id": 6,
+    "category": "Technical",
+    "topic": "Low Power Design",
+    "difficulty": "Hard",
+    "question": "You are given a design where leakage power exceeds the specification by 40% and dynamic power exceeds by 15%. Describe two independent strategies to address each, explaining the physical design implementation steps for each strategy.",
+    "keyPoints": [
+      "Leakage fix 1 — Multi-Vt swap: Replace LVT cells on non-critical paths with HVT cells; use timing-aware ECO swap; re-verify timing slack after swap",
+      "Leakage fix 2 — Power gating: Add sleep transistor (header/footer) in the power delivery; requires isolation cells and retention FFs at domain boundary; complex floorplan impact",
+      "Dynamic power fix 1 — Clock gating: Insert ICG (integrated clock gating) cells to disable clock to idle registers; requires RTL awareness + timing verification of gating signal",
+      "Dynamic power fix 2 — Operand isolation / voltage scaling (DVFS): Gate data inputs of high-activity combinational blocks when output unused; or reduce VDD in low-performance modes",
+      "Physical step for clock gating: ICG cell placement must be close to the gated registers; short clock net from ICG to register cluster"
+    ]
+  },
+  {
+    "id": 7,
+    "category": "Technical",
+    "topic": "Crosstalk & Signal Integrity",
+    "difficulty": "Hard",
+    "question": "A net running in parallel with a fast-switching clock net for 50 µm on Metal 3 is showing a crosstalk-induced 80 ps delay increase that causes a setup violation. Explain the root cause and list all the techniques, in order of preference, that you would apply to resolve it.",
+    "keyPoints": [
+      "Root cause: capacitive coupling between aggressor (clock) and victim (data net) — when clock switches, induced noise changes victim's effective delay",
+      "Fix 1 (preferred): Reroute victim net to a different layer or different track — break parallelism",
+      "Fix 2: Insert a shield net (VSS/VDD wire) between aggressor and victim",
+      "Fix 3: Increase spacing between the two nets beyond minimum design rules",
+      "Fix 4: Buffer insertion on victim net to reduce driver impedance and make it less susceptible",
+      "Fix 5: Apply useful skew to absorb the delay increase at the timing level",
+      "Verify: Re-run SI-aware STA (Synopsys PrimeTime SI or Cadence Tempus) after fix to confirm violation is resolved"
+    ]
+  },
+  {
+    "id": 8,
+    "category": "Technical",
+    "topic": "CMOS & Transistor Fundamentals",
+    "difficulty": "Hard",
+    "question": "A CMOS standard cell library supports three threshold voltage flavors: HVT, SVT, and LVT. For a design running at 1.2 GHz with tight power constraints, describe the complete cell selection strategy across the chip. If a critical path is failing timing by 50 ps after optimization, what sequence of fixes would you try?",
+    "keyPoints": [
+      "HVT: high threshold — low leakage, slow speed — use on non-critical/don't care paths",
+      "SVT: balanced — use on moderately critical paths",
+      "LVT: low threshold — fast but high leakage — use only on critical paths",
+      "Strategy: Start with all HVT, then selectively swap to SVT/LVT along timing-critical paths",
+      "For 50 ps setup violation: (1) Upsize the driver cell on the critical path, (2) swap HVT→SVT or SVT→LVT on the critical cells, (3) add a pipeline stage (architectural change), (4) apply useful skew, (5) reduce interconnect delay via rerouting",
+      "Always re-verify leakage budget after LVT swaps — must not exceed power spec"
+    ]
+  },
+  {
+    "id": 9,
+    "category": "HR",
+    "topic": "Problem Solving",
+    "difficulty": "Medium",
+    "question": "Describe the most technically challenging aspect of any academic project or internship you have done. What was the problem, what approach did you take, and what would you do differently knowing what you know now?",
+    "keyPoints": [
+      "Look for: ability to clearly articulate a technical problem",
+      "Look for: structured problem-solving approach (not trial-and-error)",
+      "Look for: self-awareness and willingness to reflect on past decisions",
+      "Look for: domain knowledge depth — does the candidate understand WHY something was difficult?",
+      "Red flag: candidate cannot distinguish what they personally did vs. what the team did",
+      "Green flag: candidate identifies a specific root cause, proposes an alternative, and explains the trade-off"
+    ]
+  },
+  {
+    "id": 10,
+    "category": "HR",
+    "topic": "Professional Integrity & Communication",
+    "difficulty": "Medium",
+    "question": "You are a fresher on your first project. During a design review, you notice that the senior engineer's floorplan may lead to routing congestion in one region based on what you studied. However, you are not fully sure. How would you handle this situation?",
+    "keyPoints": [
+      "Look for: confidence to speak up respectfully without being confrontational",
+      "Look for: intellectual humility — acknowledges they may be wrong, asks clarifying questions first",
+      "Look for: data-driven approach — 'I ran a quick congestion estimate / read the design guidelines and noticed...'",
+      "Look for: escalation maturity — knows when to flag and when to let it go",
+      "Red flag: says nothing out of fear OR argues aggressively without data",
+      "Green flag: 'I would privately approach the senior, share my concern with supporting data, and ask for their perspective — they likely considered it already, but if not, we save time catching it early'"
+    ]
+  }
+]

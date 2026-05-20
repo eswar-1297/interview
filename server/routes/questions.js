@@ -6,7 +6,7 @@ const router = express.Router();
 
 const dataDir = path.join(__dirname, "..", "data");
 
-const VALID_PASSWORD = "Neutara@2026";
+const VALID_PASSWORD = "UniqueHire@2026";
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -61,6 +61,16 @@ router.get("/technical", (_req, res) => {
     res.json(questions);
   } catch (err) {
     res.status(500).json({ error: "Failed to load technical questions" });
+  }
+});
+
+router.get("/vlsi-final", (_req, res) => {
+  try {
+    const raw = fs.readFileSync(path.join(dataDir, "vlsi-final-round-questions.json"), "utf-8");
+    const questions = JSON.parse(raw).map(({ keyPoints, ...rest }) => rest);
+    res.json(questions);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to load VLSI final round questions" });
   }
 });
 
