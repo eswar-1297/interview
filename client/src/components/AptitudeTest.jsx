@@ -5,10 +5,10 @@ const DURATION_MINUTES = 30;
 const DURATION_SECONDS = DURATION_MINUTES * 60;
 
 const CATEGORY_COLORS = {
-  "Quantitative":       { bg: "bg-blue-50",   text: "text-blue-700"   },
-  "Logical Reasoning":  { bg: "bg-purple-50",  text: "text-purple-700" },
-  "Verbal Ability":     { bg: "bg-green-50",   text: "text-green-700"  },
-  "Data Interpretation":{ bg: "bg-amber-50",   text: "text-amber-700"  },
+  "Quantitative Aptitude": { bg: "bg-blue-50",   text: "text-blue-700"   },
+  "Logical Reasoning":     { bg: "bg-purple-50",  text: "text-purple-700" },
+  "Verbal Ability":        { bg: "bg-green-50",   text: "text-green-700"  },
+  "Data Interpretation":   { bg: "bg-amber-50",   text: "text-amber-700"  },
 };
 
 function pad(n) { return String(n).padStart(2, "0"); }

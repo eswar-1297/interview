@@ -119,10 +119,10 @@ export default function AptitudeRegistration({ onSubmit }) {
           <div className="space-y-2.5 text-xs">
             <p className="text-gray-500 font-semibold uppercase tracking-widest text-[10px]">Topics Covered</p>
             {[
-              "Quantitative Aptitude (15 questions)",
-              "Logical Reasoning (10 questions)",
-              "Verbal Ability (10 questions)",
-              "Data Interpretation (5 questions)",
+              "Quantitative Aptitude — Q1 to Q12",
+              "Logical Reasoning — Q13 to Q24",
+              "Verbal Ability — Q25 to Q34",
+              "Data Interpretation — Q35 to Q40",
             ].map(t => (
               <div key={t} className="flex items-start gap-2 text-gray-400">
                 <span className="mt-0.5 text-gray-600">&#8250;</span>
