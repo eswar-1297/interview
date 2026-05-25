@@ -1,0 +1,282 @@
+[
+  {
+    "id": 1,
+    "category": "Quantitative",
+    "question": "A train travels at 80 km/h. How long will it take to cover 200 km?",
+    "options": ["2 hours", "2.5 hours", "3 hours", "3.5 hours"],
+    "answer": 1
+  },
+  {
+    "id": 2,
+    "category": "Quantitative",
+    "question": "A shopkeeper buys an article for ₹400 and sells it for ₹500. What is the profit percentage?",
+    "options": ["20%", "25%", "15%", "10%"],
+    "answer": 1
+  },
+  {
+    "id": 3,
+    "category": "Quantitative",
+    "question": "What is 35% of 400?",
+    "options": ["120", "130", "140", "150"],
+    "answer": 2
+  },
+  {
+    "id": 4,
+    "category": "Quantitative",
+    "question": "If 6 workers can complete a project in 10 days, how many days will 15 workers take?",
+    "options": ["2 days", "3 days", "4 days", "5 days"],
+    "answer": 2
+  },
+  {
+    "id": 5,
+    "category": "Quantitative",
+    "question": "The average of 4 numbers is 25. Three of the numbers are 20, 28, and 30. What is the fourth number?",
+    "options": ["22", "24", "25", "28"],
+    "answer": 0
+  },
+  {
+    "id": 6,
+    "category": "Quantitative",
+    "question": "A car goes from City A to City B at 50 km/h and returns at 100 km/h. What is the average speed for the whole journey?",
+    "options": ["75 km/h", "80 km/h", "66.67 km/h", "70 km/h"],
+    "answer": 2
+  },
+  {
+    "id": 7,
+    "category": "Quantitative",
+    "question": "If 4x + 5 = 29, what is the value of x?",
+    "options": ["4", "5", "6", "7"],
+    "answer": 2
+  },
+  {
+    "id": 8,
+    "category": "Quantitative",
+    "question": "What is the HCF of 24 and 36?",
+    "options": ["6", "8", "12", "18"],
+    "answer": 2
+  },
+  {
+    "id": 9,
+    "category": "Quantitative",
+    "question": "Pipe A fills a tank in 6 hours, Pipe B fills it in 12 hours. Working together, how long will they take to fill the tank?",
+    "options": ["3 hours", "4 hours", "5 hours", "6 hours"],
+    "answer": 1
+  },
+  {
+    "id": 10,
+    "category": "Quantitative",
+    "question": "Simple interest on ₹5000 at 8% per annum for 2 years is:",
+    "options": ["₹600", "₹700", "₹800", "₹900"],
+    "answer": 2
+  },
+  {
+    "id": 11,
+    "category": "Quantitative",
+    "question": "Two numbers are in the ratio 4:7. Their sum is 110. What is the smaller number?",
+    "options": ["35", "40", "44", "70"],
+    "answer": 1
+  },
+  {
+    "id": 12,
+    "category": "Quantitative",
+    "question": "If 30% of a number is 75, what is 60% of that number?",
+    "options": ["100", "125", "150", "175"],
+    "answer": 2
+  },
+  {
+    "id": 13,
+    "category": "Quantitative",
+    "question": "A rectangular plot is 20m long and 15m wide. What is its perimeter?",
+    "options": ["60m", "70m", "80m", "90m"],
+    "answer": 1
+  },
+  {
+    "id": 14,
+    "category": "Quantitative",
+    "question": "What is the value of √225?",
+    "options": ["12", "13", "14", "15"],
+    "answer": 3
+  },
+  {
+    "id": 15,
+    "category": "Quantitative",
+    "question": "In a school, 40% of students are boys. If there are 180 girls, how many total students are there?",
+    "options": ["250", "280", "300", "320"],
+    "answer": 2
+  },
+  {
+    "id": 16,
+    "category": "Logical Reasoning",
+    "question": "What comes next in the series: 2, 5, 10, 17, 26, __?",
+    "options": ["35", "36", "37", "38"],
+    "answer": 2
+  },
+  {
+    "id": 17,
+    "category": "Logical Reasoning",
+    "question": "If MANGO is coded as NBOIP (each letter shifted by +1), then how is APPLE coded?",
+    "options": ["BQQMF", "BQPME", "CQQNF", "AQQLF"],
+    "answer": 0
+  },
+  {
+    "id": 18,
+    "category": "Logical Reasoning",
+    "question": "All roses are flowers. All flowers need sunlight. Which conclusion definitely follows?",
+    "options": ["All roses need sunlight", "Some flowers are roses", "Both A and B", "Neither A nor B"],
+    "answer": 2
+  },
+  {
+    "id": 19,
+    "category": "Logical Reasoning",
+    "question": "Find the odd one out: 4, 8, 12, 18, 20, 24",
+    "options": ["8", "12", "18", "24"],
+    "answer": 2
+  },
+  {
+    "id": 20,
+    "category": "Logical Reasoning",
+    "question": "If A is taller than B, and C is taller than A, who is the tallest among all three?",
+    "options": ["A", "B", "C", "Cannot be determined"],
+    "answer": 2
+  },
+  {
+    "id": 21,
+    "category": "Logical Reasoning",
+    "question": "Complete the Fibonacci-style series: 1, 1, 2, 3, 5, 8, 13, __",
+    "options": ["18", "19", "20", "21"],
+    "answer": 3
+  },
+  {
+    "id": 22,
+    "category": "Logical Reasoning",
+    "question": "If TIGER is coded as UJHFS (each letter +1), what is the code for LION?",
+    "options": ["MJPO", "LION", "LHPM", "KHON"],
+    "answer": 0
+  },
+  {
+    "id": 23,
+    "category": "Logical Reasoning",
+    "question": "Which number comes next: 100, 96, 88, 76, 60, __?",
+    "options": ["36", "40", "44", "48"],
+    "answer": 1
+  },
+  {
+    "id": 24,
+    "category": "Logical Reasoning",
+    "question": "Three runners A, B, C compete. A finishes before B; B finishes before C. Who finishes last?",
+    "options": ["A", "B", "C", "Cannot be determined"],
+    "answer": 2
+  },
+  {
+    "id": 25,
+    "category": "Logical Reasoning",
+    "question": "A piece of work can be done by 8 men in 5 days. How many men are needed to finish the same work in 2 days?",
+    "options": ["15", "16", "18", "20"],
+    "answer": 3
+  },
+  {
+    "id": 26,
+    "category": "Verbal Ability",
+    "question": "Choose the synonym of 'ABUNDANT':",
+    "options": ["Scarce", "Plentiful", "Limited", "Rare"],
+    "answer": 1
+  },
+  {
+    "id": 27,
+    "category": "Verbal Ability",
+    "question": "Choose the antonym of 'DILIGENT':",
+    "options": ["Hardworking", "Lazy", "Careful", "Sincere"],
+    "answer": 1
+  },
+  {
+    "id": 28,
+    "category": "Verbal Ability",
+    "question": "Fill in the blank: 'The committee __ decided to postpone the meeting.'",
+    "options": ["have", "has", "were", "are"],
+    "answer": 1
+  },
+  {
+    "id": 29,
+    "category": "Verbal Ability",
+    "question": "Identify the incorrectly spelled word:",
+    "options": ["Necessary", "Committee", "Accomodation", "Occasionally"],
+    "answer": 2
+  },
+  {
+    "id": 30,
+    "category": "Verbal Ability",
+    "question": "The idiom 'Hit the nail on the head' means:",
+    "options": ["To make a mistake", "To be exactly right", "To hurt someone", "To work very hard"],
+    "answer": 1
+  },
+  {
+    "id": 31,
+    "category": "Verbal Ability",
+    "question": "Choose the word most similar in meaning to 'VOCIFEROUS':",
+    "options": ["Quiet", "Loud", "Careful", "Timid"],
+    "answer": 1
+  },
+  {
+    "id": 32,
+    "category": "Verbal Ability",
+    "question": "Fill in the blank: 'Neither the teacher nor the students __ present today.'",
+    "options": ["is", "was", "are", "were"],
+    "answer": 2
+  },
+  {
+    "id": 33,
+    "category": "Verbal Ability",
+    "question": "Which sentence is grammatically correct?",
+    "options": ["He don't like coffee", "She don't know the answer", "They doesn't play cricket", "He doesn't like coffee"],
+    "answer": 3
+  },
+  {
+    "id": 34,
+    "category": "Verbal Ability",
+    "question": "The word 'EPHEMERAL' means:",
+    "options": ["Permanent", "Long-lasting", "Short-lived", "Ancient"],
+    "answer": 2
+  },
+  {
+    "id": 35,
+    "category": "Verbal Ability",
+    "question": "Choose the correct preposition: 'She is good __ mathematics.'",
+    "options": ["in", "at", "on", "with"],
+    "answer": 1
+  },
+  {
+    "id": 36,
+    "category": "Data Interpretation",
+    "question": "In a group of 60 people, 35 read newspaper A, 25 read newspaper B, and 10 read both. How many read neither newspaper?",
+    "options": ["5", "8", "10", "15"],
+    "answer": 2
+  },
+  {
+    "id": 37,
+    "category": "Data Interpretation",
+    "question": "A person's monthly salary is ₹30,000. He spends 25% on rent, 20% on food, and 10% on transport. What is his monthly savings?",
+    "options": ["₹10,500", "₹13,500", "₹15,000", "₹16,500"],
+    "answer": 1
+  },
+  {
+    "id": 38,
+    "category": "Data Interpretation",
+    "question": "If the price of a product increases by 20% and then decreases by 20%, what is the net change in price?",
+    "options": ["No change", "4% decrease", "4% increase", "2% decrease"],
+    "answer": 1
+  },
+  {
+    "id": 39,
+    "category": "Data Interpretation",
+    "question": "A company's sales were ₹1,00,000 in January and ₹1,20,000 in February. What is the percentage increase?",
+    "options": ["15%", "20%", "25%", "30%"],
+    "answer": 1
+  },
+  {
+    "id": 40,
+    "category": "Data Interpretation",
+    "question": "At 3:15, what is the angle between the hour hand and the minute hand of a clock?",
+    "options": ["0°", "7.5°", "15°", "22.5°"],
+    "answer": 1
+  }
+]
