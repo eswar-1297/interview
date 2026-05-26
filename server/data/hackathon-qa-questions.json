@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "question": "Walk us through your Expense Tracker project architecture. How does data flow from your React frontend all the way to your Java Spring Boot backend and back?",
+    "topic": "System Architecture",
+    "category": "Technical",
+    "difficulty": "Medium",
+    "hint": "Cover: React component → API call → Spring Controller → Service → Repository → DB → response back to UI"
+  },
+  {
+    "id": 2,
+    "question": "Explain the REST API endpoints you created in your Spring Boot backend. How did you structure your Controller, Service, and Repository layers, and why?",
+    "topic": "Java Spring Boot & API Design",
+    "category": "Technical",
+    "difficulty": "Medium",
+    "hint": "Cover: @RestController, @Service, @Repository, JPA/Hibernate, the 5 endpoints (GET, POST, PUT, DELETE, summary)"
+  },
+  {
+    "id": 3,
+    "question": "How did you manage state and handle API communication in your React frontend? Walk us through your component structure and how you handled loading and error states.",
+    "topic": "React Frontend",
+    "category": "Technical",
+    "difficulty": "Medium",
+    "hint": "Cover: useState, useEffect, fetch/axios calls, component hierarchy, conditional rendering for loading/errors"
+  },
+  {
+    "id": 4,
+    "question": "What was the most challenging part of building this Expense Tracker within the time limit? How did you debug and solve it, and what would you improve with more time?",
+    "topic": "Problem Solving",
+    "category": "Technical",
+    "difficulty": "Medium",
+    "hint": "Be specific — mention actual code issues, how you debugged, and concrete improvements like pagination or charts"
+  },
+  {
+    "id": 5,
+    "question": "How would you add JWT-based user authentication to this Expense Tracker? Walk us through the exact changes needed in your Spring Boot backend using Spring Security, and the changes on the React side.",
+    "topic": "Security & Authentication",
+    "category": "Technical",
+    "difficulty": "Hard",
+    "hint": "Cover: Spring Security config, JWT filter, /auth/login endpoint, storing token in localStorage, sending Authorization header in React"
+  }
+]

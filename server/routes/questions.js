@@ -141,4 +141,40 @@ router.get("/aptitude", (_req, res) => {
   }
 });
 
+// ── Hackathon registration ──────────────────────────────────────────────────
+router.post("/hackathon-register", (req, res) => {
+  try {
+    const { name, email, contact } = req.body;
+    if (!name || !email || !contact) {
+      return res.status(400).json({ success: false, error: "Name, email and contact are required." });
+    }
+    const entry = {
+      name: name.trim(),
+      email: email.trim(),
+      contact: contact.trim(),
+      registeredAt: new Date().toISOString(),
+    };
+    const logFile = path.join(dataDir, "hackathon-registrations.json");
+    let list = [];
+    try { list = JSON.parse(fs.readFileSync(logFile, "utf-8")); } catch {}
+    list.push(entry);
+    fs.writeFileSync(logFile, JSON.stringify(list, null, 2));
+    res.json({ success: true, user: { name: entry.name, email: entry.email } });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: "Registration failed." });
+  }
+});
+
+// ── Hackathon Q&A questions ─────────────────────────────────────────────────
+router.get("/hackathon-qa", (_req, res) => {
+  try {
+    const raw = fs.readFileSync(path.join(dataDir, "hackathon-qa-questions.json"), "utf-8");
+    const questions = JSON.parse(raw).map(({ hint, ...rest }) => rest);
+    res.json(questions);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to load hackathon Q&A questions" });
+  }
+});
+
 module.exports = router;
