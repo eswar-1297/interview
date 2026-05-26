@@ -63,12 +63,6 @@ export default function HackathonResults({ user }) {
           ))}
         </div>
 
-        <div className="bg-gray-50 rounded-xl p-4 text-xs text-gray-400 leading-relaxed">
-          You may now safely close this window.
-          For any queries, contact the hiring team at{" "}
-          <a href="mailto:hr@cloudfuze.com" className="text-gray-600 underline">hr@cloudfuze.com</a>.
-        </div>
-
       </div>
     </div>
   );
