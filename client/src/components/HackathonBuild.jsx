@@ -116,7 +116,7 @@ export default function HackathonBuild({ user, onBuildDone }) {
           <div className="flex items-center gap-3">
             <span className="font-bold text-gray-900 text-sm">Hackathon — Build Phase</span>
             <span className="text-gray-300 hidden sm:inline">|</span>
-            <span className="text-gray-400 text-xs hidden sm:inline">{user?.name}</span>
+            <span className="text-gray-400 text-xs hidden sm:inline">{user?.email}</span>
           </div>
 
           <div className="flex items-center gap-3">

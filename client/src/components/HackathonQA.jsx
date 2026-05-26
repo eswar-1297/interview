@@ -151,7 +151,7 @@ export default function HackathonQA({ user, onSubmit }) {
             <span className="text-gray-300 hidden sm:inline">|</span>
             <span className="text-gray-400 text-xs hidden sm:inline">Question {currentIndex + 1} of {questions.length}</span>
             <span className="text-gray-300 hidden md:inline">|</span>
-            <span className="text-gray-400 text-xs hidden md:inline truncate">{user?.name}</span>
+            <span className="text-gray-400 text-xs hidden md:inline truncate">{user?.email}</span>
           </div>
           <div className="flex items-center gap-4 flex-shrink-0">
             <span className="text-xs text-gray-400">{answered}/{questions.length} recorded</span>

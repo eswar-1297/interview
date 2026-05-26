@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 
-const VALID_PASSWORD = "UniqueHire@2026";
+const VALID_PASSWORD = "Neutara@2026";
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;

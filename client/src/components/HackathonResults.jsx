@@ -19,11 +19,12 @@ export default function HackathonResults({ user }) {
         </div>
 
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
-          Well Done, {user?.name?.split(" ")[0] || "Candidate"}!
+          Well Done!
         </h1>
 
         <p className="text-sm text-gray-500 leading-relaxed mb-8 max-w-sm mx-auto">
-          Your Expense Tracker project and video Q&A responses have been successfully submitted.
+          Your Expense Tracker project and video Q&A responses have been successfully submitted
+          {user?.email ? ` for ${user.email}` : ""}.
           Our technical team will review your build and responses and{" "}
           <strong className="text-gray-700">get back to you shortly</strong>.
         </p>
