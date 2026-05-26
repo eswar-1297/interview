@@ -5,6 +5,7 @@ import HackathonLogin   from "./components/HackathonLogin";
 import HackathonBuild   from "./components/HackathonBuild";
 import HackathonQA      from "./components/HackathonQA";
 import HackathonResults from "./components/HackathonResults";
+import AdminPanel       from "./components/AdminPanel";
 
 export default function App() {
   const [user, setUser]               = useState(null);
@@ -48,6 +49,9 @@ export default function App() {
           <Route path="/hackathon/done"
             element={user ? <HackathonResults user={user} /> : <Navigate to="/" replace />}
           />
+
+          {/* Admin */}
+          <Route path="/admin" element={<AdminPanel />} />
 
           {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />

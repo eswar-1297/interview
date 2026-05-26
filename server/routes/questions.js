@@ -21,6 +21,20 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 
+// Upload storage for hackathon code submissions (zips up to 100 MB)
+const codeUploadsDir = path.join(__dirname, "..", "uploads", "hackathon-code");
+if (!fs.existsSync(codeUploadsDir)) fs.mkdirSync(codeUploadsDir, { recursive: true });
+
+const codeStorage = multer.diskStorage({
+  destination: (_req, _file, cb) => cb(null, codeUploadsDir),
+  filename: (req, file, cb) => {
+    const ts   = Date.now();
+    const email = (req.body?.email || "unknown").replace(/[^a-zA-Z0-9@._-]/g, "_");
+    cb(null, `${email}_${ts}.zip`);
+  },
+});
+const codeUpload = multer({ storage: codeStorage, limits: { fileSize: 100 * 1024 * 1024 } });
+
 const VALID_PASSWORD = "Neutara@2026";
 
 router.post("/login", (req, res) => {
@@ -164,6 +178,60 @@ router.post("/hackathon-register", (req, res) => {
     console.error(err);
     res.status(500).json({ success: false, error: "Registration failed." });
   }
+});
+
+// ── Hackathon code submission (zip upload) ──────────────────────────────────
+router.post("/hackathon-submit-code", codeUpload.single("code"), (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ success: false, error: "No file received." });
+
+    const entry = {
+      email:       (req.body?.email || "unknown").trim(),
+      filename:    req.file.filename,
+      originalName: req.file.originalname,
+      sizeMB:      (req.file.size / 1024 / 1024).toFixed(2),
+      submittedAt: new Date().toISOString(),
+    };
+
+    const logFile = path.join(dataDir, "hackathon-submissions.json");
+    let list = [];
+    try { list = JSON.parse(fs.readFileSync(logFile, "utf-8")); } catch {}
+    // Update existing entry for same email or push new
+    const idx = list.findIndex(e => e.email === entry.email);
+    if (idx >= 0) list[idx] = entry; else list.push(entry);
+    fs.writeFileSync(logFile, JSON.stringify(list, null, 2));
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: "Upload failed on server." });
+  }
+});
+
+// ── Admin: list all submissions ─────────────────────────────────────────────
+const ADMIN_PASSWORD = "Admin@Neutara2026";
+
+router.get("/admin-submissions", (req, res) => {
+  if (req.query.pass !== ADMIN_PASSWORD)
+    return res.status(401).json({ error: "Unauthorized" });
+
+  const logFile = path.join(dataDir, "hackathon-submissions.json");
+  let list = [];
+  try { list = JSON.parse(fs.readFileSync(logFile, "utf-8")); } catch {}
+  res.json(list);
+});
+
+// ── Admin: download a candidate's zip ──────────────────────────────────────
+router.get("/admin-download/:filename", (req, res) => {
+  if (req.query.pass !== ADMIN_PASSWORD)
+    return res.status(401).json({ error: "Unauthorized" });
+
+  const safe = path.basename(req.params.filename);
+  const filePath = path.join(codeUploadsDir, safe);
+  if (!fs.existsSync(filePath))
+    return res.status(404).json({ error: "File not found" });
+
+  res.download(filePath, safe);
 });
 
 // ── Hackathon Q&A questions ─────────────────────────────────────────────────

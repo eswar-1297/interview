@@ -47,6 +47,13 @@ export default function HackathonBuild({ user, onBuildDone }) {
   const [cameraError, setCameraError] = useState(false);
   const [activeTab, setActiveTab] = useState("features"); // features | api | tips
 
+  // Code upload state
+  const [zipFile, setZipFile]         = useState(null);
+  const [uploading, setUploading]     = useState(false);
+  const [uploadDone, setUploadDone]   = useState(false);
+  const [uploadError, setUploadError] = useState("");
+  const fileRef = useRef(null);
+
   const videoRef  = useRef(null);
   const streamRef = useRef(null);
   const navigate  = useNavigate();
@@ -94,7 +101,51 @@ export default function HackathonBuild({ user, onBuildDone }) {
     return () => clearInterval(id);
   }, [goToQA]);
 
+  // Zip file selection
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.name.endsWith(".zip")) {
+      setUploadError("Please upload a .zip file of your project.");
+      return;
+    }
+    if (file.size > 100 * 1024 * 1024) {
+      setUploadError("File too large. Max size is 100 MB.");
+      return;
+    }
+    setUploadError("");
+    setZipFile(file);
+    setUploadDone(false);
+  };
+
+  // Upload zip to server
+  const handleUpload = async () => {
+    if (!zipFile) return;
+    setUploading(true);
+    setUploadError("");
+    try {
+      const fd = new FormData();
+      fd.append("code", zipFile);
+      fd.append("email", user?.email || "unknown");
+      const res  = await fetch("/api/hackathon-submit-code", { method: "POST", body: fd });
+      const data = await res.json();
+      if (data.success) {
+        setUploadDone(true);
+      } else {
+        setUploadError(data.error || "Upload failed. Please try again.");
+      }
+    } catch {
+      setUploadError("Upload failed. Check your connection and try again.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const handleDone = () => {
+    if (!uploadDone) {
+      setUploadError("Please upload your project code before proceeding.");
+      return;
+    }
     if (!confirmed) { setConfirmed(true); return; }
     goToQA();
   };
@@ -143,7 +194,9 @@ export default function HackathonBuild({ user, onBuildDone }) {
             </div>
 
             {/* Done button */}
-            {!confirmed ? (
+            {!uploadDone ? (
+              <span className="text-xs text-gray-400 hidden sm:inline">↓ Upload code first</span>
+            ) : !confirmed ? (
               <button onClick={handleDone}
                 className="text-xs font-semibold bg-gray-900 hover:bg-gray-800 text-white px-3 py-1.5 rounded-lg transition-colors">
                 Done Building →
@@ -153,7 +206,7 @@ export default function HackathonBuild({ user, onBuildDone }) {
                 <span className="text-xs text-gray-500">Are you sure?</span>
                 <button onClick={goToQA}
                   className="text-xs font-semibold bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg transition-colors">
-                  Yes, Proceed to Q&A
+                  Yes, Go to Q&A
                 </button>
                 <button onClick={() => setConfirmed(false)}
                   className="text-xs font-semibold text-gray-500 hover:text-gray-800 px-2 py-1.5 transition-colors">
@@ -368,30 +421,82 @@ public class Expense {
               ))}
             </div>
 
-            {/* Done button */}
+            {/* Code Upload + Done */}
             <div className="bg-white border border-gray-200 rounded-xl p-4 space-y-3">
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">When You're Ready</p>
+              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Submit Your Code</p>
               <p className="text-xs text-gray-500 leading-relaxed">
-                Click when your Expense Tracker is complete and running. You'll move to the 5-question video Q&A.
+                Zip your entire project (exclude <code className="bg-gray-100 px-1 rounded">target/</code> and <code className="bg-gray-100 px-1 rounded">node_modules/</code>) and upload before proceeding.
               </p>
-              {!confirmed ? (
-                <button onClick={handleDone}
-                  className="w-full py-2 text-sm font-semibold bg-gray-900 hover:bg-gray-800 text-white rounded-lg transition-colors">
-                  I've Completed the Build →
-                </button>
+
+              <input ref={fileRef} type="file" accept=".zip" onChange={handleFileChange} className="hidden" />
+
+              {!uploadDone ? (
+                <>
+                  {zipFile ? (
+                    <div className="p-2.5 bg-blue-50 border border-blue-200 rounded-lg">
+                      <p className="text-xs text-blue-800 font-medium truncate">{zipFile.name}</p>
+                      <p className="text-[11px] text-blue-500">{(zipFile.size / 1024 / 1024).toFixed(1)} MB</p>
+                    </div>
+                  ) : (
+                    <button onClick={() => fileRef.current?.click()}
+                      className="w-full flex items-center justify-center gap-2 py-2 text-sm text-gray-600 border border-dashed border-gray-300 rounded-lg hover:border-gray-400 hover:bg-gray-50 transition-colors">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                      </svg>
+                      Choose .zip file
+                    </button>
+                  )}
+
+                  {zipFile && (
+                    <div className="flex gap-2">
+                      <button onClick={handleUpload} disabled={uploading}
+                        className="flex-1 py-2 text-sm font-semibold bg-gray-900 hover:bg-gray-800 disabled:opacity-50 text-white rounded-lg transition-colors">
+                        {uploading ? "Uploading…" : "Upload Code"}
+                      </button>
+                      {!uploading && (
+                        <button onClick={() => { setZipFile(null); if (fileRef.current) fileRef.current.value = ""; }}
+                          className="px-3 py-2 text-xs text-gray-400 hover:text-gray-700 border border-gray-200 rounded-lg transition-colors">
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </>
               ) : (
-                <div className="space-y-2">
-                  <p className="text-xs text-amber-700 font-medium">Confirm — this will end the build phase.</p>
-                  <button onClick={goToQA}
-                    className="w-full py-2 text-sm font-semibold bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors">
-                    Yes, Go to Q&A
-                  </button>
-                  <button onClick={() => setConfirmed(false)}
-                    className="w-full py-2 text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors">
-                    Go back to building
-                  </button>
+                <div className="flex items-center gap-2 p-2.5 bg-green-50 border border-green-200 rounded-lg">
+                  <svg className="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <div>
+                    <p className="text-xs text-green-800 font-semibold">Code uploaded!</p>
+                    <p className="text-[11px] text-green-600">{zipFile?.name}</p>
+                  </div>
                 </div>
               )}
+
+              {uploadError && <p className="text-xs text-red-500">{uploadError}</p>}
+
+              <div className="border-t border-gray-100 pt-3">
+                {!confirmed ? (
+                  <button onClick={handleDone}
+                    disabled={!uploadDone}
+                    className="w-full py-2 text-sm font-semibold bg-gray-900 hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-lg transition-colors">
+                    {uploadDone ? "Proceed to Q&A →" : "Upload code first"}
+                  </button>
+                ) : (
+                  <div className="space-y-2">
+                    <p className="text-xs text-amber-700 font-medium">Confirm — this ends the build phase.</p>
+                    <button onClick={goToQA}
+                      className="w-full py-2 text-sm font-semibold bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors">
+                      Yes, Go to Q&A
+                    </button>
+                    <button onClick={() => setConfirmed(false)}
+                      className="w-full py-2 text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors">
+                      Go back to building
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
 
           </div>
