@@ -103,6 +103,48 @@ router.get("/vlsi-final", (_req, res) => {
   }
 });
 
+// ── Java Technical MCQ Round 2 ─────────────────────────────────────────────
+router.get("/java-mcq", (_req, res) => {
+  try {
+    const raw = fs.readFileSync(path.join(dataDir, "java-mcq-questions.json"), "utf-8");
+    const questions = JSON.parse(raw).map(({ answer, explanation, ...rest }) => rest);
+    res.json(questions);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to load Java MCQ questions" });
+  }
+});
+
+router.post("/java-mcq-submit", (req, res) => {
+  try {
+    const { answers } = req.body; // { "1": 0, "2": 2, ... }
+    const raw = fs.readFileSync(path.join(dataDir, "java-mcq-questions.json"), "utf-8");
+    const questions = JSON.parse(raw);
+
+    let score = 0;
+    const results = questions.map(q => {
+      const userAnswer = answers != null && answers[q.id] != null ? Number(answers[q.id]) : -1;
+      const isCorrect = userAnswer === q.answer;
+      if (isCorrect) score++;
+      return {
+        id: q.id,
+        category: q.category,
+        question: q.question,
+        code: q.code || null,
+        options: q.options,
+        userAnswer,
+        correctAnswer: q.answer,
+        explanation: q.explanation,
+        isCorrect,
+      };
+    });
+
+    res.json({ score, total: questions.length, results });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to submit answers" });
+  }
+});
+
 router.get("/technical-pdf", (_req, res) => {
   try {
     const { generatePDF } = require("../generate-technical-pdf");

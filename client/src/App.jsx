@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import HackathonLogin   from "./components/HackathonLogin";
-import HackathonBuild   from "./components/HackathonBuild";
-import HackathonQA      from "./components/HackathonQA";
-import HackathonResults from "./components/HackathonResults";
-import AdminPanel       from "./components/AdminPanel";
+import JavaMCQLogin   from "./components/JavaMCQLogin";
+import JavaMCQTest    from "./components/JavaMCQTest";
+import JavaMCQResults from "./components/JavaMCQResults";
+import AdminPanel     from "./components/AdminPanel";
 
 export default function App() {
-  const [user, setUser]               = useState(null);
-  const [buildDone, setBuildDone]     = useState(false);
-  const [hackDone, setHackDone]       = useState(false);
+  const [user, setUser]         = useState(null);
+  const [results, setResults]   = useState(null);
 
   return (
     <Router>
@@ -21,33 +19,27 @@ export default function App() {
           <Route path="/"
             element={
               user
-                ? <Navigate to="/hackathon/build" replace />
-                : <HackathonLogin onSubmit={setUser} />
+                ? <Navigate to="/test" replace />
+                : <JavaMCQLogin onSubmit={setUser} />
             }
           />
 
-          {/* Build phase */}
-          <Route path="/hackathon/build"
+          {/* MCQ Test */}
+          <Route path="/test"
             element={
-              !user      ? <Navigate to="/" replace /> :
-              buildDone  ? <Navigate to="/hackathon/qa" replace /> :
-              <HackathonBuild user={user} onBuildDone={() => setBuildDone(true)} />
-            }
-          />
-
-          {/* Video Q&A */}
-          <Route path="/hackathon/qa"
-            element={
-              !user      ? <Navigate to="/" replace /> :
-              !buildDone ? <Navigate to="/hackathon/build" replace /> :
-              hackDone   ? <Navigate to="/hackathon/done" replace /> :
-              <HackathonQA user={user} onSubmit={() => setHackDone(true)} />
+              !user    ? <Navigate to="/" replace /> :
+              results  ? <Navigate to="/done" replace /> :
+              <JavaMCQTest user={user} onSubmit={setResults} />
             }
           />
 
           {/* Results */}
-          <Route path="/hackathon/done"
-            element={user ? <HackathonResults user={user} /> : <Navigate to="/" replace />}
+          <Route path="/done"
+            element={
+              user
+                ? <JavaMCQResults user={user} results={results} />
+                : <Navigate to="/" replace />
+            }
           />
 
           {/* Admin */}
