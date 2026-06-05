@@ -10,12 +10,14 @@ export default function JavaMCQResults({ user }) {
           </svg>
         </div>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          Thank You{user?.name ? `, ${user.name.split(" ")[0]}` : ""}!
+        </h1>
         <p className="text-gray-500 text-sm mb-1">
           Your responses have been submitted successfully.
         </p>
         {user?.email && (
-          <p className="text-gray-400 text-xs mb-8">{user.email}</p>
+          <p className="text-gray-400 text-xs mb-8">A confirmation email has been sent to <strong>{user.email}</strong></p>
         )}
 
         <p className="text-gray-500 text-sm leading-relaxed">

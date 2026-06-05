@@ -60,7 +60,7 @@ export default function JavaMCQTest({ user, onSubmit }) {
       const res  = await fetch("/api/java-mcq-submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: user?.email, answers }),
+        body: JSON.stringify({ name: user?.name, email: user?.email, answers }),
       });
       const data = await res.json();
       setSubmitted(true);
@@ -147,11 +147,11 @@ export default function JavaMCQTest({ user, onSubmit }) {
             <div className="hidden sm:flex items-center gap-2 min-w-0">
               <div
                 className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                title={user?.email}
+                title={user?.name || user?.email}
               >
-                {user?.email?.[0]?.toUpperCase()}
+                {(user?.name || user?.email)?.[0]?.toUpperCase()}
               </div>
-              <span className="text-gray-400 text-xs truncate">{user?.email}</span>
+              <span className="text-gray-400 text-xs truncate">{user?.name || user?.email}</span>
               <span className="text-gray-300">·</span>
               <span className="text-gray-400 text-xs whitespace-nowrap">{answeredCount} of {questions.length} answered</span>
             </div>

@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
+const { sendThankYouEmail } = require("../mailer");
 
 const router = express.Router();
 
@@ -104,6 +105,33 @@ router.get("/vlsi-final", (_req, res) => {
 });
 
 // ── Java Technical MCQ Round 2 ─────────────────────────────────────────────
+router.post("/java-mcq-register", upload.single("resume"), async (req, res) => {
+  try {
+    const { name, email, contact } = req.body;
+    if (!name || !email || !contact)
+      return res.status(400).json({ success: false, error: "Name, email and contact are required." });
+
+    const entry = {
+      name:    name.trim(),
+      email:   email.trim(),
+      contact: contact.trim(),
+      resume:  req.file ? req.file.filename : null,
+      registeredAt: new Date().toISOString(),
+    };
+
+    const logFile = path.join(dataDir, "java-mcq-registrations.json");
+    let list = [];
+    try { list = JSON.parse(fs.readFileSync(logFile, "utf-8")); } catch {}
+    list.push(entry);
+    fs.writeFileSync(logFile, JSON.stringify(list, null, 2));
+
+    res.json({ success: true, user: { name: entry.name, email: entry.email } });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: "Registration failed." });
+  }
+});
+
 router.get("/java-mcq", (_req, res) => {
   try {
     const raw = fs.readFileSync(path.join(dataDir, "java-mcq-questions.json"), "utf-8");
@@ -114,9 +142,9 @@ router.get("/java-mcq", (_req, res) => {
   }
 });
 
-router.post("/java-mcq-submit", (req, res) => {
+router.post("/java-mcq-submit", async (req, res) => {
   try {
-    const { answers } = req.body; // { "1": 0, "2": 2, ... }
+    const { name, email, answers } = req.body;
     const raw = fs.readFileSync(path.join(dataDir, "java-mcq-questions.json"), "utf-8");
     const questions = JSON.parse(raw);
 
@@ -139,6 +167,13 @@ router.post("/java-mcq-submit", (req, res) => {
     });
 
     res.json({ score, total: questions.length, results });
+
+    // Send thank-you email after responding (non-blocking)
+    if (email) {
+      sendThankYouEmail({ name: name || email, email }).catch(err =>
+        console.error("Email send failed:", err.message)
+      );
+    }
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to submit answers" });
