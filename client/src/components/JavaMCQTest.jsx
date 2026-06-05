@@ -4,15 +4,10 @@ import { useNavigate } from "react-router-dom";
 const DURATION_SECONDS = 30 * 60;
 
 const CATEGORY_COLORS = {
-  "Strings":            { bg: "bg-blue-50",   text: "text-blue-700"   },
-  "Core Java":          { bg: "bg-violet-50",  text: "text-violet-700" },
-  "OOP":                { bg: "bg-teal-50",    text: "text-teal-700"   },
-  "Collections":        { bg: "bg-amber-50",   text: "text-amber-700"  },
-  "Exception Handling": { bg: "bg-red-50",     text: "text-red-700"    },
-  "Java 8 Features":    { bg: "bg-green-50",   text: "text-green-700"  },
-  "Concurrency":        { bg: "bg-sky-50",     text: "text-sky-700"    },
-  "Generics":           { bg: "bg-purple-50",  text: "text-purple-700" },
-  "Design Patterns":    { bg: "bg-pink-50",    text: "text-pink-700"   },
+  "Quantitative Aptitude": { bg: "bg-blue-50",   text: "text-blue-700"   },
+  "Logical Reasoning":     { bg: "bg-purple-50",  text: "text-purple-700" },
+  "Verbal Ability":        { bg: "bg-green-50",   text: "text-green-700"  },
+  "Data Interpretation":   { bg: "bg-amber-50",   text: "text-amber-700"  },
 };
 
 function pad(n) { return String(n).padStart(2, "0"); }
@@ -34,7 +29,7 @@ export default function JavaMCQTest({ user, onSubmit }) {
   const navigate  = useNavigate();
 
   useEffect(() => {
-    fetch("/api/java-mcq")
+    fetch("/api/aptitude")
       .then(r => r.json())
       .then(data => { setQuestions(data); setLoading(false); })
       .catch(() => setLoading(false));
@@ -57,7 +52,7 @@ export default function JavaMCQTest({ user, onSubmit }) {
     streamRef.current?.getTracks().forEach(t => t.stop());
 
     try {
-      const res  = await fetch("/api/java-mcq-submit", {
+      const res  = await fetch("/api/aptitude-submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: user?.name, email: user?.email, answers }),
@@ -142,7 +137,7 @@ export default function JavaMCQTest({ user, onSubmit }) {
       <header className="border-b border-gray-200 sticky top-0 z-10 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
-            <span className="font-semibold text-gray-900 text-sm whitespace-nowrap">Java Technical MCQ</span>
+            <span className="font-semibold text-gray-900 text-sm whitespace-nowrap">Aptitude Test</span>
             <span className="text-gray-300 hidden sm:inline">|</span>
             <div className="hidden sm:flex items-center gap-2 min-w-0">
               <div
@@ -217,23 +212,6 @@ export default function JavaMCQTest({ user, onSubmit }) {
               <h2 className="text-base sm:text-lg font-semibold text-gray-900 leading-snug mb-4">
                 {current.question}
               </h2>
-
-              {/* Code snippet */}
-              {current.code && (
-                <div className="mb-6 rounded-lg overflow-hidden border border-gray-200">
-                  <div className="bg-gray-800 px-4 py-1.5 flex items-center gap-2">
-                    <div className="flex gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
-                    </div>
-                    <span className="text-gray-400 text-xs font-mono ml-1">Java</span>
-                  </div>
-                  <pre className="bg-gray-900 text-green-300 text-sm font-mono px-5 py-4 overflow-x-auto leading-6 whitespace-pre">
-                    {current.code}
-                  </pre>
-                </div>
-              )}
 
               {/* Options */}
               <div className="space-y-3">

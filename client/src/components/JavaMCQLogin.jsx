@@ -69,7 +69,7 @@ export default function JavaMCQLogin({ onSubmit }) {
       formData.append("contact", contact.trim());
       formData.append("resume",  resumeFile);
 
-      const res  = await fetch("/api/java-mcq-register", { method: "POST", body: formData });
+      const res  = await fetch("/api/aptitude-register", { method: "POST", body: formData });
       const data = await res.json();
 
       if (data.success) {
@@ -97,17 +97,16 @@ export default function JavaMCQLogin({ onSubmit }) {
       {/* ── Left panel ──────────────────────────────────── */}
       <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
-          <p className="text-gray-400 text-xs uppercase tracking-widest font-semibold">CloudFuze — Round 2</p>
-          <p className="text-white font-bold text-lg mt-1">Java Technical Assessment</p>
+          <p className="text-gray-400 text-xs uppercase tracking-widest font-semibold">Round 1</p>
+          <p className="text-white font-bold text-lg mt-1">Aptitude Assessment</p>
         </div>
 
         <div className="space-y-6">
           <div>
-            <p className="font-semibold text-sm">Core Java MCQ Test</p>
+            <p className="font-semibold text-sm">General Aptitude Test</p>
             <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
-              40 multiple-choice questions covering core Java concepts for
-              developers with 2 years of experience. Several questions include
-              code snippets whose output or behavior you must predict.
+              40 multiple-choice questions covering quantitative aptitude,
+              logical reasoning, verbal ability, and data interpretation.
             </p>
             <p className="text-gray-500 text-xs mt-2">Duration: 30 minutes &nbsp;·&nbsp; 40 questions</p>
           </div>
@@ -115,12 +114,10 @@ export default function JavaMCQLogin({ onSubmit }) {
           <div className="space-y-2 text-xs">
             <p className="text-gray-500 font-semibold uppercase tracking-widest text-[10px]">Topics Covered</p>
             {[
-              "Core Java & OOP",
-              "Collections & Generics",
-              "Java 8 Features — Streams & Lambdas",
-              "Exception Handling",
-              "Concurrency & Multithreading",
-              "Design Patterns",
+              "Quantitative Aptitude — Q1 to Q12",
+              "Logical Reasoning — Q13 to Q24",
+              "Verbal Ability — Q25 to Q34",
+              "Data Interpretation — Q35 to Q40",
             ].map(t => (
               <div key={t} className="flex items-start gap-2 text-gray-400">
                 <span className="text-gray-600 mt-0.5">›</span>
@@ -152,7 +149,7 @@ export default function JavaMCQLogin({ onSubmit }) {
           <div className="mb-8">
             <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-              Round 2 — Java Technical MCQ
+              Round 1 — Aptitude Test
             </div>
             <h2 className="text-2xl font-bold text-gray-900">Register to Begin</h2>
             <p className="text-sm text-gray-500 mt-1">

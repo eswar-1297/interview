@@ -104,6 +104,34 @@ router.get("/vlsi-final", (_req, res) => {
   }
 });
 
+// ── Aptitude Round 1 submit (server-side scoring + thank-you email) ────────
+router.post("/aptitude-submit", async (req, res) => {
+  try {
+    const { name, email, answers } = req.body;
+    const raw = fs.readFileSync(path.join(dataDir, "aptitude-questions.json"), "utf-8");
+    const questions = JSON.parse(raw);
+
+    let score = 0;
+    const results = questions.map(q => {
+      const userAnswer = answers != null && answers[q.id] != null ? Number(answers[q.id]) : -1;
+      const isCorrect  = userAnswer === q.answer;
+      if (isCorrect) score++;
+      return { id: q.id, category: q.category, userAnswer, correctAnswer: q.answer, isCorrect };
+    });
+
+    res.json({ score, total: questions.length, results });
+
+    if (email) {
+      sendThankYouEmail({ name: name || email, email }).catch(err =>
+        console.error("Email send failed:", err.message)
+      );
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to submit" });
+  }
+});
+
 // ── Java Technical MCQ Round 2 ─────────────────────────────────────────────
 router.post("/java-mcq-register", upload.single("resume"), async (req, res) => {
   try {
