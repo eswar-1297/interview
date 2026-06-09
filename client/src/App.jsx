@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import JavaMCQLogin   from "./components/JavaMCQLogin";
-import JavaMCQTest    from "./components/JavaMCQTest";
-import JavaMCQResults from "./components/JavaMCQResults";
-import AdminPanel     from "./components/AdminPanel";
+import TaxCaseStudyLogin from "./components/TaxCaseStudyLogin";
+import TaxCaseStudyTest  from "./components/TaxCaseStudyTest";
+import TaxCaseStudyDone  from "./components/TaxCaseStudyDone";
+import AdminPanel        from "./components/AdminPanel";
 
 export default function App() {
-  const [user, setUser]         = useState(null);
-  const [results, setResults]   = useState(null);
+  const [user, setUser]       = useState(null);
+  const [done, setDone]       = useState(false);
 
   return (
     <Router>
@@ -18,28 +18,22 @@ export default function App() {
           {/* Login */}
           <Route path="/"
             element={
-              user
-                ? <Navigate to="/test" replace />
-                : <JavaMCQLogin onSubmit={setUser} />
+              user ? <Navigate to="/test" replace /> : <TaxCaseStudyLogin onSubmit={setUser} />
             }
           />
 
-          {/* MCQ Test */}
+          {/* Test */}
           <Route path="/test"
             element={
-              !user    ? <Navigate to="/" replace /> :
-              results  ? <Navigate to="/done" replace /> :
-              <JavaMCQTest user={user} onSubmit={setResults} />
+              !user ? <Navigate to="/" replace /> :
+              done  ? <Navigate to="/done" replace /> :
+              <TaxCaseStudyTest user={user} onSubmit={() => setDone(true)} />
             }
           />
 
-          {/* Results */}
+          {/* Thank you */}
           <Route path="/done"
-            element={
-              user
-                ? <JavaMCQResults user={user} results={results} />
-                : <Navigate to="/" replace />
-            }
+            element={user ? <TaxCaseStudyDone /> : <Navigate to="/" replace />}
           />
 
           {/* Admin */}

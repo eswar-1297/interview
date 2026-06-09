@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "topic": "GST — Output Tax Computation",
+    "scenario": "Ravi Traders, a GST-registered business in Maharashtra, made the following supplies during October 2024:\n• Intra-state sales of taxable goods: Rs. 8,00,000 (GST rate 18%)\n• Inter-state sales of taxable goods: Rs. 3,00,000 (GST rate 12%)\n• Export of goods (zero-rated): Rs. 1,50,000\n• Sale of exempt goods: Rs. 50,000",
+    "question": "Calculate the total GST output tax liability (CGST, SGST, IGST separately) for Ravi Traders for October 2024. Show your working."
+  },
+  {
+    "id": 2,
+    "topic": "TDS — Section 194C Contractor Payment",
+    "scenario": "ABC Pvt. Ltd. engages a contractor to renovate its office. The following payments are made in FY 2024-25:\n• April: Rs. 28,000\n• May: Rs. 35,000\n• June: Rs. 22,000\nThe contractor is an individual and has not submitted a lower deduction certificate.",
+    "question": "Determine: (a) In which month TDS first becomes applicable under Section 194C, and (b) the total TDS to be deducted by end of June. Show your working."
+  },
+  {
+    "id": 3,
+    "topic": "Income Tax — Taxable Income Computation",
+    "scenario": "Priya, a resident individual (age 32), has the following income for FY 2024-25:\n• Gross salary: Rs. 9,60,000 | Standard deduction: Rs. 75,000\n• Interest from savings bank: Rs. 18,000\n• Rental income from let-out property: Rs. 1,80,000\n  (Municipal taxes paid: Rs. 12,000; home loan interest: Rs. 95,000)\nShe opts for the OLD tax regime.",
+    "question": "Compute Priya's total taxable income under the old regime. Show head-wise workings."
+  },
+  {
+    "id": 4,
+    "topic": "Income Tax — LTCG on Listed Equity Shares",
+    "scenario": "Arjun purchased 500 shares of XYZ Ltd. on 1 August 2022 at Rs. 240 per share. He sold all 500 shares on 15 October 2024 at Rs. 410 per share. STT was paid on both purchase and sale. Arjun has no other capital gains in FY 2024-25.",
+    "question": "Calculate: (a) whether the gain is STCG or LTCG, (b) the capital gain amount, and (c) the tax payable on it."
+  },
+  {
+    "id": 5,
+    "topic": "GST — Input Tax Credit (ITC) Eligibility",
+    "scenario": "Kiran Enterprises (GST registered, engaged in taxable supply) incurred the following expenses in November 2024:\nA. Purchase of raw materials for manufacturing: Rs. 5,00,000 (GST 18%)\nB. Purchase of a car for the MD's personal use: Rs. 12,00,000 (GST 28%)\nC. Staff canteen food and refreshments: Rs. 80,000 (GST 5%)\nD. Purchase of office computers: Rs. 1,50,000 (GST 18%)\nE. Outdoor catering for a client event: Rs. 60,000 (GST 18%)",
+    "question": "Identify which items are eligible for ITC under GST law and compute the total admissible ITC. Justify each item."
+  },
+  {
+    "id": 6,
+    "topic": "Income Tax — Advance Tax Calculation",
+    "scenario": "Sunita is a freelance tax consultant. Her estimated income for FY 2024-25 is:\n• Professional fees: Rs. 14,00,000\n• Short-term capital gains (equity): Rs. 80,000\n• Savings bank interest: Rs. 12,000\nEstimated deductions: 80C Rs. 1,50,000 | 80D Rs. 25,000 | 80TTA Rs. 10,000\nNo TDS deducted. She opts for the OLD tax regime.",
+    "question": "Compute Sunita's total advance tax liability and the amount due at each installment date."
+  },
+  {
+    "id": 7,
+    "topic": "Income Tax — Deductions Under Chapter VI-A",
+    "scenario": "Vikram (age 45, salaried) has a Gross Total Income of Rs. 12,50,000 for FY 2024-25. He made the following payments:\n• PPF deposit: Rs. 1,20,000\n• ELSS mutual fund: Rs. 60,000\n• Life insurance premium: Rs. 30,000\n• Health insurance for self & family: Rs. 28,000\n• Health insurance for dependent parents (age 68): Rs. 52,000\n• Interest on education loan (Section 80E): Rs. 75,000\nHe opts for the OLD tax regime.",
+    "question": "Calculate the total deductions available under Chapter VI-A and Vikram's net taxable income. Show the limit applied for each section."
+  },
+  {
+    "id": 8,
+    "topic": "GST — GSTR-1 vs GSTR-3B Reconciliation",
+    "scenario": "During the GST audit of Mehta & Co. for FY 2023-24, the following mismatch is found:\n\nAs per GSTR-1: Taxable value Rs. 45,00,000 | Tax Rs. 8,10,000 (18%)\nAs per GSTR-3B: Taxable value Rs. 42,00,000 | Tax Rs. 7,56,000 (18%)\n\nOn investigation:\n(i) Two invoices of Rs. 2,00,000 each were raised in March 2024 but not reported in GSTR-3B.\n(ii) One credit note of Rs. 1,00,000 was correctly in GSTR-1 but tax reduction was double-counted in GSTR-3B.",
+    "question": "Identify the nature of each discrepancy, compute the tax shortfall/excess, and state the corrective action required under GST law."
+  }
+]
