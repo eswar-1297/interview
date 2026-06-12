@@ -36,41 +36,7 @@ const codeStorage = multer.diskStorage({
 });
 const codeUpload = multer({ storage: codeStorage, limits: { fileSize: 100 * 1024 * 1024 } });
 
-const VALID_PASSWORD      = "Neutara@2026";
-const TAX_VALID_PASSWORD  = "Uniquehire@2026";
-
-router.post("/tax-login", (req, res) => {
-  const { email, password } = req.body;
-  if (email && email.trim() && password === TAX_VALID_PASSWORD) {
-    res.json({ success: true, user: { email: email.trim() } });
-  } else {
-    res.status(401).json({ success: false, error: "Invalid credentials" });
-  }
-});
-
-router.get("/tax-casestudy", (_req, res) => {
-  try {
-    const raw = fs.readFileSync(path.join(dataDir, "tax-casestudy-questions.json"), "utf-8");
-    res.json(JSON.parse(raw));
-  } catch (err) {
-    res.status(500).json({ error: "Failed to load questions" });
-  }
-});
-
-router.post("/tax-submit", async (req, res) => {
-  try {
-    const { email, answers } = req.body; // answers: { "1": "typed text", ... }
-    const logFile = path.join(dataDir, "tax-submissions.json");
-    let list = [];
-    try { list = JSON.parse(fs.readFileSync(logFile, "utf-8")); } catch {}
-    list.push({ email, answers, submittedAt: new Date().toISOString() });
-    fs.writeFileSync(logFile, JSON.stringify(list, null, 2));
-    res.json({ success: true });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to save submission" });
-  }
-});
+const VALID_PASSWORD = "Neutara@2026";
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -87,6 +53,21 @@ router.get("/coding", (_req, res) => {
     res.json(JSON.parse(raw));
   } catch (err) {
     res.status(500).json({ error: "Failed to load coding questions" });
+  }
+});
+
+router.post("/coding-submit", (req, res) => {
+  try {
+    const { email, submissions } = req.body; // submissions: { "1": { code, language }, ... }
+    const logFile = path.join(dataDir, "coding-submissions.json");
+    let list = [];
+    try { list = JSON.parse(fs.readFileSync(logFile, "utf-8")); } catch {}
+    list.push({ email, submissions, submittedAt: new Date().toISOString() });
+    fs.writeFileSync(logFile, JSON.stringify(list, null, 2));
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to save submission" });
   }
 });
 

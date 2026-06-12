@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import TaxCaseStudyLogin from "./components/TaxCaseStudyLogin";
-import TaxCaseStudyTest  from "./components/TaxCaseStudyTest";
-import TaxCaseStudyDone  from "./components/TaxCaseStudyDone";
-import AdminPanel        from "./components/AdminPanel";
+import CodingLogin from "./components/CodingLogin";
+import CodingTest  from "./components/CodingTest";
+import CodingDone  from "./components/CodingDone";
+import AdminPanel  from "./components/AdminPanel";
 
 export default function App() {
-  const [user, setUser]       = useState(null);
-  const [done, setDone]       = useState(false);
+  const [user, setUser] = useState(null);
+  const [done, setDone] = useState(false);
 
   return (
     <Router>
@@ -18,7 +18,7 @@ export default function App() {
           {/* Login */}
           <Route path="/"
             element={
-              user ? <Navigate to="/test" replace /> : <TaxCaseStudyLogin onSubmit={setUser} />
+              user ? <Navigate to="/test" replace /> : <CodingLogin onSubmit={setUser} />
             }
           />
 
@@ -27,13 +27,13 @@ export default function App() {
             element={
               !user ? <Navigate to="/" replace /> :
               done  ? <Navigate to="/done" replace /> :
-              <TaxCaseStudyTest user={user} onSubmit={() => setDone(true)} />
+              <CodingTest user={user} onSubmit={() => setDone(true)} />
             }
           />
 
           {/* Thank you */}
           <Route path="/done"
-            element={user ? <TaxCaseStudyDone /> : <Navigate to="/" replace />}
+            element={user ? <CodingDone /> : <Navigate to="/" replace />}
           />
 
           {/* Admin */}

@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
 
-export default function CodeEditor({ starterCode, initialCode, initialLanguage, onCodeChange, pythonOnly }) {
+export default function CodeEditor({
+  starterCode,
+  initialCode,
+  initialLanguage,
+  sampleInput = "",
+  onCodeChange,
+  pythonOnly,
+}) {
   const defaultLang = pythonOnly ? "python" : (initialLanguage || "java");
   const [language, setLanguage] = useState(defaultLang);
   const [code, setCode] = useState(initialCode ?? (starterCode?.[defaultLang] || ""));
+  const [stdin, setStdin] = useState(sampleInput);
   const [output, setOutput] = useState("");
   const [running, setRunning] = useState(false);
 
@@ -28,7 +36,7 @@ export default function CodeEditor({ starterCode, initialCode, initialLanguage, 
       const res = await fetch("/api/execute", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ language, code }),
+        body: JSON.stringify({ language, code, stdin }),
       });
       const data = await res.json();
       if (data.compilationError) {
@@ -76,10 +84,10 @@ export default function CodeEditor({ starterCode, initialCode, initialLanguage, 
         <button
           onClick={handleRun}
           disabled={running}
-          className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-white bg-[#333] hover:bg-[#444] disabled:opacity-50 rounded transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-white bg-[#0e7c3a] hover:bg-[#0a6e32] disabled:opacity-50 rounded transition-colors"
         >
           {running ? (
-            <span className="text-gray-400">Running...</span>
+            <span className="text-gray-300">Running...</span>
           ) : (
             <>
               <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
@@ -110,6 +118,29 @@ export default function CodeEditor({ starterCode, initialCode, initialLanguage, 
             lineNumbersMinChars: 3,
             renderLineHighlight: "gutter",
           }}
+        />
+      </div>
+
+      {/* Custom input (stdin) */}
+      <div className="border-t border-[#333] bg-[#1e1e1e]">
+        <div className="px-3 h-7 flex items-center justify-between border-b border-[#333]">
+          <span className="text-[10px] uppercase tracking-widest text-gray-500 font-semibold">Custom Input (stdin)</span>
+          {sampleInput && (
+            <button
+              onClick={() => setStdin(sampleInput)}
+              className="text-[10px] text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              Reset to sample
+            </button>
+          )}
+        </div>
+        <textarea
+          value={stdin}
+          onChange={(e) => setStdin(e.target.value)}
+          spellCheck={false}
+          rows={3}
+          placeholder="Type input passed to your program via standard input…"
+          className="w-full px-3 py-2 text-xs text-gray-300 font-mono bg-[#1e1e1e] resize-none outline-none placeholder-gray-600"
         />
       </div>
 

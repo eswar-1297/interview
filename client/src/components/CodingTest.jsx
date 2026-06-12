@@ -4,12 +4,25 @@ import Timer from "./Timer";
 import CodeEditor from "./CodeEditor";
 import CameraFeed from "./CameraFeed";
 
+const TEST_DURATION_MINUTES = 45;
+
 export default function CodingTest({ user, onSubmit }) {
+  const storageKey = `coding-submissions-${user?.email || "guest"}`;
+
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [submissions, setSubmissions] = useState({});
+  // Restore any previously written code so switching questions / refreshing keeps it.
+  const [submissions, setSubmissions] = useState(() => {
+    try {
+      const saved = localStorage.getItem(storageKey);
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const navigate = useNavigate();
   const submissionsRef = useRef(submissions);
@@ -28,23 +41,50 @@ export default function CodingTest({ user, onSubmit }) {
       .catch(() => setLoading(false));
   }, []);
 
+  // Persist code as the candidate types so nothing is lost on navigation/refresh.
+  useEffect(() => {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(submissions));
+    } catch {
+      /* ignore quota errors */
+    }
+  }, [submissions, storageKey]);
+
   const handleCodeChange = (code, language) => {
-    const qId = questions[currentIndex]?.id;
+    const qId = questionsRef.current[currentIndex]?.id;
     if (qId !== undefined) {
       setSubmissions((prev) => ({ ...prev, [qId]: { code, language } }));
     }
   };
 
-  const handleSubmit = useCallback(() => {
-    if (submitted) return;
+  const handleSubmit = useCallback(async () => {
+    if (submitted || submitting) return;
+    setSubmitting(true);
     setSubmitted(true);
-    onSubmit({
+    try {
+      await fetch("/api/coding-submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: user?.email,
+          submissions: submissionsRef.current,
+        }),
+      });
+    } catch {
+      /* still proceed to thank-you page even if the network hiccups */
+    }
+    try {
+      localStorage.removeItem(storageKey);
+    } catch {
+      /* ignore */
+    }
+    onSubmit?.({
       submissions: submissionsRef.current,
       attempted: Object.keys(submissionsRef.current).length,
       total: questionsRef.current.length,
     });
-    navigate("/results");
-  }, [submitted, onSubmit, navigate]);
+    navigate("/done");
+  }, [submitted, submitting, onSubmit, navigate, user, storageKey]);
 
   useEffect(() => {
     const handleBeforeUnload = (e) => {
@@ -74,7 +114,9 @@ export default function CodingTest({ user, onSubmit }) {
   }
 
   const current = questions[currentIndex];
-  const attemptedCount = Object.keys(submissions).length;
+  const attemptedCount = Object.keys(submissions).filter(
+    (id) => submissions[id]?.code?.trim()
+  ).length;
 
   return (
     <div className="min-h-screen bg-[#1e1e1e] flex flex-col">
@@ -108,7 +150,7 @@ export default function CodingTest({ user, onSubmit }) {
       <header className="border-b border-[#333] sticky top-0 z-10 bg-[#1e1e1e]">
         <div className="px-4 h-11 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold text-gray-300">Developer Coding Round — Third Round</span>
+            <span className="text-sm font-semibold text-gray-300">Coding Round — Round 3</span>
             <span className="text-gray-600">|</span>
             <div className="flex gap-1">
               {questions.map((q, i) => (
@@ -118,7 +160,7 @@ export default function CodingTest({ user, onSubmit }) {
                   className={`w-7 h-7 rounded text-xs font-medium transition-colors ${
                     i === currentIndex
                       ? "bg-white text-gray-900"
-                      : submissions[q.id]
+                      : submissions[q.id]?.code?.trim()
                       ? "bg-[#333] text-gray-300"
                       : "bg-transparent text-gray-500 hover:text-gray-300"
                   }`}
@@ -130,14 +172,15 @@ export default function CodingTest({ user, onSubmit }) {
           </div>
           <div className="flex items-center gap-4">
             <CameraFeed size="sm" />
-            <Timer durationMinutes={40} onTimeUp={handleSubmit} />
+            <Timer durationMinutes={TEST_DURATION_MINUTES} onTimeUp={handleSubmit} />
             <button
               onClick={() => {
                 if (window.confirm("Submit your coding test?")) handleSubmit();
               }}
-              className="text-sm font-semibold text-gray-300 hover:text-white transition-colors"
+              disabled={submitting}
+              className="text-sm font-semibold text-gray-300 hover:text-white disabled:opacity-50 transition-colors"
             >
-              Submit
+              {submitting ? "Submitting…" : "Submit"}
             </button>
           </div>
         </div>
@@ -158,17 +201,17 @@ export default function CodingTest({ user, onSubmit }) {
 
               <div className="space-y-3 mb-5">
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-1">Input</p>
-                  <pre className="bg-gray-50 border border-gray-100 rounded px-3 py-2 text-xs font-mono text-gray-700">{current.sampleInput}</pre>
+                  <p className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-1">Sample Input</p>
+                  <pre className="bg-gray-50 border border-gray-100 rounded px-3 py-2 text-xs font-mono text-gray-700 whitespace-pre-wrap">{current.sampleInput}</pre>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-1">Output</p>
-                  <pre className="bg-gray-50 border border-gray-100 rounded px-3 py-2 text-xs font-mono text-gray-700">{current.sampleOutput}</pre>
+                  <p className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-1">Sample Output</p>
+                  <pre className="bg-gray-50 border border-gray-100 rounded px-3 py-2 text-xs font-mono text-gray-700 whitespace-pre-wrap">{current.sampleOutput}</pre>
                 </div>
                 {current.constraints && (
                   <div>
                     <p className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-1">Constraints</p>
-                    <p className="text-xs text-gray-500">{current.constraints}</p>
+                    <p className="text-xs text-gray-500 whitespace-pre-line">{current.constraints}</p>
                   </div>
                 )}
               </div>
@@ -201,6 +244,7 @@ export default function CodingTest({ user, onSubmit }) {
               starterCode={current.starterCode}
               initialCode={submissions[current.id]?.code}
               initialLanguage={submissions[current.id]?.language}
+              sampleInput={current.sampleInput}
               onCodeChange={handleCodeChange}
             />
           )}
