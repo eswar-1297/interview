@@ -134,6 +134,24 @@ router.post("/aptitude-submit", async (req, res) => {
       return { id: q.id, category: q.category, userAnswer, correctAnswer: q.answer, isCorrect };
     });
 
+    // Persist the submission (score + answers) for later review.
+    try {
+      const logFile = path.join(dataDir, "aptitude-submissions.json");
+      let list = [];
+      try { list = JSON.parse(fs.readFileSync(logFile, "utf-8")); } catch {}
+      list.push({
+        name: name || null,
+        email: email || null,
+        score,
+        total: questions.length,
+        answers: answers || {},
+        submittedAt: new Date().toISOString(),
+      });
+      fs.writeFileSync(logFile, JSON.stringify(list, null, 2));
+    } catch (e) {
+      console.error("Failed to save aptitude submission:", e.message);
+    }
+
     res.json({ score, total: questions.length, results });
 
     if (email) {

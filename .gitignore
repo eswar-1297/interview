@@ -7,3 +7,8 @@ build/
 server/uploads/
 server/data/coding-submissions.json
 server/data/tax-submissions.json
+server/data/aptitude-submissions.json
+server/data/aptitude-registrations.json
+server/data/java-mcq-registrations.json
+server/data/hackathon-registrations.json
+server/data/hackathon-submissions.json

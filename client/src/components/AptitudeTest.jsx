@@ -57,13 +57,22 @@ export default function AptitudeTest({ user, onSubmit }) {
   }, []);
 
   // ── Countdown timer ─────────────────────────────────────────────────────
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     if (submitted) return;
     setSubmitted(true);
     streamRef.current?.getTracks().forEach(t => t.stop());
+    try {
+      await fetch("/api/aptitude-submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: user?.name, email: user?.email, answers }),
+      });
+    } catch {
+      /* proceed to thank-you page even if the network hiccups */
+    }
     onSubmit({ answered: Object.keys(answers).length, total: questions.length });
-    navigate("/results");
-  }, [submitted, answers, questions.length, onSubmit, navigate]);
+    navigate("/done");
+  }, [submitted, answers, user, onSubmit, navigate]);
 
   useEffect(() => {
     if (submitted || loading) return;

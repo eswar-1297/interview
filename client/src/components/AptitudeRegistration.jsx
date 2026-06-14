@@ -103,7 +103,8 @@ export default function AptitudeRegistration({ onSubmit }) {
       {/* ── Left panel ──────────────────────────────────────── */}
       <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
-          <p className="text-gray-400 text-sm">CloudFuze — Aptitude Assessment</p>
+          <p className="text-gray-400 text-xs uppercase tracking-widest font-semibold">Round 1</p>
+          <p className="text-white font-bold text-lg mt-1">Aptitude Assessment</p>
         </div>
 
         <div className="space-y-6">
