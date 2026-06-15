@@ -1,83 +1,32 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function JavaMCQLogin({ onSubmit }) {
-  const [name, setName]       = useState("");
-  const [email, setEmail]     = useState("");
-  const [contact, setContact] = useState("");
-  const [resumeFile, setResumeFile] = useState(null);
-  const [cameraStatus, setCameraStatus] = useState("idle"); // idle | requesting | granted | denied
-  const [error, setError]     = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const videoRef = useRef(null);
-  const streamRef = useRef(null);
-  const fileRef  = useRef(null);
+  const [email, setEmail]       = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError]       = useState("");
+  const [loading, setLoading]   = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    return () => streamRef.current?.getTracks().forEach(t => t.stop());
-  }, []);
-
-  const requestCamera = async () => {
-    setCameraStatus("requesting");
-    setError("");
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 320, height: 240 }, audio: false });
-      streamRef.current = stream;
-      if (videoRef.current) videoRef.current.srcObject = stream;
-      setCameraStatus("granted");
-    } catch {
-      setCameraStatus("denied");
-    }
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const allowed = [
-      "application/pdf",
-      "application/msword",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    ];
-    if (!allowed.includes(file.type)) return setError("Please upload a PDF or Word (.doc/.docx) file.");
-    if (file.size > 10 * 1024 * 1024) return setError("File size must be under 10 MB.");
-    setError("");
-    setResumeFile(file);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
-    if (!name.trim())    return setError("Please enter your full name.");
-    if (!email.trim())   return setError("Please enter your email address.");
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
-      return setError("Please enter a valid email address.");
-    if (!contact.trim()) return setError("Please enter your contact number.");
-    if (!/^\+?[\d\s\-()\d]{7,15}$/.test(contact.trim()))
-      return setError("Please enter a valid contact number.");
-    if (!resumeFile)     return setError("Please upload your resume.");
-    if (cameraStatus !== "granted")
-      return setError("Camera access is required to start the test.");
+    if (!email.trim())    return setError("Please enter your email address.");
+    if (!password.trim()) return setError("Please enter the password.");
 
     setLoading(true);
     try {
-      const formData = new FormData();
-      formData.append("name",    name.trim());
-      formData.append("email",   email.trim());
-      formData.append("contact", contact.trim());
-      formData.append("resume",  resumeFile);
-
-      const res  = await fetch("/api/aptitude-register", { method: "POST", body: formData });
+      const res  = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), password }),
+      });
       const data = await res.json();
-
       if (data.success) {
-        streamRef.current?.getTracks().forEach(t => t.stop());
-        onSubmit({ name: data.user.name, email: data.user.email });
+        onSubmit({ email: data.user.email });
         navigate("/test");
       } else {
-        setError(data.error || "Registration failed. Please try again.");
+        setError("Incorrect password. Please try again.");
       }
     } catch {
       setError("Something went wrong. Please try again.");
@@ -94,19 +43,19 @@ export default function JavaMCQLogin({ onSubmit }) {
   return (
     <div className="min-h-screen bg-white flex">
 
-      {/* ── Left panel ──────────────────────────────────── */}
+      {/* Left panel */}
       <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
-          <p className="text-gray-400 text-xs uppercase tracking-widest font-semibold">Round 1</p>
-          <p className="text-white font-bold text-lg mt-1">Aptitude Assessment</p>
+          <p className="text-gray-400 text-xs uppercase tracking-widest font-semibold">Round 2</p>
+          <p className="text-white font-bold text-lg mt-1">Java Technical MCQ</p>
         </div>
 
         <div className="space-y-6">
           <div>
-            <p className="font-semibold text-sm">General Aptitude Test</p>
+            <p className="font-semibold text-sm">Java Technical Assessment</p>
             <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
-              40 multiple-choice questions covering quantitative aptitude,
-              logical reasoning, verbal ability, and data interpretation.
+              40 multiple-choice questions on core Java concepts, including
+              output-prediction and code-analysis problems.
             </p>
             <p className="text-gray-500 text-xs mt-2">Duration: 30 minutes &nbsp;·&nbsp; 40 questions</p>
           </div>
@@ -114,10 +63,11 @@ export default function JavaMCQLogin({ onSubmit }) {
           <div className="space-y-2 text-xs">
             <p className="text-gray-500 font-semibold uppercase tracking-widest text-[10px]">Topics Covered</p>
             {[
-              "Quantitative Aptitude — Q1 to Q12",
-              "Logical Reasoning — Q13 to Q24",
-              "Verbal Ability — Q25 to Q34",
-              "Data Interpretation — Q35 to Q40",
+              "Core Java & OOP",
+              "Strings & Collections",
+              "Exception Handling",
+              "Java 8 Features & Concurrency",
+              "Generics & Design Patterns",
             ].map(t => (
               <div key={t} className="flex items-start gap-2 text-gray-400">
                 <span className="text-gray-600 mt-0.5">›</span>
@@ -143,41 +93,24 @@ export default function JavaMCQLogin({ onSubmit }) {
         </div>
       </div>
 
-      {/* ── Right panel ─────────────────────────────────── */}
-      <div className="flex-1 flex items-center justify-center px-6 py-12 overflow-y-auto">
+      {/* Right panel */}
+      <div className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-sm">
           <div className="mb-8">
             <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-              Round 1 — Aptitude Test
+              Round 2 — Java Technical MCQ
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Register to Begin</h2>
+            <h2 className="text-2xl font-bold text-gray-900">Welcome</h2>
             <p className="text-sm text-gray-500 mt-1">
-              Fill in your details and enable your camera to start the test.
+              Enter your email and the assessment password to begin.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-
-            {/* Full Name */}
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
-                Full Name <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                value={name}
-                onChange={e => { setName(e.target.value); setError(""); }}
-                className={inputClass(error && !name.trim())}
-                placeholder="John Smith"
-                autoFocus
-              />
-            </div>
-
-            {/* Email */}
-            <div>
-              <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
-                Email Address <span className="text-red-500">*</span>
+                Email Address
               </label>
               <input
                 type="email"
@@ -186,123 +119,22 @@ export default function JavaMCQLogin({ onSubmit }) {
                 className={inputClass(error && !email.trim())}
                 placeholder="you@example.com"
                 autoComplete="email"
+                autoFocus
               />
             </div>
 
-            {/* Contact */}
             <div>
               <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
-                Contact Number <span className="text-red-500">*</span>
+                Password
               </label>
               <input
-                type="tel"
-                value={contact}
-                onChange={e => { setContact(e.target.value); setError(""); }}
-                className={inputClass(error && !contact.trim())}
-                placeholder="+91 98765 43210"
-                autoComplete="tel"
+                type="password"
+                value={password}
+                onChange={e => { setPassword(e.target.value); setError(""); }}
+                className={inputClass(error && !password.trim())}
+                placeholder="Provided by interviewer"
+                autoComplete="current-password"
               />
-            </div>
-
-            {/* Resume */}
-            <div>
-              <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
-                Resume <span className="text-red-500">*</span>
-                <span className="normal-case font-normal text-gray-400 ml-1">(PDF or Word, max 10 MB)</span>
-              </label>
-              <input
-                ref={fileRef}
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={handleFileChange}
-                className="hidden"
-              />
-              {resumeFile ? (
-                <div className="flex items-center gap-3 p-3 border border-green-200 rounded bg-green-50">
-                  <svg className="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-green-800 font-medium truncate">{resumeFile.name}</p>
-                    <p className="text-[11px] text-green-600">{(resumeFile.size / 1024).toFixed(1)} KB</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => { setResumeFile(null); if (fileRef.current) fileRef.current.value = ""; }}
-                    className="text-xs text-green-700 underline flex-shrink-0"
-                  >
-                    Change
-                  </button>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => fileRef.current?.click()}
-                  className={`flex items-center gap-2 w-full px-4 py-3 rounded border text-sm transition ${
-                    error && !resumeFile
-                      ? "border-red-400 bg-red-50 text-red-700"
-                      : "border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100"
-                  }`}
-                >
-                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                  </svg>
-                  Upload Resume
-                </button>
-              )}
-            </div>
-
-            {/* Camera */}
-            <div>
-              <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
-                Camera <span className="text-red-500">*</span>
-              </label>
-              {cameraStatus === "granted" ? (
-                <div className="flex items-center gap-3 p-3 border border-gray-200 rounded bg-gray-50">
-                  <video
-                    ref={videoRef}
-                    autoPlay
-                    muted
-                    playsInline
-                    className="w-24 rounded object-cover bg-black flex-shrink-0"
-                    style={{ height: "4.5rem" }}
-                  />
-                  <div>
-                    <p className="text-xs text-gray-700 font-medium">Camera active</p>
-                    <p className="text-[11px] text-gray-400 mt-0.5">You are ready to start</p>
-                  </div>
-                </div>
-              ) : cameraStatus === "denied" ? (
-                <div className="p-3 border border-red-200 rounded bg-red-50">
-                  <p className="text-xs text-red-700 font-medium">Camera access denied</p>
-                  <p className="text-[11px] text-red-500 mt-0.5 mb-2">
-                    Allow camera in your browser settings, then retry.
-                  </p>
-                  <button type="button" onClick={requestCamera}
-                    className="text-xs font-semibold text-red-700 underline">
-                    Retry
-                  </button>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={requestCamera}
-                  disabled={cameraStatus === "requesting"}
-                  className={`flex items-center gap-2 w-full px-4 py-3 rounded border text-sm transition ${
-                    error && cameraStatus !== "granted"
-                      ? "border-red-400 bg-red-50 text-red-700"
-                      : "border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100"
-                  }`}
-                >
-                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                  {cameraStatus === "requesting" ? "Requesting access…" : "Enable Camera"}
-                </button>
-              )}
             </div>
 
             {error && (
@@ -321,10 +153,9 @@ export default function JavaMCQLogin({ onSubmit }) {
                 disabled={loading}
                 className="w-full py-2.5 px-4 bg-gray-900 hover:bg-gray-800 disabled:opacity-50 text-white text-sm font-semibold rounded transition-colors"
               >
-                {loading ? "Registering…" : "Start Test →"}
+                {loading ? "Verifying…" : "Start Test →"}
               </button>
             </div>
-
           </form>
 
           {/* Mobile info */}

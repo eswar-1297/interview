@@ -227,6 +227,24 @@ router.post("/java-mcq-submit", async (req, res) => {
       };
     });
 
+    // Persist the submission (score + answers) for later review.
+    try {
+      const logFile = path.join(dataDir, "java-mcq-submissions.json");
+      let list = [];
+      try { list = JSON.parse(fs.readFileSync(logFile, "utf-8")); } catch {}
+      list.push({
+        name: name || null,
+        email: email || null,
+        score,
+        total: questions.length,
+        answers: answers || {},
+        submittedAt: new Date().toISOString(),
+      });
+      fs.writeFileSync(logFile, JSON.stringify(list, null, 2));
+    } catch (e) {
+      console.error("Failed to save Java MCQ submission:", e.message);
+    }
+
     res.json({ score, total: questions.length, results });
 
     // Send thank-you email after responding (non-blocking)
