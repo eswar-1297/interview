@@ -2,7 +2,7 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const path = require("path");
 
-const questions = require("./data/java-mcq-questions.json");
+const questions = require("./data/python-mcq-questions.json");
 const OUTPUT_DIR = path.join(__dirname, "..", "answer-keys");
 if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
@@ -22,15 +22,16 @@ const COLORS = {
 };
 
 const CATEGORY_COLORS = {
-  "Strings":           "#1d4ed8",
-  "Core Java":         "#7c3aed",
-  "OOP":               "#0f766e",
-  "Collections":       "#b45309",
-  "Exception Handling":"#b91c1c",
-  "Java 8 Features":   "#047857",
-  "Concurrency":       "#0369a1",
-  "Generics":          "#7c3aed",
-  "Design Patterns":   "#be185d",
+  "Core Python":                 "#4338ca",
+  "Data Types":                  "#1d4ed8",
+  "Strings":                     "#0369a1",
+  "Lists & Tuples":              "#15803d",
+  "Dictionaries & Sets":         "#0f766e",
+  "Functions & Scope":           "#b45309",
+  "OOP":                         "#7c3aed",
+  "Exception Handling":          "#b91c1c",
+  "Comprehensions & Generators": "#0891b2",
+  "Decorators & Closures":       "#be185d",
 };
 
 const LETTERS = ["A", "B", "C", "D"];
@@ -46,10 +47,10 @@ function drawHeader(doc) {
   doc.rect(0, 0, doc.page.width, 110).fill(COLORS.title);
 
   doc.fillColor("#ffffff").fontSize(24).font("Helvetica-Bold")
-    .text("Java Technical MCQ — Round 2", 50, 25, { width: doc.page.width - 100 });
+    .text("Python Technical MCQ — Round 2", 50, 25, { width: doc.page.width - 100 });
 
   doc.fontSize(11).font("Helvetica")
-    .text("Answer Key  |  30 Questions  |  For 2 Years Experience  |  Duration: 45 min", 50, 60, { width: doc.page.width - 100 });
+    .text("Answer Key  |  40 Questions  |  For 2 Years Experience  |  Duration: 30 min", 50, 60, { width: doc.page.width - 100 });
 
   doc.fillColor("#94a3b8").fontSize(9)
     .text("CONFIDENTIAL — Interviewer Use Only", 50, 88, { width: doc.page.width - 100 });
@@ -140,7 +141,7 @@ function drawQuestion(doc, q, idx) {
 
 function generate() {
   const doc = new PDFDocument({ size: "A4", margin: 50, autoFirstPage: true });
-  const filePath = path.join(OUTPUT_DIR, "Java_Technical_MCQ_Answer_Key.pdf");
+  const filePath = path.join(OUTPUT_DIR, "Python_Technical_MCQ_Answer_Key.pdf");
   doc.pipe(fs.createWriteStream(filePath));
 
   drawHeader(doc);
@@ -151,7 +152,7 @@ function generate() {
   doc.fontSize(10).font("Helvetica")
     .text(`Total Questions: ${questions.length}  |  Categories: ${categories.join(", ")}`, 50, doc.y, { width: doc.page.width - 100 });
   doc.y += 6;
-  doc.text("Difficulty: Intermediate (2 Years Experience)  |  Topics: Core Java, OOP, Collections, Streams, Concurrency", 50, doc.y, { width: doc.page.width - 100 });
+  doc.text("Difficulty: Intermediate (2 Years Experience)  |  Topics: Core Python, Data Types, Collections, Functions, OOP, Generators, Decorators", 50, doc.y, { width: doc.page.width - 100 });
   doc.y += 20;
 
   // Quick answer key grid

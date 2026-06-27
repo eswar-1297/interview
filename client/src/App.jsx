@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import AptitudeRegistration from "./components/AptitudeRegistration";
-import AptitudeTest         from "./components/AptitudeTest";
-import AptitudeDone         from "./components/AptitudeDone";
-import AdminPanel           from "./components/AdminPanel";
+import PythonMCQLogin from "./components/PythonMCQLogin";
+import PythonMCQTest  from "./components/PythonMCQTest";
+import PythonMCQDone  from "./components/PythonMCQDone";
+import AdminPanel     from "./components/AdminPanel";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -15,25 +15,25 @@ export default function App() {
       <div className="min-h-screen bg-gray-50">
         <Routes>
 
-          {/* Registration */}
+          {/* Login */}
           <Route path="/"
             element={
-              user ? <Navigate to="/aptitude" replace /> : <AptitudeRegistration onSubmit={setUser} />
+              user ? <Navigate to="/test" replace /> : <PythonMCQLogin onSubmit={setUser} />
             }
           />
 
           {/* Test */}
-          <Route path="/aptitude"
+          <Route path="/test"
             element={
               !user ? <Navigate to="/" replace /> :
               done  ? <Navigate to="/done" replace /> :
-              <AptitudeTest user={user} onSubmit={() => setDone(true)} />
+              <PythonMCQTest user={user} onSubmit={() => setDone(true)} />
             }
           />
 
           {/* Thank you */}
           <Route path="/done"
-            element={user ? <AptitudeDone /> : <Navigate to="/" replace />}
+            element={user ? <PythonMCQDone /> : <Navigate to="/" replace />}
           />
 
           {/* Admin */}

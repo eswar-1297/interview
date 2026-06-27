@@ -1,0 +1,362 @@
+[
+  {
+    "id": 1,
+    "category": "Functions & Scope",
+    "question": "What is the output of the following code?",
+    "code": "def add(item, lst=[]):\n    lst.append(item)\n    return lst\n\nprint(add(1))\nprint(add(2))",
+    "options": ["[1]\n[2]", "[1]\n[1, 2]", "[1, 2]\n[1, 2]", "Error"],
+    "answer": 1,
+    "explanation": "Default mutable arguments are evaluated once at function definition and shared across calls. The same list persists, so the second call appends to the list that already contains 1, producing [1, 2]."
+  },
+  {
+    "id": 2,
+    "category": "Strings",
+    "question": "What is the output of the following code?",
+    "code": "s = \"Python\"\ns.replace(\"P\", \"J\")\nprint(s)",
+    "options": ["Jython", "Python", "", "Error"],
+    "answer": 1,
+    "explanation": "Strings are immutable. str.replace() returns a new string but does not modify the original. Since the return value is discarded, s still refers to \"Python\"."
+  },
+  {
+    "id": 3,
+    "category": "Lists & Tuples",
+    "question": "What is the output of the following code?",
+    "code": "lst = [1, 2, 3, 4, 5]\nprint(lst[::-1])",
+    "options": ["[1, 2, 3, 4, 5]", "[5, 4, 3, 2, 1]", "[5, 4, 3, 2, 1, 0]", "Error"],
+    "answer": 1,
+    "explanation": "The slice [::-1] uses a step of -1, which traverses the list from end to start, returning a reversed copy."
+  },
+  {
+    "id": 4,
+    "category": "Lists & Tuples",
+    "question": "What is the output of the following code?",
+    "code": "matrix = [[0] * 3] * 2\nmatrix[0][0] = 1\nprint(matrix)",
+    "options": ["[[1, 0, 0], [0, 0, 0]]", "[[1, 0, 0], [1, 0, 0]]", "[[1, 1, 1], [1, 1, 1]]", "Error"],
+    "answer": 1,
+    "explanation": "[[0] * 3] * 2 creates a list with two references to the SAME inner list. Mutating matrix[0][0] changes the shared inner list, so both rows show the change."
+  },
+  {
+    "id": 5,
+    "category": "Dictionaries & Sets",
+    "question": "What is the output of the following code?",
+    "code": "d = {'a': 1, 'b': 2}\nprint(d.get('c', 0))",
+    "options": ["None", "0", "KeyError", "''"],
+    "answer": 1,
+    "explanation": "dict.get(key, default) returns the value for the key if present, otherwise the supplied default. 'c' is absent, so the default 0 is returned (no exception)."
+  },
+  {
+    "id": 6,
+    "category": "Dictionaries & Sets",
+    "question": "What is the output of the following code?",
+    "code": "s = {1, 2, 2, 3, 3, 3}\nprint(len(s))",
+    "options": ["6", "3", "1", "Error"],
+    "answer": 1,
+    "explanation": "A set stores only unique elements. Duplicate values are discarded, leaving {1, 2, 3}, so the length is 3."
+  },
+  {
+    "id": 7,
+    "category": "Lists & Tuples",
+    "question": "What is the output of the following code?",
+    "code": "t = (5)\nprint(type(t).__name__)",
+    "options": ["tuple", "int", "list", "Error"],
+    "answer": 1,
+    "explanation": "(5) is just the integer 5 in parentheses, not a tuple. A single-element tuple requires a trailing comma: (5,)."
+  },
+  {
+    "id": 8,
+    "category": "Functions & Scope",
+    "question": "What is the output of the following code?",
+    "code": "def f(*args, **kwargs):\n    return len(args), len(kwargs)\n\nprint(f(1, 2, a=3))",
+    "options": ["(3, 0)", "(2, 1)", "(1, 2)", "Error"],
+    "answer": 1,
+    "explanation": "Positional arguments 1 and 2 are collected into args (length 2). The keyword argument a=3 goes into kwargs (length 1). So the result is (2, 1)."
+  },
+  {
+    "id": 9,
+    "category": "Functions & Scope",
+    "question": "What is the output of the following code?",
+    "code": "x = 10\ndef f():\n    x = 20\nf()\nprint(x)",
+    "options": ["10", "20", "None", "Error"],
+    "answer": 0,
+    "explanation": "Assigning to x inside f() creates a new local variable, leaving the global x untouched. After the call, the global x is still 10."
+  },
+  {
+    "id": 10,
+    "category": "Functions & Scope",
+    "question": "What is the output of the following code?",
+    "code": "x = 10\ndef f():\n    global x\n    x = 20\nf()\nprint(x)",
+    "options": ["10", "20", "Error", "None"],
+    "answer": 1,
+    "explanation": "The global statement makes x refer to the module-level variable, so the assignment inside f() rebinds the global x to 20."
+  },
+  {
+    "id": 11,
+    "category": "Decorators & Closures",
+    "question": "What is the output of the following code?",
+    "code": "funcs = [lambda: i for i in range(3)]\nprint([f() for f in funcs])",
+    "options": ["[0, 1, 2]", "[2, 2, 2]", "[0, 0, 0]", "Error"],
+    "answer": 1,
+    "explanation": "Closures capture variables by reference, not by value (late binding). By the time the lambdas are called, the loop variable i is 2, so every lambda returns 2."
+  },
+  {
+    "id": 12,
+    "category": "OOP",
+    "question": "What is the output of the following code?",
+    "code": "class A:\n    def __init__(self):\n        self.x = 1\n\nclass B(A):\n    def __init__(self):\n        self.y = 2\n\nb = B()\nprint(hasattr(b, 'x'))",
+    "options": ["True", "False", "Error", "None"],
+    "answer": 1,
+    "explanation": "B.__init__ overrides A.__init__ and never calls super().__init__(), so self.x is never set. hasattr(b, 'x') is therefore False."
+  },
+  {
+    "id": 13,
+    "category": "OOP",
+    "question": "What is the output of the following code?",
+    "code": "class Counter:\n    count = 0\n    def __init__(self):\n        Counter.count += 1\n\na = Counter()\nb = Counter()\nprint(Counter.count)",
+    "options": ["0", "1", "2", "Error"],
+    "answer": 2,
+    "explanation": "count is a class variable. Each instantiation increments Counter.count, so after creating two instances it equals 2."
+  },
+  {
+    "id": 14,
+    "category": "OOP",
+    "question": "What is the output of the following code?",
+    "code": "class P:\n    def __str__(self):\n        return \"P obj\"\n\nprint(P())",
+    "options": ["P obj", "<__main__.P object>", "Error", "<P>"],
+    "answer": 0,
+    "explanation": "print() calls str() on the object, which invokes the __str__ method. The custom __str__ returns \"P obj\"."
+  },
+  {
+    "id": 15,
+    "category": "Exception Handling",
+    "question": "What is the output of the following code?",
+    "code": "try:\n    x = 1\nexcept:\n    print(\"except\")\nelse:\n    print(\"else\")",
+    "options": ["except", "else", "except\nelse", "(nothing)"],
+    "answer": 1,
+    "explanation": "The else block of a try statement runs only when no exception is raised in the try block. No error occurs, so \"else\" is printed."
+  },
+  {
+    "id": 16,
+    "category": "Exception Handling",
+    "question": "What is the output of the following code?",
+    "code": "def f():\n    try:\n        return 1\n    finally:\n        return 2\n\nprint(f())",
+    "options": ["1", "2", "Error", "None"],
+    "answer": 1,
+    "explanation": "A return in the finally block overrides any return from the try block. The function returns 2."
+  },
+  {
+    "id": 17,
+    "category": "Comprehensions & Generators",
+    "question": "What is the output of the following code?",
+    "code": "print({x: x**2 for x in range(3)})",
+    "options": ["{0: 0, 1: 1, 2: 4}", "{1: 1, 2: 4, 3: 9}", "[0, 1, 4]", "Error"],
+    "answer": 0,
+    "explanation": "This dict comprehension maps each x in range(3) (0, 1, 2) to its square, producing {0: 0, 1: 1, 2: 4}."
+  },
+  {
+    "id": 18,
+    "category": "Comprehensions & Generators",
+    "question": "What is the output of the following code?",
+    "code": "def gen():\n    yield 1\n\ng = gen()\nprint(next(g))\nprint(next(g))",
+    "options": ["1, then None", "1, then a StopIteration exception", "1, then 1", "1, then 2"],
+    "answer": 1,
+    "explanation": "The generator yields 1 once. The second next() call finds no more values and raises StopIteration."
+  },
+  {
+    "id": 19,
+    "category": "Decorators & Closures",
+    "question": "What is the output of the following code?",
+    "code": "def deco(f):\n    def wrapper():\n        return f() * 2\n    return wrapper\n\n@deco\ndef num():\n    return 5\n\nprint(num())",
+    "options": ["5", "10", "Error", "25"],
+    "answer": 1,
+    "explanation": "The @deco decorator replaces num with wrapper, which calls the original num() (returning 5) and multiplies by 2, giving 10."
+  },
+  {
+    "id": 20,
+    "category": "Data Types",
+    "question": "What is the output of the following code?",
+    "code": "print(True + True + False)",
+    "options": ["Error", "2", "True", "1"],
+    "answer": 1,
+    "explanation": "bool is a subclass of int, where True == 1 and False == 0. So True + True + False evaluates to 1 + 1 + 0 = 2."
+  },
+  {
+    "id": 21,
+    "category": "Data Types",
+    "question": "What is the output of the following code?",
+    "code": "print(7 // 2)\nprint(7 / 2)",
+    "options": ["3\n3.5", "3.5\n3.5", "3\n3", "3.5\n3"],
+    "answer": 0,
+    "explanation": "// is floor (integer) division returning 3, while / is true division returning the float 3.5."
+  },
+  {
+    "id": 22,
+    "category": "Strings",
+    "question": "What is the output of the following code?",
+    "code": "x = 5\nprint(f\"{x * 2}\")",
+    "options": ["{x * 2}", "10", "5 * 2", "Error"],
+    "answer": 1,
+    "explanation": "An f-string evaluates the expression inside the braces. x * 2 is 10, which is inserted into the string."
+  },
+  {
+    "id": 23,
+    "category": "Lists & Tuples",
+    "question": "What is the output of the following code?",
+    "code": "a = [1, 2]\na.append([3, 4])\nprint(len(a))",
+    "options": ["4", "3", "2", "Error"],
+    "answer": 1,
+    "explanation": "append() adds its argument as a single element. The list [3, 4] becomes one element, so a is [1, 2, [3, 4]] with length 3. (extend() would have given length 4.)"
+  },
+  {
+    "id": 24,
+    "category": "Dictionaries & Sets",
+    "question": "What is the output of the following code?",
+    "code": "d = {'a': 1}\nd['b'] = 2\nd['a'] = 3\nprint(d)",
+    "options": ["{'a': 1, 'b': 2}", "{'a': 3, 'b': 2}", "{'b': 2, 'a': 3}", "Error"],
+    "answer": 1,
+    "explanation": "Assigning to an existing key updates its value in place without changing insertion order. 'a' stays first with the updated value 3, then 'b': 2."
+  },
+  {
+    "id": 25,
+    "category": "Core Python",
+    "question": "What is the output of the following code?",
+    "code": "a = [1, 2, 3]\nb = [1, 2, 3]\nprint(a == b, a is b)",
+    "options": ["True True", "True False", "False False", "False True"],
+    "answer": 1,
+    "explanation": "== compares values (equal contents → True). is compares identity; a and b are two distinct list objects, so a is b is False."
+  },
+  {
+    "id": 26,
+    "category": "Comprehensions & Generators",
+    "question": "What is the output of the following code?",
+    "code": "print([x for x in range(5) if x % 2 == 0])",
+    "options": ["[0, 2, 4]", "[1, 3]", "[0, 1, 2, 3, 4]", "[2, 4]"],
+    "answer": 0,
+    "explanation": "The comprehension keeps only even numbers from range(5): 0, 2, and 4."
+  },
+  {
+    "id": 27,
+    "category": "Functions & Scope",
+    "question": "What is the output of the following code?",
+    "code": "def f(a, b=2, *, c):\n    return a + b + c\n\nprint(f(1, c=3))",
+    "options": ["6", "Error", "4", "1"],
+    "answer": 0,
+    "explanation": "The * marks c as keyword-only. Calling f(1, c=3) gives a=1, b=2 (default), c=3, so the sum is 6."
+  },
+  {
+    "id": 28,
+    "category": "OOP",
+    "question": "What is the output of the following code?",
+    "code": "class C:\n    @classmethod\n    def create(cls):\n        return cls.__name__\n\nclass D(C):\n    pass\n\nprint(D.create())",
+    "options": ["C", "D", "Error", "cls"],
+    "answer": 1,
+    "explanation": "In a classmethod, cls is bound to the class it is called on. D.create() passes D as cls, so cls.__name__ is 'D'."
+  },
+  {
+    "id": 29,
+    "category": "OOP",
+    "question": "What is the output of the following code?",
+    "code": "class MathUtils:\n    @staticmethod\n    def add(a, b):\n        return a + b\n\nprint(MathUtils.add(2, 3))",
+    "options": ["5", "Error", "23", "None"],
+    "answer": 0,
+    "explanation": "A staticmethod receives no implicit self/cls and can be called directly on the class. add(2, 3) returns 5."
+  },
+  {
+    "id": 30,
+    "category": "Exception Handling",
+    "question": "What is the output of the following code?",
+    "code": "try:\n    raise ValueError(\"bad\")\nexcept ValueError as e:\n    print(e)",
+    "options": ["ValueError", "bad", "Error", "ValueError: bad"],
+    "answer": 1,
+    "explanation": "Printing an exception instance shows its message argument. The raised ValueError carries \"bad\", so that is printed."
+  },
+  {
+    "id": 31,
+    "category": "Strings",
+    "question": "What is the output of the following code?",
+    "code": "print(\"a,b,c\".split(\",\"))",
+    "options": ["['a', 'b', 'c']", "'a b c'", "['a,b,c']", "Error"],
+    "answer": 0,
+    "explanation": "str.split(',') splits the string at each comma and returns a list of the resulting substrings: ['a', 'b', 'c']."
+  },
+  {
+    "id": 32,
+    "category": "Strings",
+    "question": "What is the output of the following code?",
+    "code": "print(\"-\".join([\"1\", \"2\", \"3\"]))",
+    "options": ["1-2-3", "['1', '2', '3']", "123", "Error"],
+    "answer": 0,
+    "explanation": "str.join() concatenates the iterable's items using the string as a separator, producing \"1-2-3\"."
+  },
+  {
+    "id": 33,
+    "category": "Data Types",
+    "question": "What is the output of the following code?",
+    "code": "print(2 ** 3 ** 2)",
+    "options": ["64", "512", "Error", "256"],
+    "answer": 1,
+    "explanation": "The ** operator is right-associative, so this is 2 ** (3 ** 2) = 2 ** 9 = 512, not (2 ** 3) ** 2."
+  },
+  {
+    "id": 34,
+    "category": "Lists & Tuples",
+    "question": "What is the output of the following code?",
+    "code": "a = [3, 1, 2]\nb = a.sort()\nprint(b)",
+    "options": ["[1, 2, 3]", "None", "[3, 1, 2]", "Error"],
+    "answer": 1,
+    "explanation": "list.sort() sorts the list in place and returns None. So b is None. (Use sorted(a) to get a new sorted list.)"
+  },
+  {
+    "id": 35,
+    "category": "Dictionaries & Sets",
+    "question": "What is the output of the following code?",
+    "code": "d = {'x': 1, 'y': 2}\nfor k in d:\n    print(k, end=\" \")",
+    "options": ["1 2", "x y", "('x', 1) ('y', 2)", "Error"],
+    "answer": 1,
+    "explanation": "Iterating over a dictionary yields its keys by default, so this prints 'x y '."
+  },
+  {
+    "id": 36,
+    "category": "Dictionaries & Sets",
+    "question": "What is the output of the following code?",
+    "code": "a = {1, 2, 3}\nb = {2, 3, 4}\nprint(a & b)",
+    "options": ["{1, 2, 3, 4}", "{2, 3}", "{1, 4}", "{1}"],
+    "answer": 1,
+    "explanation": "The & operator computes the set intersection — elements present in both sets — which is {2, 3}."
+  },
+  {
+    "id": 37,
+    "category": "Comprehensions & Generators",
+    "question": "What is the output of the following code?",
+    "code": "g = (x for x in range(3))\nprint(list(g))\nprint(list(g))",
+    "options": ["[0, 1, 2]\n[0, 1, 2]", "[0, 1, 2]\n[]", "[]\n[]", "Error"],
+    "answer": 1,
+    "explanation": "A generator can be consumed only once. The first list(g) exhausts it to [0, 1, 2]; the second finds nothing left and returns []."
+  },
+  {
+    "id": 38,
+    "category": "Decorators & Closures",
+    "question": "What is the output of the following code?",
+    "code": "def deco(f):\n    def wrapper(*args):\n        return f(*args) + 1\n    return wrapper\n\n@deco\ndef add(a, b):\n    return a + b\n\nprint(add(2, 3))",
+    "options": ["5", "6", "Error", "23"],
+    "answer": 1,
+    "explanation": "wrapper forwards its arguments to the original add (2 + 3 = 5) and adds 1, returning 6."
+  },
+  {
+    "id": 39,
+    "category": "OOP",
+    "question": "What is the output of the following code?",
+    "code": "class A:\n    def greet(self):\n        return \"A\"\n\nclass B(A):\n    def greet(self):\n        return \"B\" + super().greet()\n\nprint(B().greet())",
+    "options": ["B", "BA", "AB", "A"],
+    "answer": 1,
+    "explanation": "B.greet() returns \"B\" concatenated with super().greet(), which calls A.greet() returning \"A\". The result is \"BA\"."
+  },
+  {
+    "id": 40,
+    "category": "Data Types",
+    "question": "What is the output of the following code?",
+    "code": "print(bool(\"\"), bool(\"0\"), bool([]), bool([0]))",
+    "options": ["False False False False", "False True False True", "True True True True", "False True True True"],
+    "answer": 1,
+    "explanation": "An empty string and empty list are falsy. A non-empty string \"0\" and a non-empty list [0] are truthy (content value is irrelevant). So the result is False True False True."
+  }
+]

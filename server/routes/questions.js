@@ -36,7 +36,7 @@ const codeStorage = multer.diskStorage({
 });
 const codeUpload = multer({ storage: codeStorage, limits: { fileSize: 100 * 1024 * 1024 } });
 
-const VALID_PASSWORD = "Neutara@2026";
+const VALID_PASSWORD = "UniqueHire@2026";
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -165,8 +165,8 @@ router.post("/aptitude-submit", async (req, res) => {
   }
 });
 
-// ── Java Technical MCQ Round 2 ─────────────────────────────────────────────
-router.post("/java-mcq-register", upload.single("resume"), async (req, res) => {
+// ── Python Technical MCQ Round 2 ───────────────────────────────────────────
+router.post("/python-mcq-register", upload.single("resume"), async (req, res) => {
   try {
     const { name, email, contact } = req.body;
     if (!name || !email || !contact)
@@ -180,7 +180,7 @@ router.post("/java-mcq-register", upload.single("resume"), async (req, res) => {
       registeredAt: new Date().toISOString(),
     };
 
-    const logFile = path.join(dataDir, "java-mcq-registrations.json");
+    const logFile = path.join(dataDir, "python-mcq-registrations.json");
     let list = [];
     try { list = JSON.parse(fs.readFileSync(logFile, "utf-8")); } catch {}
     list.push(entry);
@@ -193,20 +193,20 @@ router.post("/java-mcq-register", upload.single("resume"), async (req, res) => {
   }
 });
 
-router.get("/java-mcq", (_req, res) => {
+router.get("/python-mcq", (_req, res) => {
   try {
-    const raw = fs.readFileSync(path.join(dataDir, "java-mcq-questions.json"), "utf-8");
+    const raw = fs.readFileSync(path.join(dataDir, "python-mcq-questions.json"), "utf-8");
     const questions = JSON.parse(raw).map(({ answer, explanation, ...rest }) => rest);
     res.json(questions);
   } catch (err) {
-    res.status(500).json({ error: "Failed to load Java MCQ questions" });
+    res.status(500).json({ error: "Failed to load Python MCQ questions" });
   }
 });
 
-router.post("/java-mcq-submit", async (req, res) => {
+router.post("/python-mcq-submit", async (req, res) => {
   try {
     const { name, email, answers } = req.body;
-    const raw = fs.readFileSync(path.join(dataDir, "java-mcq-questions.json"), "utf-8");
+    const raw = fs.readFileSync(path.join(dataDir, "python-mcq-questions.json"), "utf-8");
     const questions = JSON.parse(raw);
 
     let score = 0;
@@ -229,7 +229,7 @@ router.post("/java-mcq-submit", async (req, res) => {
 
     // Persist the submission (score + answers) for later review.
     try {
-      const logFile = path.join(dataDir, "java-mcq-submissions.json");
+      const logFile = path.join(dataDir, "python-mcq-submissions.json");
       let list = [];
       try { list = JSON.parse(fs.readFileSync(logFile, "utf-8")); } catch {}
       list.push({
@@ -242,7 +242,7 @@ router.post("/java-mcq-submit", async (req, res) => {
       });
       fs.writeFileSync(logFile, JSON.stringify(list, null, 2));
     } catch (e) {
-      console.error("Failed to save Java MCQ submission:", e.message);
+      console.error("Failed to save Python MCQ submission:", e.message);
     }
 
     res.json({ score, total: questions.length, results });

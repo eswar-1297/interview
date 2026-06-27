@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function JavaMCQResults({ user }) {
+export default function PythonMCQResults({ user }) {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="text-center max-w-md">

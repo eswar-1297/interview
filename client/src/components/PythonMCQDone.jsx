@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function JavaMCQDone() {
+export default function PythonMCQDone() {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="text-center max-w-md">
@@ -11,7 +11,7 @@ export default function JavaMCQDone() {
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-3">Thank You!</h1>
         <p className="text-gray-500 text-sm leading-relaxed">
-          Your Java technical test has been submitted successfully. We
+          Your Python technical test has been submitted successfully. We
           appreciate your time and effort. Our team will review your responses
           and get back to you with the next steps.
         </p>
