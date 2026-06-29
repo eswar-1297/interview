@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import PythonMCQLogin from "./components/PythonMCQLogin";
-import PythonMCQTest  from "./components/PythonMCQTest";
-import PythonMCQDone  from "./components/PythonMCQDone";
-import AdminPanel     from "./components/AdminPanel";
+import CodingLogin from "./components/CodingLogin";
+import CodingTest  from "./components/CodingTest";
+import CodingDone  from "./components/CodingDone";
+import AdminPanel  from "./components/AdminPanel";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -18,7 +18,7 @@ export default function App() {
           {/* Login */}
           <Route path="/"
             element={
-              user ? <Navigate to="/test" replace /> : <PythonMCQLogin onSubmit={setUser} />
+              user ? <Navigate to="/test" replace /> : <CodingLogin onSubmit={setUser} />
             }
           />
 
@@ -27,13 +27,13 @@ export default function App() {
             element={
               !user ? <Navigate to="/" replace /> :
               done  ? <Navigate to="/done" replace /> :
-              <PythonMCQTest user={user} onSubmit={() => setDone(true)} />
+              <CodingTest user={user} onSubmit={() => setDone(true)} />
             }
           />
 
           {/* Thank you */}
           <Route path="/done"
-            element={user ? <PythonMCQDone /> : <Navigate to="/" replace />}
+            element={user ? <CodingDone /> : <Navigate to="/" replace />}
           />
 
           {/* Admin */}

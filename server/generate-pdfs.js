@@ -160,226 +160,229 @@ function generateCodingPDF() {
   const filePath = path.join(OUTPUT_DIR, "Coding_Questions_and_Answers.pdf");
   doc.pipe(fs.createWriteStream(filePath));
 
-  drawHeader(doc, "Coding Questions & Answers", "4 Problems  |  Java & Python Solutions  |  Answer Key");
+  drawHeader(doc, "Coding Questions & Answers", "4 Advanced Problems  |  Java & Python Solutions  |  Answer Key");
 
   const solutions = [
     {
       id: 1,
-      title: "Two Sum",
-      approach: "Use a HashMap/dictionary to store each number's index as you iterate. For each element, check if (target - current) exists in the map. This gives O(n) time complexity.",
+      title: "Trapping Rain Water",
+      approach: "Use the two-pointer technique for O(n) time and O(1) space. Keep pointers at both ends with leftMax and rightMax. Always advance the side with the smaller current bar: the water trapped there is bounded by that side's running maximum (the opposite side is guaranteed to be taller). Add (max - height) at each step.",
       java: `import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String[] parts = sc.nextLine().trim().split("\\\\s+");
-        int[] nums = new int[parts.length];
-        for (int i = 0; i < parts.length; i++) {
-            nums[i] = Integer.parseInt(parts[i]);
-        }
-        int target = Integer.parseInt(sc.nextLine().trim());
+        int n = parts.length;
+        int[] height = new int[n];
+        for (int i = 0; i < n; i++) height[i] = Integer.parseInt(parts[i]);
 
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            int complement = target - nums[i];
-            if (map.containsKey(complement)) {
-                int j = map.get(complement);
-                System.out.println(Math.min(i, j) + " " + Math.max(i, j));
-                return;
+        int left = 0, right = n - 1, leftMax = 0, rightMax = 0;
+        long water = 0;
+        while (left < right) {
+            if (height[left] < height[right]) {
+                if (height[left] >= leftMax) leftMax = height[left];
+                else water += leftMax - height[left];
+                left++;
+            } else {
+                if (height[right] >= rightMax) rightMax = height[right];
+                else water += rightMax - height[right];
+                right--;
             }
-            map.put(nums[i], i);
         }
+        System.out.println(water);
     }
 }`,
       python: `def solve():
-    nums = list(map(int, input().split()))
-    target = int(input())
+    height = list(map(int, input().split()))
+    n = len(height)
 
-    seen = {}
-    for i, num in enumerate(nums):
-        complement = target - num
-        if complement in seen:
-            j = seen[complement]
-            print(min(i, j), max(i, j))
-            return
-        seen[num] = i
+    left, right = 0, n - 1
+    left_max = right_max = 0
+    water = 0
+    while left < right:
+        if height[left] < height[right]:
+            if height[left] >= left_max:
+                left_max = height[left]
+            else:
+                water += left_max - height[left]
+            left += 1
+        else:
+            if height[right] >= right_max:
+                right_max = height[right]
+            else:
+                water += right_max - height[right]
+            right -= 1
+    print(water)
 
 solve()`,
     },
     {
       id: 2,
-      title: "Longest Substring Without Repeating Characters",
-      approach: "Use the sliding window technique. Maintain a set of characters in the current window. Expand the right pointer; if a duplicate is found, shrink from the left until the duplicate is removed. Track the max window size.",
+      title: "Edit Distance",
+      approach: "Classic Levenshtein DP in O(m*n). Let dp[i][j] be the edit distance between the first i characters of word1 and the first j of word2. Base cases: dp[i][0] = i and dp[0][j] = j. If the characters match, dp[i][j] = dp[i-1][j-1]; otherwise it is 1 + min(replace = dp[i-1][j-1], delete = dp[i-1][j], insert = dp[i][j-1]).",
       java: `import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String s = sc.nextLine();
+        String word1 = sc.hasNextLine() ? sc.nextLine() : "";
+        String word2 = sc.hasNextLine() ? sc.nextLine() : "";
+        int m = word1.length(), n = word2.length();
 
-        Set<Character> set = new HashSet<>();
-        int left = 0, maxLen = 0;
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 0; i <= m; i++) dp[i][0] = i;
+        for (int j = 0; j <= n; j++) dp[0][j] = j;
 
-        for (int right = 0; right < s.length(); right++) {
-            while (set.contains(s.charAt(right))) {
-                set.remove(s.charAt(left));
-                left++;
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = 1 + Math.min(dp[i - 1][j - 1],
+                                   Math.min(dp[i - 1][j], dp[i][j - 1]));
+                }
             }
-            set.add(s.charAt(right));
-            maxLen = Math.max(maxLen, right - left + 1);
         }
-
-        System.out.println(maxLen);
+        System.out.println(dp[m][n]);
     }
 }`,
-      python: `def solve():
-    s = input()
+      python: `import sys
 
-    char_set = set()
-    left = 0
-    max_len = 0
+def solve():
+    data = sys.stdin.read().split("\\n")
+    word1 = data[0] if len(data) > 0 else ""
+    word2 = data[1] if len(data) > 1 else ""
+    m, n = len(word1), len(word2)
 
-    for right in range(len(s)):
-        while s[right] in char_set:
-            char_set.remove(s[left])
-            left += 1
-        char_set.add(s[right])
-        max_len = max(max_len, right - left + 1)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(m + 1):
+        dp[i][0] = i
+    for j in range(n + 1):
+        dp[0][j] = j
 
-    print(max_len)
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if word1[i - 1] == word2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1]
+            else:
+                dp[i][j] = 1 + min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1])
+
+    print(dp[m][n])
 
 solve()`,
     },
     {
       id: 3,
-      title: "Group Anagrams",
-      approach: "Sort each word alphabetically to create a canonical key. Use a LinkedHashMap (Java) or dict (Python) to group words by their sorted key. This preserves insertion order for the output.",
+      title: "Course Schedule",
+      approach: "Model courses as a directed graph: 'a depends on b' becomes edge b -> a. All courses can be finished iff the graph is acyclic. Use Kahn's topological sort: push every node with in-degree 0, repeatedly pop a node and decrement its neighbours' in-degrees. If the number of processed nodes equals N, there is no cycle.",
       java: `import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = Integer.parseInt(sc.nextLine().trim());
-        String[] words = sc.nextLine().trim().split("\\\\s+");
+        int m = Integer.parseInt(sc.nextLine().trim());
 
-        Map<String, List<String>> map = new LinkedHashMap<>();
-        for (String word : words) {
-            char[] chars = word.toCharArray();
-            Arrays.sort(chars);
-            String key = new String(chars);
-            map.computeIfAbsent(key, k -> new ArrayList<>()).add(word);
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) adj.add(new ArrayList<>());
+        int[] indegree = new int[n];
+
+        for (int i = 0; i < m; i++) {
+            StringTokenizer st = new StringTokenizer(sc.nextLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            adj.get(b).add(a);
+            indegree[a]++;
         }
 
-        StringBuilder sb = new StringBuilder();
-        for (List<String> group : map.values()) {
-            sb.setLength(0);
-            for (int i = 0; i < group.size(); i++) {
-                if (i > 0) sb.append(" ");
-                sb.append(group.get(i));
+        Deque<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) if (indegree[i] == 0) queue.add(i);
+
+        int processed = 0;
+        while (!queue.isEmpty()) {
+            int cur = queue.poll();
+            processed++;
+            for (int next : adj.get(cur)) {
+                if (--indegree[next] == 0) queue.add(next);
             }
-            System.out.println(sb.toString());
         }
+        System.out.println(processed == n ? "Yes" : "No");
     }
 }`,
-      python: `def solve():
-    n = int(input())
-    words = input().split()
+      python: `import sys
+from collections import deque
 
-    groups = {}
-    for word in words:
-        key = tuple(sorted(word))
-        if key not in groups:
-            groups[key] = []
-        groups[key].append(word)
+def solve():
+    data = sys.stdin.read().split("\\n")
+    idx = 0
+    n = int(data[idx].strip()); idx += 1
+    m = int(data[idx].strip()); idx += 1
 
-    for group in groups.values():
-        print(" ".join(group))
+    adj = [[] for _ in range(n)]
+    indegree = [0] * n
+    for _ in range(m):
+        a, b = map(int, data[idx].split()); idx += 1
+        adj[b].append(a)
+        indegree[a] += 1
+
+    queue = deque(i for i in range(n) if indegree[i] == 0)
+    processed = 0
+    while queue:
+        cur = queue.popleft()
+        processed += 1
+        for nxt in adj[cur]:
+            indegree[nxt] -= 1
+            if indegree[nxt] == 0:
+                queue.append(nxt)
+
+    print("Yes" if processed == n else "No")
 
 solve()`,
     },
     {
       id: 4,
-      title: "Reverse a Linked List",
-      approach: "Build a singly linked list from the input. Reverse it iteratively using three pointers: prev, current, and next. At each step, point current.next to prev, then advance all three pointers. Finally traverse and print.",
+      title: "Largest Rectangle in Histogram",
+      approach: "Use a monotonic increasing stack of bar indices in O(n). Iterate over the bars plus one sentinel of height 0 at the end. While the current bar is shorter than the bar at the stack top, pop it: the popped bar's height times the width (bounded by the current index and the new stack top) is a candidate area. Track the maximum.",
       java: `import java.util.*;
 
 public class Main {
-    static class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int val) {
-            this.val = val;
-            this.next = null;
-        }
-    }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String[] parts = sc.nextLine().trim().split("\\\\s+");
+        int n = parts.length;
+        int[] height = new int[n];
+        for (int i = 0; i < n; i++) height[i] = Integer.parseInt(parts[i]);
 
-        // Build linked list
-        ListNode dummy = new ListNode(0);
-        ListNode tail = dummy;
-        for (String p : parts) {
-            tail.next = new ListNode(Integer.parseInt(p));
-            tail = tail.next;
+        Deque<Integer> stack = new ArrayDeque<>();
+        long maxArea = 0;
+        for (int i = 0; i <= n; i++) {
+            int cur = (i == n) ? 0 : height[i];
+            while (!stack.isEmpty() && height[stack.peek()] >= cur) {
+                int h = height[stack.pop()];
+                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
+                maxArea = Math.max(maxArea, (long) h * width);
+            }
+            stack.push(i);
         }
-        ListNode head = dummy.next;
-
-        // Reverse
-        ListNode prev = null, curr = head;
-        while (curr != null) {
-            ListNode next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
-        }
-        head = prev;
-
-        // Print
-        StringBuilder sb = new StringBuilder();
-        ListNode node = head;
-        while (node != null) {
-            if (sb.length() > 0) sb.append(" ");
-            sb.append(node.val);
-            node = node.next;
-        }
-        System.out.println(sb.toString());
+        System.out.println(maxArea);
     }
 }`,
-      python: `class ListNode:
-    def __init__(self, val=0):
-        self.val = val
-        self.next = None
+      python: `def solve():
+    height = list(map(int, input().split()))
+    n = len(height)
 
-def solve():
-    values = list(map(int, input().split()))
-
-    # Build linked list
-    dummy = ListNode(0)
-    tail = dummy
-    for v in values:
-        tail.next = ListNode(v)
-        tail = tail.next
-    head = dummy.next
-
-    # Reverse
-    prev = None
-    curr = head
-    while curr:
-        nxt = curr.next
-        curr.next = prev
-        prev = curr
-        curr = nxt
-    head = prev
-
-    # Print
-    result = []
-    node = head
-    while node:
-        result.append(str(node.val))
-        node = node.next
-    print(" ".join(result))
+    stack = []
+    max_area = 0
+    for i in range(n + 1):
+        cur = 0 if i == n else height[i]
+        while stack and height[stack[-1]] >= cur:
+            h = height[stack.pop()]
+            width = i if not stack else i - stack[-1] - 1
+            if h * width > max_area:
+                max_area = h * width
+        stack.append(i)
+    print(max_area)
 
 solve()`,
     },
