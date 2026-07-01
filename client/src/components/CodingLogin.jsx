@@ -62,10 +62,10 @@ export default function CodingLogin({ onSubmit }) {
           <div className="space-y-2 text-xs">
             <p className="text-gray-500 font-semibold uppercase tracking-widest text-[10px]">Problems</p>
             {[
-              "Two Sum",
-              "Longest Substring Without Repeating Characters",
-              "Group Anagrams",
-              "Reverse a Linked List",
+              "Trapping Rain Water",
+              "Edit Distance",
+              "Course Schedule",
+              "Largest Rectangle in Histogram",
             ].map(t => (
               <div key={t} className="flex items-start gap-2 text-gray-400">
                 <span className="text-gray-600 mt-0.5">›</span>
