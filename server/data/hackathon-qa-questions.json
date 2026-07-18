@@ -1,19 +1,19 @@
 [
   {
     "id": 1,
-    "question": "Walk us through your Expense Tracker project architecture. How does data flow from your React frontend all the way to your Java Spring Boot backend and back?",
+    "question": "Walk us through your AI Expense Tracker project architecture. How does data flow from your React frontend all the way to your Python FastAPI backend and back?",
     "topic": "System Architecture",
     "category": "Technical",
     "difficulty": "Medium",
-    "hint": "Cover: React component → API call → Spring Controller → Service → Repository → DB → response back to UI"
+    "hint": "Cover: React component → fetch/axios → FastAPI router → service → SQLAlchemy/DB → response back to UI"
   },
   {
     "id": 2,
-    "question": "Explain the REST API endpoints you created in your Spring Boot backend. How did you structure your Controller, Service, and Repository layers, and why?",
-    "topic": "Java Spring Boot & API Design",
+    "question": "Explain the REST API endpoints you created in FastAPI. How did you structure your routers, Pydantic schemas, and data-access layer, and why?",
+    "topic": "Python & FastAPI",
     "category": "Technical",
     "difficulty": "Medium",
-    "hint": "Cover: @RestController, @Service, @Repository, JPA/Hibernate, the 5 endpoints (GET, POST, PUT, DELETE, summary)"
+    "hint": "Cover: APIRouter, Pydantic request/response models, SQLAlchemy models/session, the 7 endpoints (CRUD + summary + 2 AI)"
   },
   {
     "id": 3,
@@ -25,18 +25,18 @@
   },
   {
     "id": 4,
-    "question": "What was the most challenging part of building this Expense Tracker within the time limit? How did you debug and solve it, and what would you improve with more time?",
-    "topic": "Problem Solving",
+    "question": "Explain the AI feature in your Expense Tracker. How does your auto-categorization and/or spending-insights work end to end — what model or API did you use, what is the input, and what is the output?",
+    "topic": "AI Feature",
     "category": "Technical",
-    "difficulty": "Medium",
-    "hint": "Be specific — mention actual code issues, how you debugged, and concrete improvements like pagination or charts"
+    "difficulty": "Hard",
+    "hint": "Cover: scikit-learn classifier (train data, vectorizer, predict) OR LLM prompt, the /api/ai/categorize + /api/ai/insights endpoints, and how the React UI consumes the prediction"
   },
   {
     "id": 5,
-    "question": "How would you add JWT-based user authentication to this Expense Tracker? Walk us through the exact changes needed in your Spring Boot backend using Spring Security, and the changes on the React side.",
+    "question": "How would you add JWT-based user authentication to this Expense Tracker? Walk us through the exact changes needed in your FastAPI backend and the changes on the React side.",
     "topic": "Security & Authentication",
     "category": "Technical",
     "difficulty": "Hard",
-    "hint": "Cover: Spring Security config, JWT filter, /auth/login endpoint, storing token in localStorage, sending Authorization header in React"
+    "hint": "Cover: OAuth2PasswordBearer / python-jose, /auth/login token endpoint, a get_current_user dependency, storing the token in localStorage, sending the Authorization header from React"
   }
 ]

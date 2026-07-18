@@ -7,11 +7,11 @@ function pad(n) { return String(n).padStart(2, "0"); }
 function formatTime(s) { return `${pad(Math.floor(s / 60))}:${pad(s % 60)}`; }
 
 const TOPIC_COLORS = {
-  "System Architecture":     { bg: "bg-blue-50",   text: "text-blue-700"   },
-  "Java Spring Boot & API Design": { bg: "bg-orange-50", text: "text-orange-700" },
-  "React Frontend":          { bg: "bg-cyan-50",   text: "text-cyan-700"   },
-  "Problem Solving":         { bg: "bg-purple-50", text: "text-purple-700" },
-  "Security & Authentication":{ bg: "bg-red-50",   text: "text-red-700"    },
+  "System Architecture":      { bg: "bg-blue-50",   text: "text-blue-700"   },
+  "Python & FastAPI":         { bg: "bg-orange-50", text: "text-orange-700" },
+  "React Frontend":           { bg: "bg-cyan-50",   text: "text-cyan-700"   },
+  "AI Feature":               { bg: "bg-purple-50", text: "text-purple-700" },
+  "Security & Authentication":{ bg: "bg-red-50",    text: "text-red-700"    },
 };
 
 export default function HackathonQA({ user, onSubmit }) {

@@ -74,15 +74,15 @@ export default function HackathonRegistration({ onSubmit }) {
       {/* ── Left panel ──────────────────────────────────── */}
       <div className="hidden lg:flex w-[440px] flex-shrink-0 bg-gray-900 flex-col justify-between p-10 text-white">
         <div>
-          <p className="text-gray-400 text-xs uppercase tracking-widest font-semibold">Final Round</p>
+          <p className="text-gray-400 text-xs uppercase tracking-widest font-semibold">Fourth Round</p>
           <p className="text-white font-bold text-lg mt-1">Full Stack Hackathon</p>
         </div>
 
         <div className="space-y-7">
           <div>
-            <p className="font-semibold text-sm">Expense Tracker — Build & Explain</p>
+            <p className="font-semibold text-sm">AI Expense Tracker — Build & Explain</p>
             <p className="text-gray-400 text-xs mt-1.5 leading-relaxed">
-              Build a complete Expense Tracker application using React and Java Spring Boot,
+              Build a complete AI-powered Expense Tracker application using React and Python (FastAPI),
               then record video answers to 5 questions about your implementation.
             </p>
           </div>
@@ -91,7 +91,7 @@ export default function HackathonRegistration({ onSubmit }) {
           <div className="space-y-3">
             {[
               { phase: "Phase 1", title: "Build the Project", time: "2 hrs 30 min", icon: "⚙️",
-                desc: "React frontend + Java Spring Boot backend + Database of your choice." },
+                desc: "React frontend + Python FastAPI backend + Database of your choice, with an AI feature." },
               { phase: "Phase 2", title: "Video Q&A", time: "~25 minutes", icon: "🎥",
                 desc: "5 questions about your project — 2–3 min recording each." },
             ].map(p => (
@@ -107,7 +107,7 @@ export default function HackathonRegistration({ onSubmit }) {
           </div>
 
           <div className="grid grid-cols-3 gap-2 text-center">
-            {[["Java", "Spring Boot"], ["React", "Frontend"], ["5 Q&A", "Video"]].map(([v, l]) => (
+            {[["Python", "FastAPI"], ["AI", "Feature"], ["React", "Frontend"]].map(([v, l]) => (
               <div key={l} className="bg-gray-800 rounded-lg p-3">
                 <p className="text-sm font-bold text-white">{v}</p>
                 <p className="text-[10px] text-gray-500 mt-0.5">{l}</p>
@@ -129,7 +129,7 @@ export default function HackathonRegistration({ onSubmit }) {
           <div className="mb-8">
             <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-              Final Round — Hackathon
+              Fourth Round — Hackathon
             </div>
             <h2 className="text-2xl font-bold text-gray-900">Register to Begin</h2>
             <p className="text-sm text-gray-500 mt-1">Fill in your details and enable your camera to start.</p>

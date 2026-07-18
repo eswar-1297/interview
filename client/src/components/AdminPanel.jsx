@@ -172,7 +172,7 @@ export default function AdminPanel() {
         <div className="mt-8 p-4 bg-blue-50 border border-blue-100 rounded-xl text-xs text-blue-600 leading-relaxed">
           <p className="font-semibold mb-1">How to review</p>
           <p>Click <strong>Download Code</strong> to get the candidate's project zip. Extract it, open in your IDE,
-          and run it locally to evaluate the code quality, API design, and Spring Boot structure.</p>
+          and run it locally to evaluate the code quality, API design, FastAPI structure, and the AI feature.</p>
         </div>
       </div>
     </div>
