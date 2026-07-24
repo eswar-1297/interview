@@ -1,0 +1,8 @@
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+sqlalchemy==2.0.30
+pydantic==2.7.1
+# Optional — uncomment if you upgrade the AI layer to a trained model:
+# scikit-learn==1.5.0
+# For an LLM-based AI layer instead:
+# anthropic==0.34.0

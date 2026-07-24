@@ -17,7 +17,7 @@ export default function App() {
       <div className="min-h-screen bg-gray-50">
         <Routes>
 
-          {/* Login — password UniqueHire@2026 */}
+          {/* Login — password Neutara@2026 */}
           <Route path="/"
             element={
               user
