@@ -36,12 +36,31 @@ const codeStorage = multer.diskStorage({
 });
 const codeUpload = multer({ storage: codeStorage, limits: { fileSize: 100 * 1024 * 1024 } });
 
-const VALID_PASSWORD = "Neutara@2026";
+// Upload storage for HR interview answer videos (one webm per question)
+const hrVideoDir = path.join(__dirname, "..", "uploads", "hr-videos");
+if (!fs.existsSync(hrVideoDir)) fs.mkdirSync(hrVideoDir, { recursive: true });
+
+const hrVideoStorage = multer.diskStorage({
+  destination: (_req, _file, cb) => cb(null, hrVideoDir),
+  // The text fields are not parsed yet at this point, so write to a temporary
+  // name and rename in the handler once email / questionId are available.
+  filename: (_req, _file, cb) =>
+    cb(null, `pending_${Date.now()}_${Math.round(Math.random() * 1e6)}.webm`),
+});
+const hrVideoUpload = multer({ storage: hrVideoStorage, limits: { fileSize: 200 * 1024 * 1024 } });
+
+// Each interview password maps to a candidate level. The level decides which
+// HR question bank the candidate is served.
+const PASSWORD_LEVELS = {
+  "Neutara@2026":    "experienced", // 2-3 years, Java / Python bank
+  "UniqueHire@2026": "fresher",     // fresher Python bank
+};
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
-  if (email && email.trim() && password === VALID_PASSWORD) {
-    res.json({ success: true, user: { email: email.trim() } });
+  const level = PASSWORD_LEVELS[password];
+  if (email && email.trim() && level) {
+    res.json({ success: true, user: { email: email.trim(), level } });
   } else {
     res.status(401).json({ success: false, error: "Invalid credentials" });
   }
@@ -90,12 +109,118 @@ router.get("/scripting", (_req, res) => {
   }
 });
 
-router.get("/hr-questions", (_req, res) => {
+// ── HR round: 10 random questions out of the 30-question bank ───────────────
+const HR_BANKS = {
+  fresher:     "hr-questions.json",
+  experienced: "hr-questions-experienced.json",
+};
+const HR_QUESTION_COUNT = 10;
+const HR_INTRO_ID = 1; // "Please introduce yourself" — always asked first
+
+function pickRandom(list, count) {
+  const intro = list.find(q => q.id === HR_INTRO_ID);
+  const pool  = list.filter(q => q.id !== HR_INTRO_ID);
+
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+
+  // Shuffle to choose, then restore bank order so the interview still flows
+  // HR -> Technical -> Project -> Study, with the intro question up front.
+  const picked = pool
+    .slice(0, intro ? count - 1 : count)
+    .sort((a, b) => a.id - b.id);
+
+  return intro ? [intro, ...picked] : picked;
+}
+
+// Level comes from the login password; ?level= is accepted for direct testing.
+function resolveLevel(query = {}) {
+  return PASSWORD_LEVELS[query.password]
+    || (query.level === "experienced" ? "experienced" : "fresher");
+}
+
+router.get("/hr-questions", (req, res) => {
+  const level = resolveLevel(req.query);
   try {
-    const raw = fs.readFileSync(path.join(dataDir, "hr-questions.json"), "utf-8");
-    res.json(JSON.parse(raw));
+    const raw = fs.readFileSync(path.join(dataDir, HR_BANKS[level]), "utf-8");
+    res.json(pickRandom(JSON.parse(raw), HR_QUESTION_COUNT));
   } catch (err) {
     res.status(500).json({ error: "Failed to load HR questions" });
+  }
+});
+
+// ── HR round: store one answer video per question ───────────────────────────
+router.post("/hr-video", hrVideoUpload.single("video"), (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ success: false, error: "No video received." });
+
+    const { name, email, level, questionId, questionText } = req.body;
+
+    // Rename off the temporary name now that the fields are parsed, so the
+    // file is identifiable on disk: candidate_q<question>_<timestamp>.webm
+    const safeEmail = (email || "unknown").trim().replace(/[^a-zA-Z0-9@._-]/g, "_");
+    const qId       = Number(questionId) || 0;
+    const finalName = `${safeEmail}_q${qId}_${Date.now()}.webm`;
+    fs.renameSync(path.join(hrVideoDir, req.file.filename), path.join(hrVideoDir, finalName));
+
+    const entry = {
+      name:         (name  || "").trim() || null,
+      email:        (email || "unknown").trim(),
+      level:        level === "experienced" ? "experienced" : "fresher",
+      questionId:   Number(questionId) || null,
+      questionText: questionText || null,
+      filename:     finalName,
+      sizeMB:       (req.file.size / 1024 / 1024).toFixed(2),
+      recordedAt:   new Date().toISOString(),
+    };
+
+    const logFile = path.join(dataDir, "hr-video-submissions.json");
+    let list = [];
+    try { list = JSON.parse(fs.readFileSync(logFile, "utf-8")); } catch {}
+
+    // A candidate can re-record a question — keep only the latest take and
+    // delete the superseded file so the folder does not fill up.
+    const idx = list.findIndex(e => e.email === entry.email && e.questionId === entry.questionId);
+    if (idx >= 0) {
+      const old = path.join(hrVideoDir, path.basename(list[idx].filename || ""));
+      if (list[idx].filename && fs.existsSync(old)) {
+        try { fs.unlinkSync(old); } catch {}
+      }
+      list[idx] = entry;
+    } else {
+      list.push(entry);
+    }
+    fs.writeFileSync(logFile, JSON.stringify(list, null, 2));
+
+    res.json({ success: true, filename: entry.filename });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: "Failed to save video." });
+  }
+});
+
+// ── HR round: mark the interview complete ───────────────────────────────────
+router.post("/hr-submit", (req, res) => {
+  try {
+    const { name, email, level, attempted, total } = req.body;
+    const logFile = path.join(dataDir, "hr-submissions.json");
+    let list = [];
+    try { list = JSON.parse(fs.readFileSync(logFile, "utf-8")); } catch {}
+    list.push({
+      name:  (name  || "").trim() || null,
+      email: (email || "unknown").trim(),
+      level: level === "experienced" ? "experienced" : "fresher",
+      attempted: Number(attempted) || 0,
+      total:     Number(total) || 0,
+      submittedAt: new Date().toISOString(),
+    });
+    fs.writeFileSync(logFile, JSON.stringify(list, null, 2));
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: "Failed to save submission." });
   }
 });
 
@@ -388,6 +513,56 @@ router.get("/admin-download/:filename", (req, res) => {
     return res.status(404).json({ error: "File not found" });
 
   res.download(filePath, safe);
+});
+
+// ── Admin: HR interview videos, grouped per candidate ───────────────────────
+router.get("/admin-hr-videos", (req, res) => {
+  if (req.query.pass !== ADMIN_PASSWORD)
+    return res.status(401).json({ error: "Unauthorized" });
+
+  let videos = [];
+  try { videos = JSON.parse(fs.readFileSync(path.join(dataDir, "hr-video-submissions.json"), "utf-8")); } catch {}
+
+  let submissions = [];
+  try { submissions = JSON.parse(fs.readFileSync(path.join(dataDir, "hr-submissions.json"), "utf-8")); } catch {}
+
+  const byEmail = {};
+  videos.forEach(v => {
+    if (!byEmail[v.email]) {
+      byEmail[v.email] = { email: v.email, name: v.name, level: v.level, answers: [] };
+    }
+    if (v.name && !byEmail[v.email].name) byEmail[v.email].name = v.name;
+    byEmail[v.email].answers.push(v);
+  });
+
+  const candidates = Object.values(byEmail).map(c => {
+    const finished = submissions.filter(s => s.email === c.email).pop() || null;
+    return {
+      ...c,
+      answers: c.answers.sort((a, b) => (a.questionId || 0) - (b.questionId || 0)),
+      completed:   !!finished,
+      submittedAt: finished ? finished.submittedAt : null,
+    };
+  });
+
+  res.json(candidates);
+});
+
+// ── Admin: stream or download one HR answer video ───────────────────────────
+router.get("/admin-hr-video/:filename", (req, res) => {
+  if (req.query.pass !== ADMIN_PASSWORD)
+    return res.status(401).json({ error: "Unauthorized" });
+
+  const safe = path.basename(req.params.filename);
+  const filePath = path.join(hrVideoDir, safe);
+  if (!fs.existsSync(filePath))
+    return res.status(404).json({ error: "File not found" });
+
+  if (req.query.download === "1") return res.download(filePath, safe);
+
+  // sendFile honours Range requests, so the reviewer can seek inside the video.
+  res.type("video/webm");
+  res.sendFile(filePath);
 });
 
 // ── Hackathon Q&A questions ─────────────────────────────────────────────────

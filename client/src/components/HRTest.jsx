@@ -12,25 +12,31 @@ export default function HRTest({ user, onSubmit }) {
   const [questions, setQuestions]   = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [recordings, setRecordings] = useState({});
-  const [phase, setPhase]           = useState("idle"); // idle | recording | saving | saved
+  const [phase, setPhase]           = useState("idle"); // idle | recording | saving | saved | failed
   const [timeLeft, setTimeLeft]     = useState(RECORD_SECONDS);
   const [loading, setLoading]       = useState(true);
   const [cameraError, setCameraError] = useState(false);
   const [submitted, setSubmitted]   = useState(false);
+  const [uploadError, setUploadError] = useState("");
 
   const videoRef         = useRef(null);
   const streamRef        = useRef(null);
   const mediaRecorderRef = useRef(null);
   const chunksRef        = useRef([]);
   const timerRef         = useRef(null);
+  const pendingBlobRef   = useRef(null);
   const navigate         = useNavigate();
 
+  // The login password decided the level; it picks which bank the 10 random
+  // questions come from.
+  const level = user?.level === "experienced" ? "experienced" : "fresher";
+
   useEffect(() => {
-    fetch("/api/hr-questions")
+    fetch(`/api/hr-questions?level=${level}`)
       .then(r => r.json())
       .then(data => { setQuestions(data); setLoading(false); })
       .catch(() => setLoading(false));
-  }, []);
+  }, [level]);
 
   useEffect(() => {
     navigator.mediaDevices
@@ -59,8 +65,49 @@ export default function HRTest({ user, onSubmit }) {
   useEffect(() => {
     setPhase("idle");
     setTimeLeft(RECORD_SECONDS);
+    setUploadError("");
     if (timerRef.current) clearInterval(timerRef.current);
   }, [currentIndex]);
+
+  // Send the recorded answer to the server so it is stored, not just held in
+  // the browser. The candidate cannot move on until this succeeds.
+  const uploadRecording = useCallback(async (blob, question) => {
+    const form = new FormData();
+    form.append("video", blob, `q${question.id}.webm`);
+    form.append("name",  user?.name  || "");
+    form.append("email", user?.email || "");
+    form.append("level", level);
+    form.append("questionId", question.id);
+    form.append("questionText", question.question);
+
+    const res  = await fetch("/api/hr-video", { method: "POST", body: form });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error || "Upload failed");
+    return data.filename;
+  }, [user, level]);
+
+  const saveRecording = useCallback(async (blob, question) => {
+    setPhase("saving");
+    setUploadError("");
+    try {
+      const filename = await uploadRecording(blob, question);
+      setRecordings(prev => ({
+        ...prev,
+        [question.id]: { blob, url: URL.createObjectURL(blob), filename },
+      }));
+      setPhase("saved");
+    } catch {
+      // Keep the blob so a retry does not need a re-record.
+      pendingBlobRef.current = { blob, question };
+      setUploadError("Could not save your answer. Check your connection and retry.");
+      setPhase("failed");
+    }
+  }, [uploadRecording]);
+
+  const retryUpload = () => {
+    const pending = pendingBlobRef.current;
+    if (pending) saveRecording(pending.blob, pending.question);
+  };
 
   const stopRecording = useCallback(() => {
     if (mediaRecorderRef.current?.state === "recording") {
@@ -81,13 +128,12 @@ export default function HRTest({ user, onSubmit }) {
     const mr = new MediaRecorder(streamRef.current, { mimeType });
     mediaRecorderRef.current = mr;
 
+    const question = questions[currentIndex];
+
     mr.ondataavailable = e => { if (e.data.size > 0) chunksRef.current.push(e.data); };
     mr.onstop = () => {
       const blob = new Blob(chunksRef.current, { type: "video/webm" });
-      const url  = URL.createObjectURL(blob);
-      const qId  = questions[currentIndex]?.id;
-      setRecordings(prev => ({ ...prev, [qId]: { blob, url } }));
-      setPhase("saved");
+      if (question) saveRecording(blob, question);
     };
 
     mr.start(250);
@@ -111,12 +157,31 @@ export default function HRTest({ user, onSubmit }) {
     if (currentIndex < questions.length - 1) setCurrentIndex(i => i + 1);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (submitted) return;
     setSubmitted(true);
+
+    const attempted = Object.keys(recordings).length;
+    try {
+      await fetch("/api/hr-submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name:  user?.name,
+          email: user?.email,
+          level,
+          attempted,
+          total: questions.length,
+        }),
+      });
+    } catch {
+      // The videos themselves are already stored; a failed summary is not
+      // worth blocking the candidate on.
+    }
+
     streamRef.current?.getTracks().forEach(t => t.stop());
-    onSubmit({ attempted: Object.keys(recordings).length, total: questions.length });
-    navigate("/results");
+    onSubmit({ attempted, total: questions.length });
+    navigate("/done");
   };
 
   const isLast    = currentIndex === questions.length - 1;
@@ -135,11 +200,24 @@ export default function HRTest({ user, onSubmit }) {
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
       <header className="border-b border-gray-100 sticky top-0 z-10 bg-white">
-        <div className="max-w-4xl mx-auto px-6 h-12 flex items-center justify-between">
-          <div className="flex items-center gap-3 text-sm">
-            <span className="font-semibold text-gray-900">HR Interview</span>
-            <span className="text-gray-300">|</span>
-            <span className="text-gray-400">Question {currentIndex + 1} of {questions.length}</span>
+        <div className="max-w-4xl mx-auto px-6 h-12 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 text-sm min-w-0">
+            <span className="font-semibold text-gray-900 whitespace-nowrap">HR Interview</span>
+            <span className="text-[10px] uppercase tracking-widest font-semibold text-gray-500 bg-gray-100 rounded px-2 py-0.5 whitespace-nowrap">
+              {level === "experienced" ? "Experienced" : "Fresher"}
+            </span>
+            <span className="text-gray-300 hidden sm:inline">|</span>
+            <div className="hidden sm:flex items-center gap-2 min-w-0">
+              <div
+                className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+                title={user?.name || user?.email}
+              >
+                {(user?.name || user?.email)?.[0]?.toUpperCase()}
+              </div>
+              <span className="text-gray-400 text-xs truncate">{user?.name || user?.email}</span>
+            </div>
+            <span className="text-gray-300 hidden sm:inline">|</span>
+            <span className="text-gray-400 whitespace-nowrap">Question {currentIndex + 1} of {questions.length}</span>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-xs text-gray-400">{answered} of {questions.length} recorded</span>
@@ -229,7 +307,7 @@ export default function HRTest({ user, onSubmit }) {
               )}
 
               {phase === "saving" && (
-                <span className="text-sm text-gray-400">Saving response...</span>
+                <span className="text-sm text-gray-400">Uploading response...</span>
               )}
 
               {phase === "saved" && (
@@ -238,6 +316,18 @@ export default function HRTest({ user, onSubmit }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                   </svg>
                   Response saved
+                </div>
+              )}
+
+              {phase === "failed" && (
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-red-600">{uploadError}</span>
+                  <button
+                    onClick={retryUpload}
+                    className="px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition-colors"
+                  >
+                    Retry Upload
+                  </button>
                 </div>
               )}
             </div>

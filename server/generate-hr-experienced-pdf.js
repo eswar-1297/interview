@@ -2,7 +2,7 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const path = require("path");
 
-const questions = require("./data/hr-questions.json");
+const questions = require("./data/hr-questions-experienced.json");
 
 const OUTPUT_DIR = path.join(__dirname, "..", "answer-keys");
 if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -26,9 +26,9 @@ const COLORS = {
 function drawHeader(doc) {
   doc.rect(0, 0, doc.page.width, 110).fill(COLORS.title);
   doc.fillColor("#ffffff").fontSize(24).font("Helvetica-Bold")
-    .text("HR Interview — Question Bank", 50, 28, { width: doc.page.width - 100 });
+    .text("HR Interview — Experienced Question Bank", 50, 28, { width: doc.page.width - 100 });
   doc.fontSize(11).font("Helvetica").fillColor("#93c5fd")
-    .text(`Python Developer  |  Fresher  |  ${questions.length} Questions — ask any 10 at random  |  2 min per question`, 50, 62);
+    .text(`Java / Python Developer  |  2-3 Years Experience  |  ${questions.length} Questions — ask any 10 at random  |  3 min per question`, 50, 62);
   doc.fontSize(10).font("Helvetica").fillColor("#64748b")
     .text(`Generated on ${new Date().toDateString()}`, 50, 84);
   doc.y = 130;
@@ -84,7 +84,7 @@ function drawQuestion(doc, q) {
 
 function generate() {
   const doc = new PDFDocument({ size: "A4", margin: 50 });
-  const filePath = path.join(OUTPUT_DIR, "HR_Interview_Questions.pdf");
+  const filePath = path.join(OUTPUT_DIR, "HR_Interview_Questions_Experienced.pdf");
   doc.pipe(fs.createWriteStream(filePath));
 
   drawHeader(doc);
@@ -153,4 +153,4 @@ function generate() {
 }
 
 generate();
-console.log("Done! HR Questions PDF saved in the 'answer-keys' folder.");
+console.log("Done! Experienced HR Questions PDF saved in the 'answer-keys' folder.");

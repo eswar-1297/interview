@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "category": "HR",
+    "question": "Please introduce yourself — walk us through your career so far, the companies you have worked with, your role in each, the tech stack you owned, and why you moved."
+  },
+  {
+    "id": 2,
+    "category": "HR",
+    "question": "Why are you looking for a change right now? What is missing in your current role that you expect to find here?"
+  },
+  {
+    "id": 3,
+    "category": "HR",
+    "question": "Describe a technical disagreement you had with a teammate, lead, or architect. How did you argue your case and what was the final outcome?"
+  },
+  {
+    "id": 4,
+    "category": "HR",
+    "question": "Tell us about a production incident or a missed release you were responsible for. What went wrong, how did you communicate it, and what changed afterwards?"
+  },
+  {
+    "id": 5,
+    "category": "HR",
+    "question": "How do you handle competing priorities when your lead, the QA team, and a client all mark their work as urgent in the same sprint?"
+  },
+  {
+    "id": 6,
+    "category": "HR",
+    "question": "Tell us about the most critical feedback you have received in a code review or performance appraisal. How did you react and what did you do about it?"
+  },
+  {
+    "id": 7,
+    "category": "HR",
+    "question": "Have you mentored a junior developer or onboarded someone new to your project? How did you approach it and how did you measure that they were ramped up?"
+  },
+  {
+    "id": 8,
+    "category": "HR",
+    "question": "Describe how your current team works — Agile ceremonies, sprint length, how estimation is done, and what your role is in planning and demos."
+  },
+  {
+    "id": 9,
+    "category": "HR",
+    "question": "What is your current and expected CTC, your notice period, and do you have any other offers in progress? Any constraints on relocation or hybrid working?"
+  },
+  {
+    "id": 10,
+    "category": "HR",
+    "question": "Where do you see yourself in the next three to five years — deep technical track or team lead track — and how does this role fit that plan?"
+  },
+  {
+    "id": 11,
+    "category": "Technical",
+    "question": "You have worked in both Java and Python. Compare them on typing, memory management, and concurrency, and tell us how you would choose one for a new service."
+  },
+  {
+    "id": 12,
+    "category": "Technical",
+    "question": "Explain how HashMap works internally in Java — hashing, collision handling, and resizing. When would you use ConcurrentHashMap or TreeMap instead?"
+  },
+  {
+    "id": 13,
+    "category": "Technical",
+    "question": "Explain the JVM memory model — heap, stack, and garbage collection generations. Describe a memory leak or OutOfMemoryError you have actually debugged."
+  },
+  {
+    "id": 14,
+    "category": "Technical",
+    "question": "How do you handle concurrency? Explain threads, ExecutorService, and synchronized versus Lock in Java, and the GIL, threading, multiprocessing, and asyncio in Python."
+  },
+  {
+    "id": 15,
+    "category": "Technical",
+    "question": "How do you design error handling in a service? Checked versus unchecked exceptions in Java, custom exception classes, and how errors surface to the API caller."
+  },
+  {
+    "id": 16,
+    "category": "Technical",
+    "question": "Explain decorators, generators, and context managers in Python. Give a real example where you used each one in production code."
+  },
+  {
+    "id": 17,
+    "category": "Technical",
+    "question": "Explain the SOLID principles and the difference between an interface and an abstract class. Describe a refactor where you applied a design pattern such as Factory or Strategy."
+  },
+  {
+    "id": 18,
+    "category": "Technical",
+    "question": "How do you design a REST API? Talk about status codes, versioning, pagination, idempotency, and how authentication such as JWT or OAuth is handled in your service."
+  },
+  {
+    "id": 19,
+    "category": "Technical",
+    "question": "Describe a slow database query you optimized. Explain indexing, the N+1 problem in Hibernate or an ORM, and how you handle transactions and isolation levels."
+  },
+  {
+    "id": 20,
+    "category": "Technical",
+    "question": "Which framework do you know best — Spring Boot, Django, or FastAPI? Explain dependency injection, configuration or profiles, and how you structure a service in it."
+  },
+  {
+    "id": 21,
+    "category": "Technical",
+    "question": "How do you test your code? Explain unit versus integration tests, mocking external calls with Mockito or pytest fixtures, and what code coverage means to you in practice."
+  },
+  {
+    "id": 22,
+    "category": "Project",
+    "question": "Describe the most significant project you have delivered in the last two to three years — its scope, the architecture, and exactly which parts you owned."
+  },
+  {
+    "id": 23,
+    "category": "Project",
+    "question": "Explain the architecture of your current system end to end — services, database, cache, message queues, and third-party integrations. Why was it designed that way?"
+  },
+  {
+    "id": 24,
+    "category": "Project",
+    "question": "Tell us about the toughest production bug you have solved. How did you find the root cause using logs or monitoring, and what did you put in place to prevent it recurring?"
+  },
+  {
+    "id": 25,
+    "category": "Project",
+    "question": "Describe a time you improved performance. What was the bottleneck, how did you measure it, what did you change, and what was the before and after number?"
+  },
+  {
+    "id": 26,
+    "category": "Project",
+    "question": "How does your code go from a commit to production? Explain your Git branching strategy, CI/CD pipeline, Docker or Kubernetes usage, and how a bad release is rolled back."
+  },
+  {
+    "id": 27,
+    "category": "Project",
+    "question": "What do you look for when you review someone else's pull request? How does your team track and pay down technical debt?"
+  },
+  {
+    "id": 28,
+    "category": "Project",
+    "question": "What is the scale of the system you work on — users, requests per second, or data volume? If traffic increased ten times tomorrow, what would break first and why?"
+  },
+  {
+    "id": 29,
+    "category": "Study",
+    "question": "What have you learned outside your day-to-day work in the last year — cloud, system design, DevOps, or AI? How did you apply it to real work?"
+  },
+  {
+    "id": 30,
+    "category": "Study",
+    "question": "You are put on an unfamiliar legacy codebase with almost no documentation. How do you become productive in the first two weeks?"
+  }
+]

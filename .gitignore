@@ -13,3 +13,5 @@ server/data/java-mcq-submissions.json
 server/data/java-mcq-registrations.json
 server/data/hackathon-registrations.json
 server/data/hackathon-submissions.json
+server/data/hr-submissions.json
+server/data/hr-video-submissions.json

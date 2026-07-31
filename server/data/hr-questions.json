@@ -2,7 +2,7 @@
   {
     "id": 1,
     "category": "HR",
-    "question": "Tell us about yourself — your educational background, the stream you studied, and what motivated you to pursue a career in software development."
+    "question": "Please introduce yourself — your educational background, the stream you studied, and what motivated you to pursue a career in software development."
   },
   {
     "id": 2,
@@ -11,42 +11,142 @@
   },
   {
     "id": 3,
-    "category": "Technical",
-    "question": "Explain the difference between Java and Python. In what scenarios would you prefer one over the other?"
+    "category": "HR",
+    "question": "What are your two biggest strengths, and one weakness you are actively working to improve? Give a real example for each."
   },
   {
     "id": 4,
-    "category": "Technical",
-    "question": "What are the four pillars of Object-Oriented Programming? Explain each one with a simple real-world example."
-  },
-  {
-    "id": 5,
-    "category": "Project",
-    "question": "Describe your final year or most significant academic project. What was the problem you solved, what technologies did you use, and what was your role in the team?"
-  },
-  {
-    "id": 6,
-    "category": "Technical",
-    "question": "How do you approach finding and fixing a bug in your code? Walk us through your debugging process with an example from your studies or projects."
-  },
-  {
-    "id": 7,
-    "category": "Project",
-    "question": "Have you used any framework such as Spring Boot, Django, or React — either in college projects or self-learning? What did you build and what challenges did you face?"
-  },
-  {
-    "id": 8,
     "category": "HR",
     "question": "Describe a situation where you had a disagreement with a classmate or group member during a college project. How did you handle it and what was the result?"
   },
   {
+    "id": 5,
+    "category": "HR",
+    "question": "Tell us about a time you failed at something or missed a deadline. What went wrong, and what did you change afterwards?"
+  },
+  {
+    "id": 6,
+    "category": "HR",
+    "question": "How do you handle pressure and tight deadlines? Walk us through a specific example from your exams, internship, or project submission."
+  },
+  {
+    "id": 7,
+    "category": "HR",
+    "question": "How do you react when someone reviews your work and points out mistakes in it? Give an example of feedback you received and what you did with it."
+  },
+  {
+    "id": 8,
+    "category": "HR",
+    "question": "Many freshers apply with similar marks and similar projects. Why should we hire you over them?"
+  },
+  {
     "id": 9,
-    "category": "Study",
-    "question": "What new technology, tool, or concept have you learned recently on your own outside of your college curriculum? How did you learn it and how do you plan to use it?"
+    "category": "HR",
+    "question": "Are you comfortable with relocation, working from office, and flexible working hours? Do you have any constraints we should know about?"
   },
   {
     "id": 10,
     "category": "HR",
     "question": "Where do you see yourself professionally in the next three to five years, and how does this role help you get there?"
+  },
+  {
+    "id": 11,
+    "category": "Technical",
+    "question": "Why did you choose Python as your primary language? What features make it good for beginners, and what is one limitation you have noticed?"
+  },
+  {
+    "id": 12,
+    "category": "Technical",
+    "question": "Explain the difference between a list, a tuple, a set, and a dictionary in Python. When would you use each one?"
+  },
+  {
+    "id": 13,
+    "category": "Technical",
+    "question": "What are mutable and immutable data types in Python? Describe a bug that can happen because of mutability, such as using a list as a default argument."
+  },
+  {
+    "id": 14,
+    "category": "Technical",
+    "question": "What are the four pillars of Object-Oriented Programming? Explain each with a simple real-world example and show how you would define a class in Python."
+  },
+  {
+    "id": 15,
+    "category": "Technical",
+    "question": "How does exception handling work in Python? Explain try, except, else, and finally, and give an example where you used it in your own code."
+  },
+  {
+    "id": 16,
+    "category": "Technical",
+    "question": "Explain a list comprehension that filters and transforms a list. When is a normal for-loop a better choice than a comprehension?"
+  },
+  {
+    "id": 17,
+    "category": "Technical",
+    "question": "Explain functions in Python — default arguments, *args and **kwargs. Why is it useful to keep functions small and single-purpose?"
+  },
+  {
+    "id": 18,
+    "category": "Technical",
+    "question": "What is the difference between '==' and 'is' in Python? Also explain shallow copy versus deep copy with an example."
+  },
+  {
+    "id": 19,
+    "category": "Technical",
+    "question": "What is a module, a package, and pip? Why do developers use virtual environments and a requirements.txt file in a Python project?"
+  },
+  {
+    "id": 20,
+    "category": "Technical",
+    "question": "Which Python libraries have you actually used — for example pandas, NumPy, requests, Flask, FastAPI, or Django? Explain what you built with one of them."
+  },
+  {
+    "id": 21,
+    "category": "Technical",
+    "question": "How do you find and fix a bug in your code? Walk us through your debugging process — reading the traceback, print statements, logging, or breakpoints."
+  },
+  {
+    "id": 22,
+    "category": "Project",
+    "question": "Describe your final year or most significant academic project. What problem did it solve, what technologies did you use, and what was your specific role in the team?"
+  },
+  {
+    "id": 23,
+    "category": "Project",
+    "question": "Walk us through the flow of your project end to end — what happens from the moment a user clicks a button until data is saved and shown back on the screen."
+  },
+  {
+    "id": 24,
+    "category": "Project",
+    "question": "What was the hardest technical problem or bug you faced in your project? How did you investigate it and finally solve it?"
+  },
+  {
+    "id": 25,
+    "category": "Project",
+    "question": "How did you store data in your project? Which database did you use, what were the main tables or collections, and why did you choose that database?"
+  },
+  {
+    "id": 26,
+    "category": "Project",
+    "question": "Have you used any framework such as Django, Flask, FastAPI, or React — in college projects or self-learning? What did you build and what challenges did you face?"
+  },
+  {
+    "id": 27,
+    "category": "Project",
+    "question": "How did you test your project before the final demo? Did you check edge cases or invalid inputs, and did you write any automated tests?"
+  },
+  {
+    "id": 28,
+    "category": "Project",
+    "question": "Did you use Git and GitHub in your project? Explain how your team handled branches, commits, and merge conflicts."
+  },
+  {
+    "id": 29,
+    "category": "Study",
+    "question": "What new technology, tool, or concept have you learned recently on your own, outside your college curriculum? How did you learn it and how do you plan to use it?"
+  },
+  {
+    "id": 30,
+    "category": "Study",
+    "question": "If you are given a task that needs a Python library you have never used before, how would you approach it? What resources do you rely on while learning?"
   }
 ]
